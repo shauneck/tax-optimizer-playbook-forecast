@@ -228,7 +228,7 @@ function PlaybookGenerator() {
       setupStructure.push({
         id: 'entity-formation',
         title: 'Business Entity Formation',
-        complexity: 'Medium',
+        complexity: 'Intermediate',
         module: 'Module 2: Entity Optimization',
         description: 'Establish optimal business structure for tax efficiency'
       });
@@ -238,7 +238,7 @@ function PlaybookGenerator() {
       setupStructure.push({
         id: 's-corp-election',
         title: 'S-Corp Election Strategy',
-        complexity: 'Medium',
+        complexity: 'Intermediate',
         module: 'Module 2: Entity Optimization',
         description: 'Optimize payroll vs distribution split for tax savings'
       });
@@ -248,7 +248,7 @@ function PlaybookGenerator() {
       setupStructure.push({
         id: 'asset-protection-trust',
         title: 'Asset Protection Trust',
-        complexity: 'High',
+        complexity: 'Advanced',
         module: 'Module 4: Advanced Planning',
         description: 'Protect wealth from legal and financial risks'
       });
@@ -259,7 +259,7 @@ function PlaybookGenerator() {
       deductionStrategies.push({
         id: 'business-expense-max',
         title: 'Business Expense Maximization',
-        complexity: 'Low',
+        complexity: 'Beginner',
         module: 'Module 1: Foundation',
         description: 'Optimize all legitimate business deductions'
       });
@@ -267,7 +267,7 @@ function PlaybookGenerator() {
       deductionStrategies.push({
         id: 'defined-benefit-plan',
         title: 'Defined Benefit Pension Plan',
-        complexity: 'High',
+        complexity: 'Advanced',
         module: 'Module 3: Retirement Planning',
         description: 'High-contribution retirement strategy for business owners'
       });
@@ -277,7 +277,7 @@ function PlaybookGenerator() {
       deductionStrategies.push({
         id: 'stock-comp-optimization',
         title: 'Stock Compensation Optimization',
-        complexity: 'Medium',
+        complexity: 'Intermediate',
         module: 'Module 3: Investment Strategies',
         description: 'Timing strategies for RSUs, options, and ESPP'
       });
@@ -288,7 +288,7 @@ function PlaybookGenerator() {
         deductionStrategies.push({
           id: 'qof-strategy',
           title: 'Qualified Opportunity Fund (QOF)',
-          complexity: 'High',
+          complexity: 'Advanced',
           module: 'Module 3: Investment Strategies',
           description: 'Defer and potentially eliminate capital gains from stock sales'
         });
@@ -298,7 +298,7 @@ function PlaybookGenerator() {
         deductionStrategies.push({
           id: 'income-deferral',
           title: 'Income Deferral Strategies',
-          complexity: 'Medium',
+          complexity: 'Intermediate',
           module: 'Module 3: Investment Strategies',
           description: 'Defer compensation to optimize tax brackets'
         });
@@ -310,7 +310,7 @@ function PlaybookGenerator() {
       deductionStrategies.push({
         id: 'real-estate-strategies',
         title: 'Real Estate Investment Strategies',
-        complexity: 'Medium',
+        complexity: 'Intermediate',
         module: 'Module 3: Investment Strategies',
         description: 'Cost segregation and bonus depreciation benefits'
       });
@@ -320,7 +320,7 @@ function PlaybookGenerator() {
       deductionStrategies.push({
         id: 'energy-tax-credits',
         title: 'Energy Tax Credit Investments',
-        complexity: 'High',
+        complexity: 'Advanced',
         module: 'Module 3: Investment Strategies',
         description: 'Solar, oil & gas, and renewable energy credits'
       });
@@ -331,7 +331,7 @@ function PlaybookGenerator() {
       exitPlanning.push({
         id: 'qsbs-strategy',
         title: 'Qualified Small Business Stock (QSBS)',
-        complexity: 'High',
+        complexity: 'Advanced',
         module: 'Module 4: Advanced Planning',
         description: 'Up to $10M in tax-free business sale proceeds'
       });
@@ -339,7 +339,7 @@ function PlaybookGenerator() {
       exitPlanning.push({
         id: 'installment-sale',
         title: 'Installment Sale Strategy',
-        complexity: 'Medium',
+        complexity: 'Intermediate',
         module: 'Module 4: Advanced Planning',
         description: 'Defer capital gains through structured payments'
       });
@@ -349,7 +349,7 @@ function PlaybookGenerator() {
       exitPlanning.push({
         id: 'conservation-easement',
         title: 'Conservation Easement',
-        complexity: 'High',
+        complexity: 'Advanced',
         module: 'Module 4: Advanced Planning',
         description: 'Land conservation for significant tax deductions'
       });
@@ -640,30 +640,6 @@ function PlaybookGenerator() {
     };
   };
 
-  const getIncomeFieldConfig = () => {
-    switch (formData.incomeType) {
-      case 'w2-employee':
-        return {
-          label: 'What is your annual W-2 income before taxes?',
-          placeholder: 'e.g., 275000'
-        };
-      case 'business-owner':
-        return {
-          label: 'What is your annual business profit before taxes?',
-          placeholder: 'e.g., 500000'
-        };
-      case 'blended':
-        return {
-          label: 'What is your combined income (W-2 + business profit) before taxes?',
-          placeholder: 'e.g., 800000'
-        };
-      default:
-        return {
-          label: 'What is your annual income before taxes?',
-          placeholder: 'e.g., 350000'
-        };
-    }
-  };
   const generateQuarterlyReview = () => {
     const progress = getStrategyProgress();
     const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
@@ -698,6 +674,31 @@ function PlaybookGenerator() {
     html2pdf().set(opt).from(element).save();
   };
 
+  const getIncomeFieldConfig = () => {
+    switch (formData.incomeType) {
+      case 'w2-employee':
+        return {
+          label: 'What is your annual W-2 income before taxes?',
+          placeholder: 'e.g., 275000'
+        };
+      case 'business-owner':
+        return {
+          label: 'What is your annual business profit before taxes?',
+          placeholder: 'e.g., 500000'
+        };
+      case 'blended':
+        return {
+          label: 'What is your combined income (W-2 + business profit) before taxes?',
+          placeholder: 'e.g., 800000'
+        };
+      default:
+        return {
+          label: 'What is your annual income before taxes?',
+          placeholder: 'e.g., 350000'
+        };
+    }
+  };
+
   const renderStrategyCard = (strategy) => {
     const status = strategyStatuses[strategy.id] || STRATEGY_STATUS.NOT_STARTED;
     const content = EDUCATIONAL_CONTENT[strategy.title] || {};
@@ -707,68 +708,51 @@ function PlaybookGenerator() {
         case STRATEGY_STATUS.IMPLEMENTED: return '✅';
         case STRATEGY_STATUS.IN_PROGRESS: return '⏳';
         case STRATEGY_STATUS.NOT_APPLICABLE: return '🚫';
-        default: return '❌';
+        default: return '○';
       }
     };
     
-    const getStatusColor = () => {
-      switch (status) {
-        case STRATEGY_STATUS.IMPLEMENTED: return 'border-green-500 bg-green-50';
-        case STRATEGY_STATUS.IN_PROGRESS: return 'border-yellow-500 bg-yellow-50';
-        case STRATEGY_STATUS.NOT_APPLICABLE: return 'border-gray-400 bg-gray-50';
-        default: return 'border-gray-300 bg-white';
+    const getComplexityColor = () => {
+      switch (strategy.complexity) {
+        case 'Beginner': return 'bg-emerald-100 text-emerald-700';
+        case 'Intermediate': return 'bg-yellow-100 text-yellow-700';
+        case 'Advanced': return 'bg-red-100 text-red-700';
+        default: return 'bg-gray-100 text-gray-700';
       }
     };
     
     return (
-      <div key={strategy.id} className={`border-2 rounded-xl p-6 transition-all hover:shadow-md ${getStatusColor()}`}>
+      <div key={strategy.id} className="bg-white border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
         <div className="flex justify-between items-start mb-4">
-          <h4 className="text-lg font-bold text-gray-900 leading-tight">{strategy.title}</h4>
-          <div className="flex items-center gap-2">
-            <span className="text-lg">{getStatusIcon()}</span>
-            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-              strategy.complexity === 'Low' ? 'bg-green-100 text-green-800' :
-              strategy.complexity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-              'bg-red-100 text-red-800'
-            }`}>
-              {strategy.complexity}
-            </span>
+          <div className="flex-1">
+            <h4 className="text-lg font-semibold tracking-tight text-gray-900 mb-2">{strategy.title}</h4>
+            <div className="flex items-center gap-2 mb-3">
+              <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${getComplexityColor()}`}>
+                {strategy.complexity}
+              </span>
+              {content.module && (
+                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-gray-100 text-gray-600">
+                  {content.module}
+                </span>
+              )}
+            </div>
           </div>
+          <div className="text-xl ml-4">{getStatusIcon()}</div>
         </div>
         
-        <p className="text-gray-600 mb-4 leading-relaxed">{strategy.description}</p>
+        <p className="text-base text-muted-foreground mb-4 leading-relaxed">{strategy.description}</p>
         
-        {/* Educational Content */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {content.module && (
-            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-blue-100 text-blue-800 font-medium">
-              📚 {content.module}
-            </span>
-          )}
-          {content.glossary && content.glossary.length > 0 && (
-            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-purple-100 text-purple-800 font-medium">
-              📖 Glossary
-            </span>
-          )}
-          {content.caseStudy && (
-            <span className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-green-100 text-green-800 font-medium">
-              💼 Case Study
-            </span>
-          )}
-        </div>
-        
-        {/* Implementation Status */}
-        <div className="pt-4 border-t border-gray-200">
+        <div className="pt-4 border-t">
           <label className="block text-sm font-medium text-gray-700 mb-2">Implementation Status</label>
           <select
             value={status}
             onChange={(e) => updateStrategyStatus(strategy.id, e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
           >
-            <option value={STRATEGY_STATUS.NOT_STARTED}>❌ Not Started</option>
-            <option value={STRATEGY_STATUS.IN_PROGRESS}>⏳ In Progress</option>
-            <option value={STRATEGY_STATUS.IMPLEMENTED}>✅ Implemented</option>
-            <option value={STRATEGY_STATUS.NOT_APPLICABLE}>🚫 Not Applicable</option>
+            <option value={STRATEGY_STATUS.NOT_STARTED}>Not Started</option>
+            <option value={STRATEGY_STATUS.IN_PROGRESS}>In Progress</option>
+            <option value={STRATEGY_STATUS.IMPLEMENTED}>Implemented</option>
+            <option value={STRATEGY_STATUS.NOT_APPLICABLE}>Not Applicable</option>
           </select>
         </div>
       </div>
@@ -777,26 +761,26 @@ function PlaybookGenerator() {
 
   if (isGenerating) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 flex items-center justify-center">
-        <div className="bg-white rounded-xl shadow-lg p-8 max-w-md w-full mx-4 text-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full mx-4 text-center">
           <div className="mb-6">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Generating Your Tax Plan</h2>
-            <p className="text-gray-600">
+            <div className="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-2">Generating Your Tax Plan</h2>
+            <p className="text-base text-muted-foreground">
               Creating personalized strategies and calculating your lifetime savings...
             </p>
           </div>
-          <div className="space-y-2 text-left text-sm text-gray-500">
+          <div className="space-y-2 text-left text-sm text-muted-foreground">
             <div className="flex items-center">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
               Analyzing your financial profile
             </div>
             <div className="flex items-center">
-              <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
+              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-3"></div>
               Matching optimal tax strategies
             </div>
             <div className="flex items-center">
-              <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
+              <div className="w-2 h-2 bg-emerald-500 rounded-full mr-3 animate-pulse"></div>
               Calculating lifetime value projections
             </div>
           </div>
@@ -806,45 +790,50 @@ function PlaybookGenerator() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link to="/" className="text-blue-600 hover:text-blue-700 mb-4 inline-block font-medium">
+          <Link to="/" className="text-emerald-600 hover:text-emerald-700 mb-4 inline-block font-medium">
             ← Back to Platform
           </Link>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Tax Planning Dashboard
+          <h1 className="text-3xl font-semibold tracking-tight text-gray-900 mb-4">
+            AI Tax Optimization Playbook
           </h1>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-            Your comprehensive tax optimization center. Build strategies, track progress, and forecast your financial future.
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Get personalized strategies, track implementation progress, and forecast your financial future.
           </p>
         </div>
 
         {dashboardMode === 'input' ? (
           /* Input Mode */
-          <div className="max-w-4xl mx-auto">
-            {/* Progress Bar */}
-            <div className="mb-8 bg-white rounded-xl p-6 shadow-sm">
-              <div className="flex justify-between text-sm text-gray-500 mb-2">
+          <div className="max-w-3xl mx-auto">
+            {/* Progress Indicator */}
+            <div className="mb-8">
+              <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
                 <span className="font-medium">Step {currentStep} of 8</span>
                 <span className="font-medium">{Math.round((currentStep / 8) * 100)}% Complete</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div 
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 h-3 rounded-full transition-all duration-500"
-                  style={{ width: `${(currentStep / 8) * 100}%` }}
-                ></div>
+              <div className="flex space-x-2">
+                {Array.from({ length: 8 }, (_, i) => (
+                  <div
+                    key={i}
+                    className={`h-2 flex-1 rounded-full ${
+                      i < currentStep ? 'bg-emerald-500' : 'bg-gray-200'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
 
             {/* Form Card */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="bg-white rounded-2xl shadow-sm p-8">
               {/* STEP 1: Income Type */}
               {currentStep === 1 && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">What type of income do you currently earn?</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Income Type</h2>
+                  <p className="text-base text-muted-foreground mb-8">What type of income do you currently earn?</p>
+                  <div className="grid md:grid-cols-2 gap-4">
                     {[
                       { value: 'w2-employee', label: 'W-2 Employee', desc: 'Traditional employee with W-2 income' },
                       { value: '1099-contractor', label: '1099 Contractor', desc: 'Independent contractor or freelancer' },
@@ -854,14 +843,14 @@ function PlaybookGenerator() {
                       <button
                         key={option.value}
                         onClick={() => handleInputChange('incomeType', option.value)}
-                        className={`text-left p-8 rounded-xl border-2 transition-all hover:scale-105 ${
+                        className={`text-left p-6 rounded-2xl border-2 transition-all ${
                           formData.incomeType === option.value
-                            ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="text-xl font-bold text-gray-900">{option.label}</div>
-                        <div className="text-gray-600 mt-2">{option.desc}</div>
+                        <div className="font-semibold text-gray-900">{option.label}</div>
+                        <div className="text-sm text-muted-foreground mt-1">{option.desc}</div>
                       </button>
                     ))}
                   </div>
@@ -871,8 +860,9 @@ function PlaybookGenerator() {
               {/* STEP 2: Income Range */}
               {currentStep === 2 && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">What is your approximate annual income?</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Income Range</h2>
+                  <p className="text-base text-muted-foreground mb-8">What is your approximate annual income?</p>
+                  <div className="grid md:grid-cols-2 gap-4">
                     {[
                       { value: '<$200K', label: 'Under $200K' },
                       { value: '$200K–$500K', label: '$200K – $500K' },
@@ -883,13 +873,13 @@ function PlaybookGenerator() {
                       <button
                         key={option.value}
                         onClick={() => handleInputChange('incomeRange', option.value)}
-                        className={`text-left p-8 rounded-xl border-2 transition-all hover:scale-105 ${
+                        className={`text-left p-6 rounded-2xl border-2 transition-all ${
                           formData.incomeRange === option.value
-                            ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="text-xl font-bold text-gray-900">{option.label}</div>
+                        <div className="font-semibold text-gray-900">{option.label}</div>
                       </button>
                     ))}
                   </div>
@@ -899,8 +889,9 @@ function PlaybookGenerator() {
               {/* STEP 3: Entity Structure */}
               {currentStep === 3 && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">What is your current entity structure?</h2>
-                  <div className="grid md:grid-cols-2 gap-6">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Entity Structure</h2>
+                  <p className="text-base text-muted-foreground mb-8">What is your current entity structure?</p>
+                  <div className="grid md:grid-cols-2 gap-4">
                     {[
                       { value: 'None', label: 'None', desc: 'Filing as individual or sole proprietor' },
                       { value: 'LLC', label: 'LLC', desc: 'Limited Liability Company' },
@@ -912,14 +903,14 @@ function PlaybookGenerator() {
                       <button
                         key={option.value}
                         onClick={() => handleInputChange('entityStructure', option.value)}
-                        className={`text-left p-8 rounded-xl border-2 transition-all hover:scale-105 ${
+                        className={`text-left p-6 rounded-2xl border-2 transition-all ${
                           formData.entityStructure === option.value
-                            ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="text-xl font-bold text-gray-900">{option.label}</div>
-                        <div className="text-gray-600 mt-2">{option.desc}</div>
+                        <div className="font-semibold text-gray-900">{option.label}</div>
+                        <div className="text-sm text-muted-foreground mt-1">{option.desc}</div>
                       </button>
                     ))}
                   </div>
@@ -929,8 +920,9 @@ function PlaybookGenerator() {
               {/* STEP 4: Strategic Goals */}
               {currentStep === 4 && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">What are your strategic goals? (Select all that apply)</h2>
-                  <div className="space-y-4">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Strategic Goals</h2>
+                  <p className="text-base text-muted-foreground mb-8">What are your strategic goals? (Select all that apply)</p>
+                  <div className="space-y-3">
                     {[
                       { value: 'Reduce tax liability', label: 'Reduce tax liability', desc: 'Lower current tax burden' },
                       { value: 'Build long-term passive income', label: 'Build long-term passive income', desc: 'Create sustainable income streams' },
@@ -941,20 +933,20 @@ function PlaybookGenerator() {
                       <button
                         key={option.value}
                         onClick={() => handleMultiSelect('strategyGoals', option.value)}
-                        className={`w-full text-left p-6 rounded-xl border-2 transition-all hover:scale-105 ${
+                        className={`w-full text-left p-4 rounded-2xl border-2 transition-all ${
                           formData.strategyGoals.includes(option.value)
-                            ? 'border-blue-500 bg-blue-50 shadow-md'
-                            : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                            ? 'border-emerald-500 bg-emerald-50'
+                            : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="text-lg font-bold text-gray-900">{option.label}</div>
-                            <div className="text-gray-600 mt-1">{option.desc}</div>
+                            <div className="font-semibold text-gray-900">{option.label}</div>
+                            <div className="text-sm text-muted-foreground mt-1">{option.desc}</div>
                           </div>
                           {formData.strategyGoals.includes(option.value) && (
-                            <div className="text-blue-500">
-                              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <div className="text-emerald-500">
+                              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                               </svg>
                             </div>
@@ -966,72 +958,73 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 5: Stock Compensation (conditional) */}
+              {/* STEP 5: Stock Compensation */}
               {currentStep === 5 && (formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">Do you receive stock-based compensation?</h2>
-                  <p className="text-lg text-gray-600 mb-8">
-                    This includes stock options, RSUs, ESPP, or other equity compensation
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Stock Compensation</h2>
+                  <p className="text-base text-muted-foreground mb-8">
+                    Do you receive stock-based compensation? This includes stock options, RSUs, ESPP, or other equity compensation.
                   </p>
-                  <div className="grid md:grid-cols-2 gap-8">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <button
                       onClick={() => handleInputChange('receivesStockComp', true)}
-                      className={`text-left p-8 rounded-xl border-2 transition-all hover:scale-105 ${
+                      className={`text-left p-6 rounded-2xl border-2 transition-all ${
                         formData.receivesStockComp === true
-                          ? 'border-blue-500 bg-blue-50 shadow-md'
-                          : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="text-2xl font-bold text-gray-900">Yes</div>
-                      <div className="text-gray-600 mt-2">I receive stock options, RSUs, or other equity compensation</div>
+                      <div className="font-semibold text-gray-900 text-xl">Yes</div>
+                      <div className="text-sm text-muted-foreground mt-2">I receive stock options, RSUs, or other equity compensation</div>
                     </button>
                     <button
                       onClick={() => handleInputChange('receivesStockComp', false)}
-                      className={`text-left p-8 rounded-xl border-2 transition-all hover:scale-105 ${
+                      className={`text-left p-6 rounded-2xl border-2 transition-all ${
                         formData.receivesStockComp === false
-                          ? 'border-blue-500 bg-blue-50 shadow-md'
-                          : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="text-2xl font-bold text-gray-900">No</div>
-                      <div className="text-gray-600 mt-2">I do not receive stock-based compensation</div>
+                      <div className="font-semibold text-gray-900 text-xl">No</div>
+                      <div className="text-sm text-muted-foreground mt-2">I do not receive stock-based compensation</div>
                     </button>
                   </div>
                 </div>
               )}
 
-              {/* STEP 6: RSU Percentage (conditional) */}
+              {/* STEP 6: RSU Percentage */}
               {currentStep === 6 && formData.receivesStockComp && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">What percentage of your income comes from RSUs or other stock-based compensation?</h2>
-                  <p className="text-lg text-gray-600 mb-8">
-                    This helps us recommend the right strategies for stock compensation optimization and tax deferral opportunities.
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Stock Compensation Details</h2>
+                  <p className="text-base text-muted-foreground mb-8">
+                    What percentage of your income comes from RSUs or other stock-based compensation?
                   </p>
-                  <div className="max-w-md mx-auto">
+                  <div className="max-w-sm mx-auto">
                     <div className="relative">
                       <input
                         type="number"
                         value={formData.rsuIncomePercent}
                         onChange={(e) => handleInputChange('rsuIncomePercent', e.target.value)}
-                        placeholder="e.g. 35"
+                        placeholder="35"
                         min="0"
                         max="100"
-                        className="w-full p-6 text-2xl font-bold border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-12 text-center"
+                        className="w-full px-4 py-3 text-xl font-semibold border rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8 text-center"
                       />
-                      <span className="absolute right-6 top-1/2 transform -translate-y-1/2 text-2xl text-gray-500 font-bold">%</span>
+                      <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-muted-foreground">%</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-3 text-center">Enter a value between 0-100</p>
+                    <p className="text-sm text-muted-foreground mt-2 text-center">Enter a value between 0-100</p>
                   </div>
                 </div>
               )}
 
-              {/* STEP 7: Forecasting Details */}
+              {/* STEP 7: Financial Details */}
               {currentStep === 7 && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">Financial Details for Accurate Forecasting</h2>
-                  <div className="space-y-8">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Financial Details</h2>
+                  <p className="text-base text-muted-foreground mb-8">Help us create accurate forecasting for your situation.</p>
+                  <div className="space-y-6">
                     <div>
-                      <label className="block text-lg font-bold text-gray-900 mb-3">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
                         {getIncomeFieldConfig().label}
                       </label>
                       <input
@@ -1040,14 +1033,13 @@ function PlaybookGenerator() {
                         onChange={(e) => handleForecastingChange('businessProfit', e.target.value)}
                         placeholder={getIncomeFieldConfig().placeholder}
                         min="0"
-                        className="w-full p-4 text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
-                      <p className="text-gray-500 mt-2">Enter your total income amount before any tax deductions</p>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-bold text-gray-900 mb-3">
-                        Capital available for tax-advantaged investments ($)
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Capital available for tax-advantaged investments
                       </label>
                       <input
                         type="number"
@@ -1055,28 +1047,27 @@ function PlaybookGenerator() {
                         onChange={(e) => handleForecastingChange('capitalAvailable', e.target.value)}
                         placeholder="e.g., 250000"
                         min="0"
-                        className="w-full p-4 text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
-                      <p className="text-gray-500 mt-2">Capital you could invest in real estate, energy credits, etc.</p>
+                      <p className="text-xs text-muted-foreground mt-1">Capital you could invest in real estate, energy credits, etc.</p>
                     </div>
                     
                     <div>
-                      <label className="block text-lg font-bold text-gray-900 mb-3">
-                        What percentage of income could be restructured or offset?
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Percentage of income that could be restructured or offset
                       </label>
-                      <div className="relative max-w-md">
+                      <div className="relative max-w-xs">
                         <input
                           type="number"
                           value={forecastingData.restructurePercent}
                           onChange={(e) => handleForecastingChange('restructurePercent', e.target.value)}
-                          placeholder="e.g., 30"
+                          placeholder="30"
                           min="0"
                           max="100"
-                          className="w-full p-4 text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-12"
+                          className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8"
                         />
-                        <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-lg text-gray-500 font-bold">%</span>
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-muted-foreground">%</span>
                       </div>
-                      <p className="text-gray-500 mt-2">Percentage of income that could be optimized through strategies</p>
                     </div>
                   </div>
                 </div>
@@ -1085,60 +1076,59 @@ function PlaybookGenerator() {
               {/* STEP 8: Forecast Parameters */}
               {currentStep === 8 && (
                 <div>
-                  <h2 className="text-3xl font-bold text-gray-900 mb-8">Forecast Parameters</h2>
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-2">Forecast Parameters</h2>
+                  <p className="text-base text-muted-foreground mb-8">Set your analysis timeframe and investment preferences.</p>
                   
-                  <div className="space-y-8">
-                    {/* Forecast Horizon */}
+                  <div className="space-y-6">
                     <div>
-                      <label className="block text-lg font-bold text-gray-900 mb-4">
-                        Time horizon for analysis
-                      </label>
-                      <div className="grid grid-cols-4 gap-4">
+                      <label className="block text-sm font-medium text-gray-700 mb-3">Time horizon for analysis</label>
+                      <div className="grid grid-cols-4 gap-3">
                         {[5, 10, 15, 20].map((years) => (
                           <button
                             key={years}
                             onClick={() => handleForecastingChange('forecastYears', years)}
-                            className={`p-6 text-center rounded-xl border-2 transition-all hover:scale-105 ${
+                            className={`p-4 text-center rounded-2xl border-2 transition-all ${
                               forecastingData.forecastYears === years
-                                ? 'border-blue-500 bg-blue-50 shadow-md'
-                                : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+                                ? 'border-emerald-500 bg-emerald-50'
+                                : 'border-gray-200 hover:border-gray-300'
                             }`}
                           >
-                            <div className="text-2xl font-bold text-gray-900">{years}</div>
-                            <div className="text-gray-600">Years</div>
+                            <div className="text-xl font-semibold text-gray-900">{years}</div>
+                            <div className="text-sm text-muted-foreground">Years</div>
                           </button>
                         ))}
                       </div>
                     </div>
 
-                    {/* Reinvestment Toggle */}
                     <div>
-                      <label className="block text-lg font-bold text-gray-900 mb-4">
-                        Reinvest tax savings at 6% annually?
-                      </label>
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <button
-                          onClick={() => handleForecastingChange('reinvestSavings', true)}
-                          className={`text-left p-6 rounded-xl border-2 transition-all hover:scale-105 ${
-                            forecastingData.reinvestSavings
-                              ? 'border-green-500 bg-green-50 shadow-md'
-                              : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-xl font-bold text-gray-900">Yes, reinvest for compound growth</div>
-                          <div className="text-gray-600 mt-2">Maximize long-term wealth creation</div>
-                        </button>
-                        <button
-                          onClick={() => handleForecastingChange('reinvestSavings', false)}
-                          className={`text-left p-6 rounded-xl border-2 transition-all hover:scale-105 ${
-                            !forecastingData.reinvestSavings
-                              ? 'border-blue-500 bg-blue-50 shadow-md'
-                              : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
-                          }`}
-                        >
-                          <div className="text-xl font-bold text-gray-900">No, just save the tax reduction</div>
-                          <div className="text-gray-600 mt-2">Keep savings without investment growth</div>
-                        </button>
+                      <label className="block text-sm font-medium text-gray-700 mb-3">Investment strategy</label>
+                      <div className="space-y-3">
+                        <label className="flex items-center p-4 rounded-2xl border-2 cursor-pointer hover:border-gray-300">
+                          <input
+                            type="radio"
+                            name="reinvest"
+                            checked={forecastingData.reinvestSavings}
+                            onChange={() => handleForecastingChange('reinvestSavings', true)}
+                            className="mr-3 text-emerald-500 focus:ring-emerald-500"
+                          />
+                          <div>
+                            <div className="font-semibold text-gray-900">Reinvest tax savings</div>
+                            <div className="text-sm text-muted-foreground">6% annual return for compound growth</div>
+                          </div>
+                        </label>
+                        <label className="flex items-center p-4 rounded-2xl border-2 cursor-pointer hover:border-gray-300">
+                          <input
+                            type="radio"
+                            name="reinvest"
+                            checked={!forecastingData.reinvestSavings}
+                            onChange={() => handleForecastingChange('reinvestSavings', false)}
+                            className="mr-3 text-emerald-500 focus:ring-emerald-500"
+                          />
+                          <div>
+                            <div className="font-semibold text-gray-900">Save tax reduction only</div>
+                            <div className="text-sm text-muted-foreground">Keep savings without additional investment</div>
+                          </div>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -1146,67 +1136,67 @@ function PlaybookGenerator() {
               )}
 
               {/* Navigation */}
-              <div className="flex justify-between mt-12">
+              <div className="flex justify-between mt-8 pt-6 border-t">
                 <button
                   onClick={prevStep}
                   disabled={currentStep === 1}
-                  className="px-8 py-3 border-2 border-gray-300 text-gray-700 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-all font-medium"
+                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-all"
                 >
                   Previous
                 </button>
                 <button
                   onClick={nextStep}
                   disabled={!isStepComplete()}
-                  className={`px-12 py-3 text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed font-bold text-lg transition-all ${
+                  className={`px-8 py-2 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all ${
                     currentStep === 8
-                      ? 'bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800'
-                      : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
+                      ? 'bg-emerald-500 hover:bg-emerald-600'
+                      : 'bg-emerald-500 hover:bg-emerald-600'
                   }`}
                 >
-                  {currentStep === 8 ? 'Generate My Tax Plan' : 'Next'}
+                  {currentStep === 8 ? 'Generate My Tax Plan' : 'Continue'}
                 </button>
               </div>
             </div>
           </div>
         ) : (
           /* Dashboard Mode */
-          <div className="max-w-7xl mx-auto" id="dashboard-content">
+          <div className="max-w-6xl mx-auto" id="dashboard-content">
             {/* Entry Point Section */}
             <div className="mb-12">
               {!hasExistingData ? (
-                <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">Let's Build Your Personalized Tax Plan</h2>
-                  <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-4">Build Your Personalized Tax Plan</h2>
+                  <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                     Start from scratch and uncover the strategies that could save you 20–40% in taxes.
                   </p>
                   <button
                     onClick={startNewAnalysis}
-                    className="px-12 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
+                    className="px-8 py-3 bg-emerald-500 text-white font-medium rounded-md hover:bg-emerald-600 transition-all"
                   >
-                    Start Analysis
+                    Start Your Escape Plan
                   </button>
                 </div>
               ) : (
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid md:grid-cols-3 gap-4">
                   <button
                     onClick={startNewAnalysis}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-xl text-center hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg"
+                    className="bg-emerald-500 text-white p-6 rounded-2xl text-center hover:bg-emerald-600 transition-all shadow-sm"
                   >
-                    <div className="text-2xl font-bold mb-2">🆕 New Analysis</div>
+                    <div className="text-xl font-semibold mb-2">New Analysis</div>
                     <div className="text-sm opacity-90">Start fresh analysis</div>
                   </button>
                   <button
                     onClick={recalculatePlaybook}
-                    className="bg-white border-2 border-blue-200 text-blue-700 p-6 rounded-xl text-center hover:bg-blue-50 transition-all"
+                    className="bg-white border border-emerald-500 text-emerald-700 p-6 rounded-2xl text-center hover:bg-emerald-50 transition-all"
                   >
-                    <div className="text-2xl font-bold mb-2">🔄 Recalculate</div>
+                    <div className="text-xl font-semibold mb-2">Recalculate</div>
                     <div className="text-sm">Update existing plan</div>
                   </button>
                   <button
                     onClick={() => setShowQuarterlyReview(!showQuarterlyReview)}
-                    className="bg-white border-2 border-green-200 text-green-700 p-6 rounded-xl text-center hover:bg-green-50 transition-all"
+                    className="bg-white border border-gray-300 text-gray-700 p-6 rounded-2xl text-center hover:bg-gray-50 transition-all"
                   >
-                    <div className="text-2xl font-bold mb-2">📋 Quarterly Review</div>
+                    <div className="text-xl font-semibold mb-2">Quarterly Review</div>
                     <div className="text-sm">Progress check-in</div>
                   </button>
                 </div>
@@ -1216,31 +1206,31 @@ function PlaybookGenerator() {
             {hasExistingData && (
               <>
                 {/* Profile Summary */}
-                <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6">👤 Profile Summary</h2>
+                <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-4">Profile</div>
                   <div className="grid md:grid-cols-4 gap-6">
                     <div>
-                      <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Income Type</div>
-                      <div className="text-lg font-bold text-gray-900">{formData.incomeType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
+                      <div className="text-sm text-muted-foreground">Income Type</div>
+                      <div className="font-semibold text-gray-900">{formData.incomeType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Income Range</div>
-                      <div className="text-lg font-bold text-gray-900">{formData.incomeRange}</div>
+                      <div className="text-sm text-muted-foreground">Income Range</div>
+                      <div className="font-semibold text-gray-900">{formData.incomeRange}</div>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Entity Structure</div>
-                      <div className="text-lg font-bold text-gray-900">{formData.entityStructure}</div>
+                      <div className="text-sm text-muted-foreground">Entity Structure</div>
+                      <div className="font-semibold text-gray-900">{formData.entityStructure}</div>
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Stock Compensation</div>
-                      <div className="text-lg font-bold text-gray-900">
+                      <div className="text-sm text-muted-foreground">Stock Compensation</div>
+                      <div className="font-semibold text-gray-900">
                         {formData.receivesStockComp ? `Yes (${formData.rsuIncomePercent}%)` : 'No'}
                       </div>
                     </div>
                   </div>
                   {results.lastUpdated && (
-                    <div className="mt-6 pt-6 border-t border-gray-200">
-                      <p className="text-sm text-gray-500">
+                    <div className="mt-6 pt-6 border-t">
+                      <p className="text-sm text-muted-foreground">
                         Last updated: {new Date(results.lastUpdated).toLocaleDateString('en-US', { 
                           year: 'numeric', 
                           month: 'long', 
@@ -1255,138 +1245,115 @@ function PlaybookGenerator() {
                 {showQuarterlyReview && (() => {
                   const review = generateQuarterlyReview();
                   return (
-                    <div className="bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-500 rounded-xl p-8 mb-8">
-                      <h3 className="text-2xl font-bold text-orange-900 mb-6">🔍 Quarterly Tax Strategy Check-In</h3>
+                    <div className="bg-orange-50 border-l-4 border-orange-400 rounded-2xl p-6 mb-8">
+                      <h3 className="text-xl font-semibold tracking-tight text-orange-900 mb-4">Quarterly Strategy Review</h3>
                       
-                      <div className="grid lg:grid-cols-2 gap-8">
+                      <div className="grid lg:grid-cols-2 gap-6">
                         <div>
-                          <h4 className="text-lg font-bold text-orange-800 mb-4">Priority Action Items</h4>
-                          <ul className="space-y-3">
+                          <h4 className="font-semibold text-orange-800 mb-3">Priority Actions</h4>
+                          <ul className="space-y-2">
                             {review.notStartedStrategies.map(strategy => (
-                              <li key={strategy.id} className="text-orange-700 flex items-start">
-                                <span className="mr-2">•</span>
-                                <div>
-                                  <div className="font-medium">{strategy.title}</div>
-                                  <div className="text-sm opacity-80">{strategy.complexity} complexity</div>
-                                </div>
+                              <li key={strategy.id} className="text-orange-700 text-sm">
+                                • {strategy.title} ({strategy.complexity})
                               </li>
                             ))}
                           </ul>
                         </div>
                         
                         <div>
-                          <h4 className="text-lg font-bold text-orange-800 mb-4">Potential Impact</h4>
-                          <p className="text-orange-700 mb-4">
-                            Unimplemented strategies could be costing you approximately{' '}
-                            <span className="font-bold text-xl">{formatCurrency(review.estimatedMissedSavings)}</span> per year in missed tax savings.
+                          <h4 className="font-semibold text-orange-800 mb-3">Potential Impact</h4>
+                          <p className="text-orange-700 text-sm">
+                            Unimplemented strategies may be costing you{' '}
+                            <span className="font-bold">{formatCurrency(review.estimatedMissedSavings)}</span> annually.
                           </p>
-                          
-                          <h4 className="text-lg font-bold text-orange-800 mb-2">Recommended Next Steps</h4>
-                          <ul className="text-sm text-orange-700 space-y-1">
-                            {review.recommendations.map((rec, index) => (
-                              <li key={index}>• {rec}</li>
-                            ))}
-                          </ul>
                         </div>
                       </div>
                     </div>
                   );
                 })()}
 
-                {/* Estimated Tax Savings */}
-                <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8 mb-8 text-center">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-4">💰 Estimated Tax Savings</h2>
-                  <div className="text-5xl font-bold text-green-600 mb-4">
+                {/* Tax Savings Summary */}
+                <div className="bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl p-8 mb-8 text-center">
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Estimated Tax Savings</div>
+                  <div className="text-4xl font-bold text-emerald-600 mb-2">
                     {results.estimatedSavingsPercent.min}% – {results.estimatedSavingsPercent.max}%
                   </div>
-                  <div className="text-2xl font-bold text-gray-700">
+                  <div className="text-xl font-semibold text-gray-800">
                     {formatCurrency(results.estimatedSavingsDollar.min)} – {formatCurrency(results.estimatedSavingsDollar.max)} annually
                   </div>
                 </div>
 
                 {/* Wealth Multiplier Loop Section */}
-                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-8 mb-8 border-2 border-purple-200">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">🔄 What Happens Next: The Wealth Multiplier Loop</h2>
+                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 mb-8 border border-purple-200">
+                  <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-4 text-center">The Wealth Multiplier Loop</h2>
                   
-                  <p className="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">
+                  <p className="text-base text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
                     Your tax strategy isn't just about savings — it's the fuel for wealth compounding and long-term financial escape.
                   </p>
 
                   <div className="grid md:grid-cols-4 gap-6 mb-8">
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl">💰</span>
+                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span className="text-lg">💰</span>
                       </div>
-                      <h3 className="font-bold text-gray-900 mb-2">1. Save Tax</h3>
-                      <p className="text-sm text-gray-600">Through entity structure + strategic deductions</p>
+                      <h3 className="font-semibold text-gray-900 mb-1">1. Save Tax</h3>
+                      <p className="text-sm text-muted-foreground">Through entity structure + strategic deductions</p>
                     </div>
                     
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl">📈</span>
+                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span className="text-lg">📈</span>
                       </div>
-                      <h3 className="font-bold text-gray-900 mb-2">2. Reinvest</h3>
-                      <p className="text-sm text-gray-600">Tax savings into tax-favored assets</p>
+                      <h3 className="font-semibold text-gray-900 mb-1">2. Reinvest</h3>
+                      <p className="text-sm text-muted-foreground">Tax savings into tax-favored assets</p>
                     </div>
                     
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl">🏦</span>
+                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span className="text-lg">🏦</span>
                       </div>
-                      <h3 className="font-bold text-gray-900 mb-2">3. Generate</h3>
-                      <p className="text-sm text-gray-600">Passive income from investments</p>
+                      <h3 className="font-semibold text-gray-900 mb-1">3. Generate</h3>
+                      <p className="text-sm text-muted-foreground">Passive income from investments</p>
                     </div>
                     
                     <div className="text-center">
-                      <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <span className="text-2xl">🔄</span>
+                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <span className="text-lg">🔄</span>
                       </div>
-                      <h3 className="font-bold text-gray-900 mb-2">4. Repeat</h3>
-                      <p className="text-sm text-gray-600">Reduce future tax + compound wealth</p>
+                      <h3 className="font-semibold text-gray-900 mb-1">4. Repeat</h3>
+                      <p className="text-sm text-muted-foreground">Reduce future tax + compound wealth</p>
                     </div>
-                  </div>
-
-                  {/* Flywheel Animation */}
-                  <div className="text-center mb-6">
-                    <div className="inline-block w-24 h-24 border-4 border-purple-300 border-t-purple-600 rounded-full animate-spin"></div>
-                    <p className="text-sm text-purple-700 mt-3 font-medium">The Wealth Flywheel in Motion</p>
                   </div>
 
                   <div className="text-center">
-                    <button className="px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium transition-all">
-                      📚 Learn More → Module 8: Wealth Multiplier Loop
+                    <button className="px-6 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 font-medium transition-all">
+                      Learn More: Module 8
                     </button>
                   </div>
                 </div>
 
                 {/* Strategy Stack */}
-                <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-                  <h2 className="text-2xl font-bold text-gray-900 mb-8">🎯 Your Strategy Stack</h2>
-                  
-                  {/* Progress Overview */}
-                  {(() => {
-                    const progress = getStrategyProgress();
-                    return (
-                      <div className="bg-gray-50 rounded-xl p-6 mb-8">
-                        <div className="flex items-center justify-between mb-4">
-                          <h3 className="text-lg font-bold text-gray-900">Implementation Progress</h3>
-                          <span className="text-2xl font-bold text-blue-600">{progress.percentage}%</span>
+                <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <div className="text-sm uppercase text-muted-foreground tracking-wide mb-1">Strategies</div>
+                      <h2 className="text-2xl font-semibold tracking-tight text-gray-900">Your Personalized Strategy Stack</h2>
+                    </div>
+                    {(() => {
+                      const progress = getStrategyProgress();
+                      return (
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-emerald-600">{progress.percentage}%</div>
+                          <div className="text-sm text-muted-foreground">{progress.implemented} of {progress.total} implemented</div>
                         </div>
-                        <div className="w-full bg-gray-200 rounded-full h-4 mb-2">
-                          <div 
-                            className="bg-gradient-to-r from-blue-600 to-green-600 h-4 rounded-full transition-all duration-500"
-                            style={{ width: `${progress.percentage}%` }}
-                          ></div>
-                        </div>
-                        <p className="text-sm text-gray-600">{progress.implemented} of {progress.total} strategies implemented</p>
-                      </div>
-                    );
-                  })()}
+                      );
+                    })()}
+                  </div>
                   
                   {/* Setup & Structure */}
                   {results.strategyStack.setupStructure.length > 0 && (
-                    <div className="mb-10">
-                      <h3 className="text-xl font-bold text-gray-800 mb-6">Setup & Structure</h3>
+                    <div className="mb-8">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4">Setup & Structure</h3>
                       <div className="grid lg:grid-cols-2 gap-6">
                         {results.strategyStack.setupStructure.map(renderStrategyCard)}
                       </div>
@@ -1395,8 +1362,8 @@ function PlaybookGenerator() {
 
                   {/* Deduction Strategies */}
                   {results.strategyStack.deductionStrategies.length > 0 && (
-                    <div className="mb-10">
-                      <h3 className="text-xl font-bold text-gray-800 mb-6">Deduction Strategies</h3>
+                    <div className="mb-8">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4">Deduction Strategies</h3>
                       <div className="grid lg:grid-cols-2 gap-6">
                         {results.strategyStack.deductionStrategies.map(renderStrategyCard)}
                       </div>
@@ -1405,8 +1372,8 @@ function PlaybookGenerator() {
 
                   {/* Exit Planning */}
                   {results.strategyStack.exitPlanning.length > 0 && (
-                    <div className="mb-8">
-                      <h3 className="text-xl font-bold text-gray-800 mb-6">Exit Planning</h3>
+                    <div className="mb-6">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4">Exit Planning</h3>
                       <div className="grid lg:grid-cols-2 gap-6">
                         {results.strategyStack.exitPlanning.map(renderStrategyCard)}
                       </div>
@@ -1416,40 +1383,40 @@ function PlaybookGenerator() {
 
                 {/* Lifetime Forecast */}
                 {results.forecastData && (
-                  <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-8">📈 Lifetime Impact Forecast</h2>
+                  <div className="bg-white rounded-2xl shadow-sm p-8 mb-8">
+                    <div className="text-sm uppercase text-muted-foreground tracking-wide mb-1">Forecast</div>
+                    <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-8">Lifetime Impact Analysis</h2>
                     
                     {/* Forecast Controls */}
-                    <div className="grid md:grid-cols-3 gap-8 mb-8">
+                    <div className="grid md:grid-cols-3 gap-6 mb-8">
                       <div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">Time Horizon</h3>
+                        <h3 className="font-semibold text-gray-800 mb-3">Time Horizon</h3>
                         <div className="grid grid-cols-4 gap-2">
                           {[5, 10, 15, 20].map((years) => (
                             <button
                               key={years}
                               onClick={() => {
                                 handleForecastingChange('forecastYears', years);
-                                // Recalculate with new time horizon
                                 const newForecastData = calculateForecastData();
                                 setResults(prev => ({ ...prev, forecastData: newForecastData }));
                               }}
-                              className={`p-3 text-center rounded-lg border-2 transition-all ${
+                              className={`p-3 text-center rounded-md border transition-all ${
                                 forecastingData.forecastYears === years
-                                  ? 'border-blue-500 bg-blue-50'
+                                  ? 'border-emerald-500 bg-emerald-50'
                                   : 'border-gray-200 hover:border-gray-300'
                               }`}
                             >
-                              <div className="font-bold">{years}</div>
-                              <div className="text-xs text-gray-500">Years</div>
+                              <div className="font-semibold">{years}</div>
+                              <div className="text-xs text-muted-foreground">Years</div>
                             </button>
                           ))}
                         </div>
                       </div>
                       
                       <div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">Reinvestment Strategy</h3>
+                        <h3 className="font-semibold text-gray-800 mb-3">Reinvestment</h3>
                         <div className="space-y-2">
-                          <label className="flex items-center">
+                          <label className="flex items-center text-sm">
                             <input
                               type="radio"
                               name="reinvest"
@@ -1459,11 +1426,11 @@ function PlaybookGenerator() {
                                 const newForecastData = calculateForecastData();
                                 setResults(prev => ({ ...prev, forecastData: newForecastData }));
                               }}
-                              className="mr-3"
+                              className="mr-2 text-emerald-500 focus:ring-emerald-500"
                             />
                             <span>Reinvest at 6% annually</span>
                           </label>
-                          <label className="flex items-center">
+                          <label className="flex items-center text-sm">
                             <input
                               type="radio"
                               name="reinvest"
@@ -1473,90 +1440,59 @@ function PlaybookGenerator() {
                                 const newForecastData = calculateForecastData();
                                 setResults(prev => ({ ...prev, forecastData: newForecastData }));
                               }}
-                              className="mr-3"
+                              className="mr-2 text-emerald-500 focus:ring-emerald-500"
                             />
-                            <span>Just save the tax reduction</span>
+                            <span>Save only</span>
                           </label>
                         </div>
                       </div>
 
                       <div>
-                        <h3 className="text-lg font-bold text-gray-800 mb-4">Wealth Multiplier Loop</h3>
-                        <div className="space-y-2">
-                          <label className="flex items-center">
-                            <input
-                              type="checkbox"
-                              checked={forecastingData.enableWealthLoop}
-                              onChange={(e) => {
-                                handleForecastingChange('enableWealthLoop', e.target.checked);
-                                const newForecastData = calculateForecastData();
-                                setResults(prev => ({ ...prev, forecastData: newForecastData }));
-                              }}
-                              className="mr-3"
-                            />
-                            <span className="text-sm">Reinvest savings into passive income assets (6% annual compounding)?</span>
-                          </label>
-                        </div>
-                        {forecastingData.enableWealthLoop && (
-                          <div className="mt-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                            <p className="text-xs text-purple-700">
-                              ✨ Enables passive income projections and wealth multiplication calculations
-                            </p>
-                          </div>
-                        )}
+                        <h3 className="font-semibold text-gray-800 mb-3">Wealth Loop</h3>
+                        <label className="flex items-start text-sm">
+                          <input
+                            type="checkbox"
+                            checked={forecastingData.enableWealthLoop}
+                            onChange={(e) => {
+                              handleForecastingChange('enableWealthLoop', e.target.checked);
+                              const newForecastData = calculateForecastData();
+                              setResults(prev => ({ ...prev, forecastData: newForecastData }));
+                            }}
+                            className="mr-2 mt-0.5 text-emerald-500 focus:ring-emerald-500"
+                          />
+                          <span>Enable passive income projections</span>
+                        </label>
                       </div>
                     </div>
 
                     {/* Scenario Comparison */}
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
-                      {/* Scenario A */}
-                      <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-                        <h4 className="text-xl font-bold text-red-800 mb-4">Scenario A: Do Nothing</h4>
-                        <div className="space-y-3">
+                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                      <div className="bg-red-50 border border-red-200 rounded-2xl p-6">
+                        <h4 className="font-semibold text-red-800 mb-4">Scenario A: Do Nothing</h4>
+                        <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
                             <span>Annual Tax Liability:</span>
-                            <span className="font-bold">{formatCurrency(results.forecastData.taxLiability)}</span>
+                            <span className="font-semibold">{formatCurrency(results.forecastData.taxLiability)}</span>
                           </div>
-                          <div className="flex justify-between">
-                            <span>Total Tax Over {forecastingData.forecastYears} Years:</span>
-                            <span className="font-bold text-red-600">
-                              {formatCurrency(results.forecastData.totalTaxWithoutStrategy)}
-                            </span>
-                          </div>
-                          <div className="flex justify-between border-t pt-3">
-                            <span className="font-bold">Total Value:</span>
-                            <span className="font-bold text-red-600">$0</span>
+                          <div className="flex justify-between border-t pt-2">
+                            <span className="font-semibold">Total Value:</span>
+                            <span className="font-semibold text-red-600">$0</span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Scenario B */}
-                      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-6">
-                        <h4 className="text-xl font-bold text-green-800 mb-4">Scenario B: Implement Strategy</h4>
-                        <div className="space-y-3">
+                      <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6">
+                        <h4 className="font-semibold text-emerald-800 mb-4">Scenario B: Implement Strategy</h4>
+                        <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
                             <span>Annual Tax Savings:</span>
-                            <span className="font-bold text-green-600">
+                            <span className="font-semibold text-emerald-600">
                               {formatCurrency(results.forecastData.annualTaxSavings)}
                             </span>
                           </div>
-                          <div className="flex justify-between">
-                            <span>Total Tax Saved:</span>
-                            <span className="font-bold text-green-600">
-                              {formatCurrency(results.forecastData.totalTaxSavings)}
-                            </span>
-                          </div>
-                          {forecastingData.reinvestSavings && (
-                            <div className="flex justify-between">
-                              <span>Investment Growth:</span>
-                              <span className="font-bold text-green-600">
-                                {formatCurrency(results.forecastData.compoundedSavings - results.forecastData.totalTaxSavings)}
-                              </span>
-                            </div>
-                          )}
-                          <div className="flex justify-between border-t pt-3">
-                            <span className="font-bold">Total Value Created:</span>
-                            <span className="font-bold text-green-600">
+                          <div className="flex justify-between border-t pt-2">
+                            <span className="font-semibold">Total Value Created:</span>
+                            <span className="font-semibold text-emerald-600">
                               {formatCurrency(results.forecastData.totalValue)}
                             </span>
                           </div>
@@ -1566,19 +1502,19 @@ function PlaybookGenerator() {
 
                     {/* Chart */}
                     <div className="mb-8">
-                      <h4 className="text-xl font-bold mb-6 text-center">Cumulative Impact Over Time</h4>
-                      <div className="h-96">
+                      <h4 className="font-semibold text-gray-900 mb-4 text-center">Cumulative Impact Over Time</h4>
+                      <div className="h-80 bg-gray-50 rounded-2xl p-4">
                         <ResponsiveContainer width="100%" height="100%">
                           <BarChart data={results.forecastData.chartData}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="year" />
-                            <YAxis tickFormatter={formatLargeNumber} />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+                            <XAxis dataKey="year" stroke="#6b7280" fontSize={12} />
+                            <YAxis tickFormatter={formatLargeNumber} stroke="#6b7280" fontSize={12} />
                             <Tooltip formatter={(value) => formatCurrency(value)} />
                             <Legend />
-                            <Bar dataKey="doNothing" fill="#ef4444" name="Cumulative Tax Paid (Do Nothing)" />
-                            <Bar dataKey="implementStrategy" fill="#22c55e" name="Value Created (Implement Strategy)" />
+                            <Bar dataKey="doNothing" fill="#ef4444" name="Tax Paid (Do Nothing)" />
+                            <Bar dataKey="implementStrategy" fill="#10b981" name="Value Created" />
                             {forecastingData.enableWealthLoop && (
-                              <Bar dataKey="passiveIncome" fill="#8b5cf6" name="Annual Passive Income Generated" />
+                              <Bar dataKey="passiveIncome" fill="#8b5cf6" name="Passive Income" />
                             )}
                           </BarChart>
                         </ResponsiveContainer>
@@ -1587,60 +1523,54 @@ function PlaybookGenerator() {
 
                     {/* Passive Income Projections */}
                     {forecastingData.enableWealthLoop && results.forecastData.passiveIncomeProjections && results.forecastData.passiveIncomeProjections.length > 0 && (
-                      <div className="mb-8 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border-2 border-purple-200">
-                        <h4 className="text-xl font-bold mb-6 text-center text-purple-900">🏦 Passive Income Projections</h4>
-                        <div className="grid md:grid-cols-3 gap-6">
+                      <div className="bg-purple-50 border border-purple-200 rounded-2xl p-6">
+                        <h4 className="font-semibold text-purple-900 mb-4 text-center">Passive Income Projections</h4>
+                        <div className="grid md:grid-cols-3 gap-4 mb-6">
                           {results.forecastData.passiveIncomeProjections.map((projection) => (
                             <div key={projection.year} className="text-center bg-white rounded-lg p-4 border border-purple-300">
-                              <div className="text-2xl font-bold text-purple-600 mb-2">Year {projection.year}</div>
-                              <div className="text-lg font-bold text-gray-900 mb-1">
+                              <div className="text-lg font-bold text-purple-600 mb-1">Year {projection.year}</div>
+                              <div className="font-semibold text-gray-900">
                                 {formatCurrency(projection.passiveIncome)} / year
                               </div>
-                              <div className="text-sm text-gray-600">
-                                Total Wealth: {formatCurrency(projection.totalWealth)}
+                              <div className="text-sm text-muted-foreground">
+                                Total: {formatCurrency(projection.totalWealth)}
                               </div>
                             </div>
                           ))}
                         </div>
-                        <div className="text-center mt-6">
-                          <p className="text-lg font-bold text-purple-900">
-                            By implementing your strategy and reinvesting your savings, you could generate{' '}
-                            <span className="text-2xl">
-                              {results.forecastData.passiveIncomeProjections.length > 0 && 
-                               formatCurrency(results.forecastData.passiveIncomeProjections[results.forecastData.passiveIncomeProjections.length - 1].passiveIncome)}
-                            </span>{' '}
-                            in passive income by year {forecastingData.forecastYears}.
-                          </p>
-                        </div>
+                        <p className="text-center font-semibold text-purple-900">
+                          By year {forecastingData.forecastYears}, you could generate{' '}
+                          <span className="text-xl">
+                            {results.forecastData.passiveIncomeProjections.length > 0 && 
+                             formatCurrency(results.forecastData.passiveIncomeProjections[results.forecastData.passiveIncomeProjections.length - 1].passiveIncome)}
+                          </span>{' '}
+                          in annual passive income.
+                        </p>
                       </div>
                     )}
                   </div>
                 )}
 
-                {/* Export & Engagement */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-8 text-center text-white">
-                  <h2 className="text-3xl font-bold mb-4">🚀 Ready to Implement Your Strategy?</h2>
-                  <p className="text-lg mb-8 opacity-90 max-w-3xl mx-auto leading-relaxed">
+                {/* Action Section */}
+                <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
+                  <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-4">Ready to Implement Your Strategy?</h2>
+                  <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                     You now have a personalized roadmap to optimize your taxes and create 
-                    <span className="font-bold"> {formatCurrency(results.forecastData?.totalValue || 0)}</span> 
-                    in lifetime value. Let's make it happen.
+                    <span className="font-bold text-emerald-600"> {formatCurrency(results.forecastData?.totalValue || 0)}</span> 
+                    in lifetime value.
                   </p>
                   
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button
                       onClick={exportToPDF}
-                      className="px-8 py-3 bg-white text-purple-600 rounded-xl hover:bg-gray-100 font-bold text-lg transition-all shadow-lg"
+                      className="px-6 py-2 border border-emerald-500 text-emerald-700 rounded-md hover:bg-emerald-50 font-medium transition-all"
                     >
-                      📄 Download My Tax Strategy Report
+                      Download My Tax Strategy Report
                     </button>
-                    <button className="px-12 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 font-bold text-lg transition-all shadow-lg">
-                      Start My Escape Plan
+                    <button className="px-8 py-3 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 font-medium transition-all">
+                      Start Your Escape Plan
                     </button>
                   </div>
-                  
-                  <p className="text-sm opacity-75">
-                    Ready to implement your personalized tax optimization strategy?
-                  </p>
                 </div>
               </>
             )}
