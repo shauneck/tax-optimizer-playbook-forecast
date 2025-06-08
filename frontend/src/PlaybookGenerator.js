@@ -5,11 +5,11 @@ function PlaybookGenerator() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    businessType: '',
-    currentStructure: '',
-    annualIncome: '',
-    currentDeductions: '',
-    taxConcerns: []
+    incomeType: '',
+    incomeRange: '',
+    entityStructure: '',
+    strategyGoals: [],
+    receivesStockComp: false
   });
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -43,40 +43,58 @@ function PlaybookGenerator() {
     // Simulate AI processing time
     await new Promise(resolve => setTimeout(resolve, 3000));
     
-    // Calculate estimated savings based on income and business type
-    let estimatedSavingsPercentage = 15; // Base savings
+    // Calculate estimated savings based on user profile
+    let estimatedSavingsPercent = 15; // Base savings
     
-    // Adjust based on business type
-    if (formData.businessType === 'business-owner') {
-      estimatedSavingsPercentage += 10;
-    }
-    if (formData.businessType === 'real-estate') {
-      estimatedSavingsPercentage += 15;
-    }
-    
-    // Adjust based on income
-    if (formData.annualIncome === '500k-1m') {
-      estimatedSavingsPercentage += 5;
-    } else if (formData.annualIncome === '1m+') {
-      estimatedSavingsPercentage += 10;
+    // Adjust based on income type
+    if (formData.incomeType === 'business-owner') {
+      estimatedSavingsPercent += 10;
+    } else if (formData.incomeType === '1099-contractor') {
+      estimatedSavingsPercent += 8;
+    } else if (formData.incomeType === 'blended') {
+      estimatedSavingsPercent += 12;
     }
     
-    // Adjust based on current structure
-    if (formData.currentStructure === 'no-structure') {
-      estimatedSavingsPercentage += 5;
+    // Adjust based on income range
+    if (formData.incomeRange === '$500K–$1M') {
+      estimatedSavingsPercent += 5;
+    } else if (formData.incomeRange === '$1M–$5M') {
+      estimatedSavingsPercent += 8;
+    } else if (formData.incomeRange === '$5M+') {
+      estimatedSavingsPercent += 12;
+    }
+    
+    // Adjust based on entity structure
+    if (formData.entityStructure === 'None' || formData.entityStructure === 'Not sure') {
+      estimatedSavingsPercent += 5;
+    }
+    
+    // Adjust based on strategy goals
+    if (formData.strategyGoals.length >= 3) {
+      estimatedSavingsPercent += 3;
+    }
+    
+    // Adjust for stock compensation
+    if (formData.receivesStockComp) {
+      estimatedSavingsPercent += 4;
     }
     
     // Cap at reasonable maximum
-    estimatedSavingsPercentage = Math.min(estimatedSavingsPercentage, 40);
+    estimatedSavingsPercent = Math.min(estimatedSavingsPercent, 40);
     
-    // Store the result in localStorage
-    const playbookData = {
-      estimated_annual_tax_savings: estimatedSavingsPercentage,
+    // Store the result in localStorage with new structure
+    const playbookResult = {
+      incomeType: formData.incomeType,
+      incomeRange: formData.incomeRange,
+      entityStructure: formData.entityStructure,
+      strategyGoals: formData.strategyGoals,
+      receivesStockComp: formData.receivesStockComp,
+      estimated_savings_percent: estimatedSavingsPercent,
       completion_date: new Date().toISOString(),
-      user_profile: formData
+      strategy_recommendations: generateStrategyRecommendations(formData, estimatedSavingsPercent)
     };
     
-    localStorage.setItem('irs_escape_plan_playbook', JSON.stringify(playbookData));
+    localStorage.setItem('irs_escape_plan_playbook', JSON.stringify(playbookResult));
     
     setIsGenerating(false);
     
@@ -84,13 +102,40 @@ function PlaybookGenerator() {
     navigate('/forecaster');
   };
 
+  const generateStrategyRecommendations = (data, savingsPercent) => {
+    const recommendations = [];
+    
+    if (data.entityStructure === 'None' || data.entityStructure === 'Not sure') {
+      recommendations.push('Business Entity Optimization');
+    }
+    
+    if (data.incomeType === 'business-owner' || data.incomeType === 'blended') {
+      recommendations.push('Business Expense Maximization');
+      recommendations.push('Retirement Plan Optimization');
+    }
+    
+    if (data.receivesStockComp) {
+      recommendations.push('Stock Compensation Strategy');
+    }
+    
+    if (data.strategyGoals.includes('Asset protection')) {
+      recommendations.push('Asset Protection Planning');
+    }
+    
+    if (data.strategyGoals.includes('Exit planning')) {
+      recommendations.push('Exit Strategy Tax Planning');
+    }
+    
+    return recommendations;
+  };
+
   const isStepComplete = () => {
     switch (currentStep) {
-      case 1: return formData.businessType !== '';
-      case 2: return formData.currentStructure !== '';
-      case 3: return formData.annualIncome !== '';
-      case 4: return formData.currentDeductions !== '';
-      case 5: return formData.taxConcerns.length > 0;
+      case 1: return formData.incomeType !== '';
+      case 2: return formData.incomeRange !== '';
+      case 3: return formData.entityStructure !== '';
+      case 4: return formData.strategyGoals.length > 0;
+      case 5: return true; // Stock comp question is optional
       default: return false;
     }
   };
@@ -103,21 +148,21 @@ function PlaybookGenerator() {
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Generating Your AI Playbook</h2>
             <p className="text-gray-600">
-              Our AI is analyzing your tax situation and creating a personalized strategy...
+              Our AI is analyzing your profile and creating personalized tax strategy recommendations...
             </p>
           </div>
           <div className="space-y-2 text-left text-sm text-gray-500">
             <div className="flex items-center">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-              Analyzing business structure opportunities
+              Analyzing income structure and entity optimization
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-              Calculating deduction optimization potential  
+              Calculating deduction and credit opportunities  
             </div>
             <div className="flex items-center">
               <div className="w-2 h-2 bg-blue-500 rounded-full mr-3 animate-pulse"></div>
-              Generating personalized tax savings estimate
+              Generating personalized savings estimate: {Math.min(15 + Math.floor(Math.random() * 20), 40)}%
             </div>
           </div>
         </div>
@@ -137,15 +182,18 @@ function PlaybookGenerator() {
             AI Playbook Generator
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Answer a few questions and get a personalized tax strategy with AI-generated savings estimates.
+            Answer 5 quick questions to get personalized tax strategy recommendations and savings estimates.
           </p>
+          <div className="mt-4 inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
+            Step 1 of 2: Generate Your Strategy
+          </div>
         </div>
 
         <div className="max-w-2xl mx-auto">
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex justify-between text-sm text-gray-500 mb-2">
-              <span>Step {currentStep} of 5</span>
+              <span>Question {currentStep} of 5</span>
               <span>{Math.round((currentStep / 5) * 100)}% Complete</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
@@ -160,19 +208,19 @@ function PlaybookGenerator() {
           <div className="bg-white rounded-lg shadow-lg p-8">
             {currentStep === 1 && (
               <div>
-                <h2 className="text-2xl font-semibold mb-6">What best describes your current situation?</h2>
+                <h2 className="text-2xl font-semibold mb-6">What type of income do you currently earn?</h2>
                 <div className="space-y-4">
                   {[
                     { value: 'w2-employee', label: 'W-2 Employee', desc: 'Traditional employee with W-2 income' },
-                    { value: 'business-owner', label: 'Business Owner / Self-Employed', desc: 'Own a business or work as a contractor' },
-                    { value: 'real-estate', label: 'Real Estate Investor', desc: 'Active in real estate investments' },
-                    { value: 'high-earner', label: 'High-Earning Professional', desc: 'Doctor, lawyer, consultant, etc.' }
+                    { value: '1099-contractor', label: '1099 Contractor', desc: 'Independent contractor or freelancer' },
+                    { value: 'business-owner', label: 'Business Owner', desc: 'Own a business or multiple revenue streams' },
+                    { value: 'blended', label: 'Blended', desc: 'Mix of W-2, 1099, and/or business income' }
                   ].map((option) => (
                     <button
                       key={option.value}
-                      onClick={() => handleInputChange('businessType', option.value)}
+                      onClick={() => handleInputChange('incomeType', option.value)}
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        formData.businessType === option.value
+                        formData.incomeType === option.value
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
@@ -187,26 +235,25 @@ function PlaybookGenerator() {
 
             {currentStep === 2 && (
               <div>
-                <h2 className="text-2xl font-semibold mb-6">What's your current tax structure?</h2>
+                <h2 className="text-2xl font-semibold mb-6">What is your approximate annual income?</h2>
                 <div className="space-y-4">
                   {[
-                    { value: 'no-structure', label: 'No formal structure', desc: 'Filing as individual or simple business' },
-                    { value: 'llc', label: 'LLC', desc: 'Limited Liability Company structure' },
-                    { value: 's-corp', label: 'S-Corporation', desc: 'S-Corp election for tax savings' },
-                    { value: 'c-corp', label: 'C-Corporation', desc: 'Traditional corporate structure' },
-                    { value: 'partnership', label: 'Partnership', desc: 'Partnership or multi-member LLC' }
+                    { value: '<$200K', label: 'Under $200K' },
+                    { value: '$200K–$500K', label: '$200K – $500K' },
+                    { value: '$500K–$1M', label: '$500K – $1M' },
+                    { value: '$1M–$5M', label: '$1M – $5M' },
+                    { value: '$5M+', label: '$5M+' }
                   ].map((option) => (
                     <button
                       key={option.value}
-                      onClick={() => handleInputChange('currentStructure', option.value)}
+                      onClick={() => handleInputChange('incomeRange', option.value)}
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        formData.currentStructure === option.value
+                        formData.incomeRange === option.value
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
                       <div className="font-medium">{option.label}</div>
-                      <div className="text-sm text-gray-500">{option.desc}</div>
                     </button>
                   ))}
                 </div>
@@ -215,45 +262,21 @@ function PlaybookGenerator() {
 
             {currentStep === 3 && (
               <div>
-                <h2 className="text-2xl font-semibold mb-6">What's your approximate annual income?</h2>
+                <h2 className="text-2xl font-semibold mb-6">What is your current entity structure?</h2>
                 <div className="space-y-4">
                   {[
-                    { value: '100k-250k', label: '$100K - $250K' },
-                    { value: '250k-500k', label: '$250K - $500K' },
-                    { value: '500k-1m', label: '$500K - $1M' },
-                    { value: '1m+', label: '$1M+' }
+                    { value: 'None', label: 'None', desc: 'Filing as individual or sole proprietor' },
+                    { value: 'LLC', label: 'LLC', desc: 'Limited Liability Company' },
+                    { value: 'S-corp', label: 'S-Corporation', desc: 'S-Corp election for tax savings' },
+                    { value: 'C-corp', label: 'C-Corporation', desc: 'Traditional corporate structure' },
+                    { value: 'Trust', label: 'Trust', desc: 'Trust structure for asset protection' },
+                    { value: 'Not sure', label: 'Not sure', desc: 'Need help determining optimal structure' }
                   ].map((option) => (
                     <button
                       key={option.value}
-                      onClick={() => handleInputChange('annualIncome', option.value)}
+                      onClick={() => handleInputChange('entityStructure', option.value)}
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        formData.annualIncome === option.value
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
-                    >
-                      <div className="font-medium">{option.label}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {currentStep === 4 && (
-              <div>
-                <h2 className="text-2xl font-semibold mb-6">How would you describe your current deductions?</h2>
-                <div className="space-y-4">
-                  {[
-                    { value: 'standard', label: 'Standard deductions only', desc: 'Taking the standard deduction' },
-                    { value: 'basic-itemized', label: 'Basic itemized deductions', desc: 'Mortgage, state taxes, some business expenses' },
-                    { value: 'advanced', label: 'Advanced tax strategies', desc: 'Multiple deductions, business write-offs, investments' },
-                    { value: 'optimized', label: 'Highly optimized', desc: 'Working with tax professionals, complex strategies' }
-                  ].map((option) => (
-                    <button
-                      key={option.value}
-                      onClick={() => handleInputChange('currentDeductions', option.value)}
-                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        formData.currentDeductions === option.value
+                        formData.entityStructure === option.value
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
@@ -266,23 +289,22 @@ function PlaybookGenerator() {
               </div>
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 4 && (
               <div>
-                <h2 className="text-2xl font-semibold mb-6">What are your biggest tax concerns? (Select all that apply)</h2>
+                <h2 className="text-2xl font-semibold mb-6">What are your strategic goals? (Select all that apply)</h2>
                 <div className="space-y-4">
                   {[
-                    { value: 'high-liability', label: 'High tax liability', desc: 'Paying too much in taxes overall' },
-                    { value: 'quarterly-payments', label: 'Quarterly estimated payments', desc: 'Managing cash flow for quarterly taxes' },
-                    { value: 'business-deductions', label: 'Missing business deductions', desc: 'Not maximizing business write-offs' },
-                    { value: 'audit-risk', label: 'Audit risk', desc: 'Worried about triggering an audit' },
-                    { value: 'retirement-planning', label: 'Retirement tax planning', desc: 'Optimizing for future tax efficiency' },
-                    { value: 'state-taxes', label: 'State tax optimization', desc: 'High state income taxes' }
+                    { value: 'Reduce tax liability', label: 'Reduce tax liability', desc: 'Lower current tax burden' },
+                    { value: 'Build long-term passive income', label: 'Build long-term passive income', desc: 'Create sustainable income streams' },
+                    { value: 'Asset protection', label: 'Asset protection', desc: 'Protect wealth from legal and financial risks' },
+                    { value: 'Exit planning', label: 'Exit planning', desc: 'Prepare for business sale or succession' },
+                    { value: 'All of the above', label: 'All of the above', desc: 'Comprehensive wealth optimization strategy' }
                   ].map((option) => (
                     <button
                       key={option.value}
-                      onClick={() => handleMultiSelect('taxConcerns', option.value)}
+                      onClick={() => handleMultiSelect('strategyGoals', option.value)}
                       className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                        formData.taxConcerns.includes(option.value)
+                        formData.strategyGoals.includes(option.value)
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
@@ -292,7 +314,7 @@ function PlaybookGenerator() {
                           <div className="font-medium">{option.label}</div>
                           <div className="text-sm text-gray-500">{option.desc}</div>
                         </div>
-                        {formData.taxConcerns.includes(option.value) && (
+                        {formData.strategyGoals.includes(option.value) && (
                           <div className="text-blue-500">
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -302,6 +324,39 @@ function PlaybookGenerator() {
                       </div>
                     </button>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {currentStep === 5 && (
+              <div>
+                <h2 className="text-2xl font-semibold mb-6">Do you receive stock-based compensation?</h2>
+                <p className="text-gray-600 mb-6">
+                  This includes stock options, RSUs, ESPP, or other equity compensation
+                </p>
+                <div className="space-y-4">
+                  <button
+                    onClick={() => handleInputChange('receivesStockComp', true)}
+                    className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                      formData.receivesStockComp === true
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="font-medium">Yes</div>
+                    <div className="text-sm text-gray-500">I receive stock options, RSUs, or other equity compensation</div>
+                  </button>
+                  <button
+                    onClick={() => handleInputChange('receivesStockComp', false)}
+                    className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                      formData.receivesStockComp === false
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="font-medium">No</div>
+                    <div className="text-sm text-gray-500">I do not receive stock-based compensation</div>
+                  </button>
                 </div>
               </div>
             )}
@@ -321,7 +376,7 @@ function PlaybookGenerator() {
                   disabled={!isStepComplete()}
                   className="px-6 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700"
                 >
-                  Next
+                  Next Question
                 </button>
               ) : (
                 <button
@@ -329,7 +384,7 @@ function PlaybookGenerator() {
                   disabled={!isStepComplete()}
                   className="px-8 py-2 bg-green-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-green-700 font-bold"
                 >
-                  Generate My AI Playbook
+                  Generate My Strategy & Continue to Forecaster
                 </button>
               )}
             </div>

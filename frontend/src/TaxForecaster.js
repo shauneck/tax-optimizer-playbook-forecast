@@ -15,12 +15,13 @@ const TAX_BRACKETS = {
   ]
 };
 
-// Income bracket mappings
+// Income bracket mappings for calculation
 const INCOME_BRACKETS = {
-  '200k-500k': { min: 200000, max: 500000, default: 350000 },
-  '500k-1m': { min: 500000, max: 1000000, default: 750000 },
-  '1m-5m': { min: 1000000, max: 5000000, default: 2500000 },
-  '5m+': { min: 5000000, max: 10000000, default: 7500000 }
+  '<$200K': { default: 150000 },
+  '$200K–$500K': { default: 350000 },
+  '$500K–$1M': { default: 750000 },
+  '$1M–$5M': { default: 2500000 },
+  '$5M+': { default: 7500000 }
 };
 
 function calculateFederalTax(income) {
@@ -77,16 +78,16 @@ function TaxForecaster() {
     }
   }, []);
 
-  // Form state
+  // Form state - simplified since we get most data from playbook
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    incomeType: '',
-    incomeBracket: '',
+    // Auto-populated from playbook
     customIncome: 0,
     estimatedTaxLiability: 0,
-    reductionPercentage: playbookData?.estimated_annual_tax_savings || 20,
-    isPlaybookGenerated: !!playbookData,
+    reductionPercentage: 20,
+    isPlaybookGenerated: false,
     allowReductionEdit: false,
+    // User inputs for forecaster
     forecastYears: 15,
     reinvestSavings: true
   });
@@ -97,9 +98,14 @@ function TaxForecaster() {
   // Update form data when playbook data is loaded
   useEffect(() => {
     if (playbookData) {
+      const income = INCOME_BRACKETS[playbookData.incomeRange]?.default || 350000;
+      const taxLiability = calculateFederalTax(income);
+      
       setFormData(prev => ({
         ...prev,
-        reductionPercentage: playbookData.estimated_annual_tax_savings,
+        customIncome: income,
+        estimatedTaxLiability: taxLiability,
+        reductionPercentage: playbookData.estimated_savings_percent,
         isPlaybookGenerated: true,
         allowReductionEdit: false
       }));
@@ -107,22 +113,7 @@ function TaxForecaster() {
   }, [playbookData]);
 
   const handleInputChange = (field, value) => {
-    const newData = { ...formData, [field]: value };
-    
-    // Auto-calculate tax liability when income changes
-    if (field === 'incomeBracket' || field === 'customIncome') {
-      let income = newData.customIncome;
-      if (field === 'incomeBracket' && INCOME_BRACKETS[value]) {
-        income = INCOME_BRACKETS[value].default;
-        newData.customIncome = income;
-      }
-      
-      if (income > 0) {
-        newData.estimatedTaxLiability = calculateFederalTax(income);
-      }
-    }
-    
-    setFormData(newData);
+    setFormData({ ...formData, [field]: value });
   };
 
   const calculateResults = () => {
@@ -174,49 +165,19 @@ function TaxForecaster() {
       totalValue,
       chartData
     });
-  };
-
-  const nextStep = () => {
-    if (currentStep < 6) {
-      setCurrentStep(currentStep + 1);
-    } else {
-      calculateResults();
-      setCurrentStep(7);
-    }
-  };
-
-  const prevStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
+    setCurrentStep(3); // Go to results
   };
 
   const resetCalculator = () => {
     setCurrentStep(1);
     setResults(null);
-    setFormData({
-      incomeType: '',
-      incomeBracket: '',
-      customIncome: 0,
-      estimatedTaxLiability: 0,
-      reductionPercentage: playbookData?.estimated_annual_tax_savings || 20,
-      isPlaybookGenerated: !!playbookData,
-      allowReductionEdit: false,
+    // Keep playbook data but reset forecaster inputs
+    setFormData(prev => ({
+      ...prev,
       forecastYears: 15,
-      reinvestSavings: true
-    });
-  };
-
-  const isStepComplete = () => {
-    switch (currentStep) {
-      case 1: return formData.incomeType !== '';
-      case 2: return formData.incomeBracket !== '';
-      case 3: return formData.estimatedTaxLiability > 0;
-      case 4: return formData.reductionPercentage > 0;
-      case 5: return formData.forecastYears > 0;
-      case 6: return true;
-      default: return false;
-    }
+      reinvestSavings: true,
+      allowReductionEdit: false
+    }));
   };
 
   // Show playbook prompt if no playbook data
@@ -229,22 +190,22 @@ function TaxForecaster() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16c-.77.833.192 2.5 1.732 2.5z" />
             </svg>
           </div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Playbook Required</h2>
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Strategy Required</h2>
           <p className="text-gray-600 mb-6">
-            Run your Playbook to generate a personalized tax savings estimate before forecasting your long-term results.
+            Generate your personalized AI strategy first to get accurate tax savings estimates for your lifetime forecast.
           </p>
           <div className="space-y-4">
             <Link
               to="/playbook"
               className="block w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors"
             >
-              Generate My AI Playbook First
+              Generate My AI Strategy First
             </Link>
             <button
               onClick={() => setShowPlaybookPrompt(false)}
               className="block w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              Continue Without Playbook
+              Continue Without Strategy (Less Accurate)
             </button>
           </div>
         </div>
@@ -264,202 +225,68 @@ function TaxForecaster() {
             Lifetime Tax Delta Forecaster
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover the true lifetime cost of overpaying the IRS — and the long-term upside of implementing your tax strategy.
+            See the long-term financial impact of your personalized tax strategy over 5-20 years.
           </p>
           {playbookData && (
-            <div className="mt-4 inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-              ✓ Using savings estimate from your AI Playbook
+            <div className="mt-4 space-y-2">
+              <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+                ✓ Using {playbookData.estimated_savings_percent}% savings from your AI Strategy
+              </div>
+              <div className="inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium ml-2">
+                Step 2 of 2: Forecast Your Results
+              </div>
             </div>
           )}
-          <div className="mt-2 inline-block bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium">
-            Free Preview — Full forecasting access inside IRS Escape Plan Pro
-          </div>
         </div>
 
-        {currentStep < 7 ? (
-          /* Form Steps */
+        {currentStep < 3 ? (
+          /* Forecaster Input Steps */
           <div className="max-w-2xl mx-auto">
-            {/* Progress Bar */}
-            <div className="mb-8">
-              <div className="flex justify-between text-sm text-gray-500 mb-2">
-                <span>Step {currentStep} of 6</span>
-                <span>{Math.round((currentStep / 6) * 100)}% Complete</span>
+            {/* Show playbook summary */}
+            {playbookData && (
+              <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Your AI Strategy Summary</h3>
+                <div className="grid md:grid-cols-2 gap-4 text-sm">
+                  <div>
+                    <span className="text-gray-600">Income Type:</span>
+                    <span className="font-medium ml-2">{playbookData.incomeType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Income Range:</span>
+                    <span className="font-medium ml-2">{playbookData.incomeRange}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Entity Structure:</span>
+                    <span className="font-medium ml-2">{playbookData.entityStructure}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600">Estimated Tax Savings:</span>
+                    <span className="font-bold text-green-600 ml-2">{playbookData.estimated_savings_percent}%</span>
+                  </div>
+                </div>
+                {playbookData.strategy_recommendations && (
+                  <div className="mt-4">
+                    <span className="text-gray-600 text-sm">Key Strategies:</span>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {playbookData.strategy_recommendations.map((strategy, index) => (
+                        <span key={index} className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs">
+                          {strategy}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
-                <div 
-                  className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                  style={{ width: `${(currentStep / 6) * 100}%` }}
-                ></div>
-              </div>
-            </div>
+            )}
 
-            {/* Form Card */}
+            {/* Simplified Forecaster Form */}
             <div className="bg-white rounded-lg shadow-lg p-8">
               {currentStep === 1 && (
                 <div>
-                  <h2 className="text-2xl font-semibold mb-6">What type of income do you currently earn?</h2>
-                  <div className="space-y-4">
-                    {[
-                      { value: 'w2', label: 'W-2 Employee', desc: 'Traditional employee with W-2 income' },
-                      { value: 'business', label: 'Business Owner', desc: 'Self-employed or business owner' },
-                      { value: 'blended', label: 'Blended', desc: 'Mix of W-2 and business income' }
-                    ].map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleInputChange('incomeType', option.value)}
-                        className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                          formData.incomeType === option.value
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                      >
-                        <div className="font-medium">{option.label}</div>
-                        <div className="text-sm text-gray-500">{option.desc}</div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {currentStep === 2 && (
-                <div>
-                  <h2 className="text-2xl font-semibold mb-6">What is your approximate annual income?</h2>
-                  <div className="space-y-4">
-                    {[
-                      { value: '200k-500k', label: '$200K – $500K' },
-                      { value: '500k-1m', label: '$500K – $1M' },
-                      { value: '1m-5m', label: '$1M – $5M' },
-                      { value: '5m+', label: '$5M+' }
-                    ].map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleInputChange('incomeBracket', option.value)}
-                        className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                          formData.incomeBracket === option.value
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-gray-200 hover:border-gray-300'
-                        }`}
-                      >
-                        <div className="font-medium">{option.label}</div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {currentStep === 3 && (
-                <div>
-                  <h2 className="text-2xl font-semibold mb-6">What is your estimated annual tax liability?</h2>
-                  <div className="mb-4">
-                    <p className="text-gray-600 mb-4">
-                      Based on your income of {formatCurrency(formData.customIncome)}, we estimate your federal tax liability at:
-                    </p>
-                    <div className="bg-blue-50 p-4 rounded-lg">
-                      <input
-                        type="number"
-                        value={Math.round(formData.estimatedTaxLiability)}
-                        onChange={(e) => handleInputChange('estimatedTaxLiability', parseFloat(e.target.value) || 0)}
-                        className="w-full text-2xl font-bold bg-transparent border-none outline-none text-blue-700"
-                        placeholder="Enter tax liability"
-                      />
-                      <p className="text-sm text-gray-600 mt-2">
-                        You can adjust this number if you have a more accurate estimate
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {currentStep === 4 && (
-                <div>
-                  <h2 className="text-2xl font-semibold mb-6">How much of your tax liability could be reduced through strategy?</h2>
-                  
-                  {formData.isPlaybookGenerated ? (
-                    <div className="mb-6">
-                      <div className="bg-green-50 border-2 border-green-200 p-6 rounded-lg mb-4">
-                        <div className="flex items-center justify-between mb-4">
-                          <div>
-                            <h3 className="text-lg font-bold text-green-800">From Your AI Playbook</h3>
-                            <p className="text-green-600">Personalized savings estimate generated</p>
-                          </div>
-                          <div className="text-3xl font-bold text-green-600">
-                            {formData.reductionPercentage}%
-                          </div>
-                        </div>
-                        <div className="flex justify-between items-center text-sm">
-                          <span className="text-green-700">
-                            Annual Tax Savings: <span className="font-bold">
-                              {formatCurrency(formData.estimatedTaxLiability * (formData.reductionPercentage / 100))}
-                            </span>
-                          </span>
-                          {!formData.allowReductionEdit && (
-                            <button 
-                              onClick={() => handleInputChange('allowReductionEdit', true)}
-                              className="text-blue-600 hover:underline text-sm"
-                            >
-                              Want to adjust? Edit
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                      
-                      {formData.allowReductionEdit && (
-                        <div className="space-y-4">
-                          <p className="text-gray-600 text-sm">Override your Playbook estimate:</p>
-                          {[10, 20, 30, 40].map((percentage) => (
-                            <button
-                              key={percentage}
-                              onClick={() => handleInputChange('reductionPercentage', percentage)}
-                              className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                                formData.reductionPercentage === percentage
-                                  ? 'border-blue-500 bg-blue-50'
-                                  : 'border-gray-200 hover:border-gray-300'
-                              }`}
-                            >
-                              <div className="flex justify-between items-center">
-                                <span className="font-medium">{percentage}% Reduction</span>
-                                <span className="text-blue-600 font-bold">
-                                  {formatCurrency(formData.estimatedTaxLiability * (percentage / 100))} saved annually
-                                </span>
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <div className="mb-6">
-                      <p className="text-gray-600 mb-4">
-                        This can be estimated using your AI Playbook
-                      </p>
-                      <div className="space-y-4">
-                        {[10, 20, 30, 40].map((percentage) => (
-                          <button
-                            key={percentage}
-                            onClick={() => handleInputChange('reductionPercentage', percentage)}
-                            className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
-                              formData.reductionPercentage === percentage
-                                ? 'border-blue-500 bg-blue-50'
-                                : 'border-gray-200 hover:border-gray-300'
-                            }`}
-                          >
-                            <div className="flex justify-between items-center">
-                              <span className="font-medium">{percentage}% Reduction</span>
-                              <span className="text-blue-600 font-bold">
-                                {formatCurrency(formData.estimatedTaxLiability * (percentage / 100))} saved annually
-                              </span>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {currentStep === 5 && (
-                <div>
                   <h2 className="text-2xl font-semibold mb-6">Over how many years should we forecast?</h2>
+                  <p className="text-gray-600 mb-6">
+                    See the compound effect of your {playbookData?.estimated_savings_percent || 20}% tax savings over time
+                  </p>
                   <div className="space-y-4">
                     {[5, 10, 15, 20].map((years) => (
                       <button
@@ -471,38 +298,95 @@ function TaxForecaster() {
                             : 'border-gray-200 hover:border-gray-300'
                         }`}
                       >
-                        <div className="font-medium">{years} Years</div>
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <div className="font-medium">{years} Years</div>
+                            <div className="text-sm text-gray-500">
+                              Total projected savings: {formatCurrency((formData.estimatedTaxLiability * (formData.reductionPercentage / 100)) * years)}
+                            </div>
+                          </div>
+                          {formData.forecastYears === years && (
+                            <div className="text-blue-500">
+                              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
                       </button>
                     ))}
                   </div>
                 </div>
               )}
 
-              {currentStep === 6 && (
+              {currentStep === 2 && (
                 <div>
                   <h2 className="text-2xl font-semibold mb-6">Would you reinvest the tax savings?</h2>
+                  <p className="text-gray-600 mb-6">
+                    Reinvesting your annual {formatCurrency(formData.estimatedTaxLiability * (formData.reductionPercentage / 100))} in tax savings can significantly amplify your results.
+                  </p>
                   <div className="space-y-4">
                     <button
                       onClick={() => handleInputChange('reinvestSavings', true)}
-                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                      className={`w-full text-left p-6 rounded-lg border-2 transition-all ${
                         formData.reinvestSavings
-                          ? 'border-blue-500 bg-blue-50'
+                          ? 'border-green-500 bg-green-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="font-medium">Yes, reinvest at 6% annually</div>
-                      <div className="text-sm text-gray-500">Compound your tax savings for maximum growth</div>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <div className="font-medium text-lg">Yes, reinvest at 6% annually</div>
+                          <div className="text-sm text-gray-500 mt-1">Compound your tax savings for maximum wealth growth</div>
+                          <div className="text-sm font-medium text-green-600 mt-2">
+                            Projected {formData.forecastYears}-year value: {formatCurrency(
+                              (() => {
+                                const annualSavings = formData.estimatedTaxLiability * (formData.reductionPercentage / 100);
+                                let compound = 0;
+                                for (let year = 1; year <= formData.forecastYears; year++) {
+                                  compound += annualSavings * Math.pow(1.06, formData.forecastYears - year);
+                                }
+                                return compound;
+                              })()
+                            )}
+                          </div>
+                        </div>
+                        {formData.reinvestSavings && (
+                          <div className="text-green-500">
+                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                     </button>
+                    
                     <button
                       onClick={() => handleInputChange('reinvestSavings', false)}
-                      className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
+                      className={`w-full text-left p-6 rounded-lg border-2 transition-all ${
                         !formData.reinvestSavings
                           ? 'border-blue-500 bg-blue-50'
                           : 'border-gray-200 hover:border-gray-300'
                       }`}
                     >
-                      <div className="font-medium">No, just save the tax reduction</div>
-                      <div className="text-sm text-gray-500">Keep the savings without investment growth</div>
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <div className="font-medium text-lg">No, just save the tax reduction</div>
+                          <div className="text-sm text-gray-500 mt-1">Keep the savings without investment growth</div>
+                          <div className="text-sm font-medium text-blue-600 mt-2">
+                            Total {formData.forecastYears}-year savings: {formatCurrency(
+                              (formData.estimatedTaxLiability * (formData.reductionPercentage / 100)) * formData.forecastYears
+                            )}
+                          </div>
+                        </div>
+                        {!formData.reinvestSavings && (
+                          <div className="text-blue-500">
+                            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
                     </button>
                   </div>
                 </div>
@@ -511,19 +395,27 @@ function TaxForecaster() {
               {/* Navigation */}
               <div className="flex justify-between mt-8">
                 <button
-                  onClick={prevStep}
+                  onClick={() => setCurrentStep(currentStep - 1)}
                   disabled={currentStep === 1}
                   className="px-6 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50"
                 >
                   Previous
                 </button>
-                <button
-                  onClick={nextStep}
-                  disabled={!isStepComplete()}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700"
-                >
-                  {currentStep === 6 ? 'Calculate Results' : 'Next'}
-                </button>
+                {currentStep < 2 ? (
+                  <button
+                    onClick={() => setCurrentStep(currentStep + 1)}
+                    className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    onClick={calculateResults}
+                    className="px-8 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold"
+                  >
+                    Calculate My Lifetime Results
+                  </button>
+                )}
               </div>
             </div>
           </div>
@@ -533,11 +425,11 @@ function TaxForecaster() {
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">Your Lifetime Tax Delta Forecast</h2>
               <p className="text-lg text-gray-600">
-                Here's what your {formData.forecastYears}-year financial future looks like
+                Here's what your {formData.forecastYears}-year financial future looks like with your personalized strategy
               </p>
               {playbookData && (
                 <p className="text-sm text-green-600 mt-2">
-                  ✓ Based on your personalized AI Playbook savings estimate
+                  ✓ Based on your {playbookData.estimated_savings_percent}% savings estimate from AI Strategy
                 </p>
               )}
             </div>
@@ -553,10 +445,10 @@ function TaxForecaster() {
                   <span className="font-bold text-red-600">
                     {formatCurrency(results.totalTaxWithoutStrategy - results.totalValue)}
                   </span>{' '}
-                  in excess tax.{' '}
+                  in opportunity cost.{' '}
                   {formData.reinvestSavings && (
                     <>
-                      Implementing your strategy now could unlock{' '}
+                      Implementing your strategy now could create{' '}
                       <span className="font-bold text-green-600">
                         {formatCurrency(results.totalValue)}
                       </span>{' '}
@@ -591,7 +483,7 @@ function TaxForecaster() {
 
                 {/* Scenario B: Escape Plan */}
                 <div className="bg-green-50 p-6 rounded-lg border-2 border-green-200">
-                  <h3 className="text-xl font-bold text-green-800 mb-4">Scenario B: Implement the Escape Plan</h3>
+                  <h3 className="text-xl font-bold text-green-800 mb-4">Scenario B: Implement Your Strategy</h3>
                   <div className="space-y-3">
                     <div className="flex justify-between">
                       <span>Annual Tax Savings:</span>
@@ -614,7 +506,7 @@ function TaxForecaster() {
                       </div>
                     )}
                     <div className="border-t pt-3 flex justify-between text-lg font-bold">
-                      <span>Total Value:</span>
+                      <span>Total Value Created:</span>
                       <span className="text-green-600">
                         {formatCurrency(results.totalValue)}
                       </span>
@@ -635,7 +527,7 @@ function TaxForecaster() {
                       <Tooltip formatter={(value) => formatCurrency(value)} />
                       <Legend />
                       <Bar dataKey="doNothing" fill="#ef4444" name="Cumulative Tax Paid (Do Nothing)" />
-                      <Bar dataKey="escapePlan" fill="#22c55e" name={formData.reinvestSavings ? "Value Created (Escape Plan)" : "Tax Savings (Escape Plan)"} />
+                      <Bar dataKey="escapePlan" fill="#22c55e" name={formData.reinvestSavings ? "Value Created (Your Strategy)" : "Tax Savings (Your Strategy)"} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -653,13 +545,13 @@ function TaxForecaster() {
                   Start My Escape Plan
                 </button>
                 <div className="mt-4">
-                  {!playbookData ? (
+                  {playbookData ? (
                     <Link to="/playbook" className="text-blue-600 hover:underline">
-                      Generate AI Playbook for More Accurate Savings Estimate
+                      Update My AI Strategy
                     </Link>
                   ) : (
                     <Link to="/playbook" className="text-blue-600 hover:underline">
-                      Update My AI Playbook
+                      Generate AI Strategy for More Accurate Results
                     </Link>
                   )}
                 </div>
