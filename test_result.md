@@ -237,6 +237,9 @@ frontend:
       - working: true
         agent: "testing"
         comment: "Completed additional testing of the enhanced tooltip styling. Verified the 'i' icon has the correct emerald color and proper hover effects. The tooltip displays correctly on click with all required assumptions content. On mobile, the tooltip is properly centered with backdrop overlay and X close button as required. The tooltip styling enhancement is working as expected."
+      - working: true
+        agent: "testing"
+        comment: "Successfully tested the hover flicker fix for the 'i' tooltip icon in the Wealth Multiplier Loop section. The tooltip now remains stable when moving the mouse between the icon and tooltip content - no flickering was observed during testing. The container-based hover implementation works correctly, allowing users to hover over the tooltip content without it disappearing. Click mode also functions properly, with the tooltip staying open when clicked and showing a close button. Clicking outside the tooltip or the close button correctly closes it. On mobile, the tooltip opens on tap (not hover) and displays with proper centered positioning and backdrop overlay. The tooltip behavior is now stable across different interaction patterns, and the hover flicker issue has been completely resolved."
 
   - task: "MSO Strategy for High-Income Business Owners"
     implemented: true
