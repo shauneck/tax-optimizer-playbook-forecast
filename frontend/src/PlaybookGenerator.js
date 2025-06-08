@@ -394,9 +394,44 @@ function PlaybookGenerator() {
       case 2: return formData.incomeRange !== '';
       case 3: return formData.entityStructure !== '';
       case 4: return formData.strategyGoals.length > 0;
-      case 5: return true; // Stock comp question is optional
+      case 5: 
+        // Only required if W-2 or Blended income
+        return formData.receivesStockComp !== null;
+      case 6: 
+        return forecastingData.businessProfit !== '' && 
+               forecastingData.capitalAvailable !== '' && 
+               forecastingData.restructurePercent !== '';
+      case 7: return forecastingData.forecastYears > 0;
       default: return false;
     }
+  };
+
+  const resetTool = () => {
+    setCurrentStep(1);
+    setFormData({
+      incomeType: '',
+      incomeRange: '',
+      entityStructure: '',
+      strategyGoals: [],
+      receivesStockComp: false
+    });
+    setForecastingData({
+      businessProfit: '',
+      capitalAvailable: '',
+      restructurePercent: '',
+      forecastYears: 15,
+      reinvestSavings: true
+    });
+    setResults({
+      strategyStack: {
+        setupStructure: [],
+        deductionStrategies: [],
+        exitPlanning: []
+      },
+      estimatedSavingsPercent: { min: 0, max: 0 },
+      estimatedSavingsDollar: { min: 0, max: 0 },
+      forecastData: null
+    });
   };
 
   if (isGenerating) {
