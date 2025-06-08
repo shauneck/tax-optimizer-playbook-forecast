@@ -1436,7 +1436,7 @@ function PlaybookGenerator() {
                     <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-8">Lifetime Impact Analysis</h2>
                     
                     {/* Forecast Controls */}
-                    <div className="grid md:grid-cols-3 gap-6 mb-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                       <div>
                         <h3 className="font-semibold text-gray-800 mb-3">Time Horizon</h3>
                         <div className="grid grid-cols-4 gap-2">
@@ -1476,7 +1476,7 @@ function PlaybookGenerator() {
                               }}
                               className="mr-2 text-emerald-500 focus:ring-emerald-500"
                             />
-                            <span>Reinvest at 6% annually</span>
+                            <span>Reinvest savings</span>
                           </label>
                           <label className="flex items-center text-sm">
                             <input
@@ -1510,6 +1510,34 @@ function PlaybookGenerator() {
                           />
                           <span>Enable passive income projections</span>
                         </label>
+                      </div>
+
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-3 flex items-center">
+                          Return Rate
+                          <AssumptionsTooltip />
+                        </h3>
+                        <div className="space-y-2">
+                          <input
+                            type="range"
+                            min="3"
+                            max="12"
+                            step="0.5"
+                            value={forecastingData.returnRate}
+                            onChange={(e) => {
+                              handleForecastingChange('returnRate', parseFloat(e.target.value));
+                              const newForecastData = calculateForecastData();
+                              setResults(prev => ({ ...prev, forecastData: newForecastData }));
+                            }}
+                            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider-thumb:appearance-none slider-thumb:h-4 slider-thumb:w-4 slider-thumb:bg-emerald-500 slider-thumb:rounded-full slider-thumb:cursor-pointer"
+                          />
+                          <div className="flex justify-between text-xs text-muted-foreground">
+                            <span>3%</span>
+                            <span className="font-semibold text-emerald-600">{forecastingData.returnRate}%</span>
+                            <span>12%</span>
+                          </div>
+                          <p className="text-xs text-muted-foreground">Adjust your reinvestment return rate</p>
+                        </div>
                       </div>
                     </div>
 
