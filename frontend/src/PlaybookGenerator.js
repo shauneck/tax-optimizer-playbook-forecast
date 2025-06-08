@@ -279,6 +279,18 @@ function PlaybookGenerator() {
       });
     }
 
+    // MSO Strategy for high-income business owners
+    if ((data.incomeType === 'business-owner' || data.incomeType === 'blended') && 
+        (data.incomeRange === '$1M–$5M' || data.incomeRange === '$5M+')) {
+      setupStructure.push({
+        id: 'mso-strategy',
+        title: 'Split operations into an MSO + operating entity',
+        complexity: 'Advanced',
+        module: 'Business Module 3',
+        description: 'An MSO allows you to separate operational income from management and intellectual property. This creates opportunities for income reclassification, asset protection, and multi-entity exit planning.'
+      });
+    }
+
     if (data.strategyGoals.includes('Asset protection')) {
       setupStructure.push({
         id: 'asset-protection-trust',
