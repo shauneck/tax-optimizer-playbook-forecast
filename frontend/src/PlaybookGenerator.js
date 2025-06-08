@@ -1322,7 +1322,10 @@ function PlaybookGenerator() {
 
                 {/* Wealth Multiplier Loop Section */}
                 <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-2xl p-8 mb-8 border border-purple-200">
-                  <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-4 text-center">The Wealth Multiplier Loop</h2>
+                  <div className="flex items-center justify-center mb-4">
+                    <h2 className="text-2xl font-semibold tracking-tight text-gray-900">The Wealth Multiplier Loop</h2>
+                    <AssumptionsTooltip />
+                  </div>
                   
                   <p className="text-base text-muted-foreground mb-8 text-center max-w-3xl mx-auto">
                     Your tax strategy isn't just about savings — it's the fuel for wealth compounding and long-term financial escape.
@@ -1330,34 +1333,42 @@ function PlaybookGenerator() {
 
                   <div className="grid md:grid-cols-4 gap-6 mb-8">
                     <div className="text-center">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span className="text-lg">💰</span>
+                      <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                        </svg>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">1. Save Tax</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">1. Save Tax</h3>
                       <p className="text-sm text-muted-foreground">Through entity structure + strategic deductions</p>
                     </div>
                     
                     <div className="text-center">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span className="text-lg">📈</span>
+                      <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                        </svg>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">2. Reinvest</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">2. Reinvest</h3>
                       <p className="text-sm text-muted-foreground">Tax savings into tax-favored assets</p>
                     </div>
                     
                     <div className="text-center">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span className="text-lg">🏦</span>
+                      <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">3. Generate</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">3. Generate</h3>
                       <p className="text-sm text-muted-foreground">Passive income from investments</p>
                     </div>
                     
                     <div className="text-center">
-                      <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                        <span className="text-lg">🔄</span>
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
                       </div>
-                      <h3 className="font-semibold text-gray-900 mb-1">4. Repeat</h3>
+                      <h3 className="font-semibold text-gray-900 mb-2">4. Repeat</h3>
                       <p className="text-sm text-muted-foreground">Reduce future tax + compound wealth</p>
                     </div>
                   </div>
