@@ -152,7 +152,8 @@ function PlaybookGenerator() {
     capitalAvailable: '',
     restructurePercent: '',
     forecastYears: 15,
-    reinvestSavings: true
+    reinvestSavings: true,
+    enableWealthLoop: true
   });
 
   const [results, setResults] = useState({
