@@ -828,6 +828,49 @@ function PlaybookGenerator() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <style jsx>{`
+        input[type="range"] {
+          -webkit-appearance: none;
+          appearance: none;
+          background: transparent;
+          cursor: pointer;
+        }
+        
+        input[type="range"]::-webkit-slider-track {
+          background: #e5e7eb;
+          height: 8px;
+          border-radius: 4px;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          background: #10b981;
+          cursor: pointer;
+          border: 2px solid #ffffff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input[type="range"]::-moz-range-track {
+          background: #e5e7eb;
+          height: 8px;
+          border-radius: 4px;
+          border: none;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          background: #10b981;
+          cursor: pointer;
+          border: 2px solid #ffffff;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+      `}</style>
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         {/* Header */}
         <div className="text-center mb-8">
