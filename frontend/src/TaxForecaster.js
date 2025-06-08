@@ -58,8 +58,6 @@ function formatLargeNumber(amount) {
 }
 
 function TaxForecaster() {
-  const navigate = useNavigate();
-  
   // Check for playbook data on component mount
   const [playbookData, setPlaybookData] = useState(null);
   const [showPlaybookPrompt, setShowPlaybookPrompt] = useState(false);
