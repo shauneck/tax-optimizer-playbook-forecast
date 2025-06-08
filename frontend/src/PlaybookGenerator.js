@@ -79,6 +79,11 @@ const EDUCATIONAL_CONTENT = {
     glossary: ['S-Corp', 'Payroll Tax', 'Distributions'],
     caseStudy: '$500K Business Owner S-Corp Election'
   },
+  'Split operations into an MSO + operating entity': {
+    module: 'Business Module 3',
+    glossary: ['MSO', 'Management Service Organization', 'Multi-Entity'],
+    caseStudy: 'High-Income Business MSO Structure'
+  },
   'Asset Protection Trust': {
     module: 'Module 4: Advanced Planning',
     glossary: ['Irrevocable Trust', 'Asset Protection', 'Estate Planning'],
