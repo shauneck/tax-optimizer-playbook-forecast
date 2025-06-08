@@ -1032,17 +1032,17 @@ function PlaybookGenerator() {
                   <div className="space-y-8">
                     <div>
                       <label className="block text-lg font-bold text-gray-900 mb-3">
-                        Annual operating business profit ($)
+                        {getIncomeFieldConfig().label}
                       </label>
                       <input
                         type="number"
                         value={forecastingData.businessProfit}
                         onChange={(e) => handleForecastingChange('businessProfit', e.target.value)}
-                        placeholder="e.g., 500000"
+                        placeholder={getIncomeFieldConfig().placeholder}
                         min="0"
                         className="w-full p-4 text-lg border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                       />
-                      <p className="text-gray-500 mt-2">Enter your annual business profit before taxes</p>
+                      <p className="text-gray-500 mt-2">Enter your total income amount before any tax deductions</p>
                     </div>
                     
                     <div>
