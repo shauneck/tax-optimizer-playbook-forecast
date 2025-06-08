@@ -243,9 +243,8 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Analyze existing tools to understand what needs to be enhanced"
-    - "Compare PlaybookGenerator vs UnifiedTaxOptimizer functionality"
-    - "Determine if consolidation or enhancement is needed"
+    - "Dynamic Income Input Field"
+    - "Wealth Multiplier Loop Integration"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
