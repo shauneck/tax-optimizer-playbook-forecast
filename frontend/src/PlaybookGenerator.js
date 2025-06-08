@@ -1420,7 +1420,7 @@ function PlaybookGenerator() {
                     <h2 className="text-2xl font-bold text-gray-900 mb-8">📈 Lifetime Impact Forecast</h2>
                     
                     {/* Forecast Controls */}
-                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                    <div className="grid md:grid-cols-3 gap-8 mb-8">
                       <div>
                         <h3 className="text-lg font-bold text-gray-800 mb-4">Time Horizon</h3>
                         <div className="grid grid-cols-4 gap-2">
@@ -1478,6 +1478,32 @@ function PlaybookGenerator() {
                             <span>Just save the tax reduction</span>
                           </label>
                         </div>
+                      </div>
+
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-800 mb-4">Wealth Multiplier Loop</h3>
+                        <div className="space-y-2">
+                          <label className="flex items-center">
+                            <input
+                              type="checkbox"
+                              checked={forecastingData.enableWealthLoop}
+                              onChange={(e) => {
+                                handleForecastingChange('enableWealthLoop', e.target.checked);
+                                const newForecastData = calculateForecastData();
+                                setResults(prev => ({ ...prev, forecastData: newForecastData }));
+                              }}
+                              className="mr-3"
+                            />
+                            <span className="text-sm">Reinvest savings into passive income assets (6% annual compounding)?</span>
+                          </label>
+                        </div>
+                        {forecastingData.enableWealthLoop && (
+                          <div className="mt-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+                            <p className="text-xs text-purple-700">
+                              ✨ Enables passive income projections and wealth multiplication calculations
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
 
