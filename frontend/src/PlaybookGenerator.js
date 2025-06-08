@@ -435,7 +435,7 @@ function PlaybookGenerator() {
     let passiveIncomeProjections = [];
     
     if (forecastingData.reinvestSavings && forecastingData.enableWealthLoop) {
-      const annualReturn = 0.06;
+      const annualReturn = forecastingData.returnRate / 100; // Use adjustable return rate
       let cumulativeInvestment = 0;
       
       for (let year = 1; year <= forecastingData.forecastYears; year++) {
@@ -443,8 +443,8 @@ function PlaybookGenerator() {
         const yearEndValue = cumulativeInvestment * Math.pow(1 + annualReturn, year - 1);
         compoundedSavings = yearEndValue;
         
-        // Calculate passive income (6% of accumulated wealth)
-        const passiveIncome = yearEndValue * 0.06;
+        // Calculate passive income (using the adjustable return rate)
+        const passiveIncome = yearEndValue * annualReturn;
         
         if ([10, 15, 20].includes(year) && year <= forecastingData.forecastYears) {
           passiveIncomeProjections.push({
@@ -455,7 +455,7 @@ function PlaybookGenerator() {
         }
       }
     } else if (forecastingData.reinvestSavings) {
-      const annualReturn = 0.06;
+      const annualReturn = forecastingData.returnRate / 100; // Use adjustable return rate
       for (let year = 1; year <= forecastingData.forecastYears; year++) {
         compoundedSavings += annualTaxSavings * Math.pow(1 + annualReturn, forecastingData.forecastYears - year);
       }
