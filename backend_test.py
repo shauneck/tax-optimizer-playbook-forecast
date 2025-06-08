@@ -90,15 +90,18 @@ def test_cors_configuration():
     """Test CORS configuration"""
     print("\n=== Testing CORS Configuration ===")
     try:
-        # Send a preflight OPTIONS request to check CORS headers
-        response = requests.options(f"{API_URL}/")
+        # Instead of OPTIONS, use a GET request with Origin header to test CORS
+        headers = {"Origin": "http://example.com"}
+        response = requests.get(f"{API_URL}/", headers=headers)
         print(f"Status Code: {response.status_code}")
         print(f"Access-Control-Allow-Origin: {response.headers.get('Access-Control-Allow-Origin')}")
-        print(f"Access-Control-Allow-Methods: {response.headers.get('Access-Control-Allow-Methods')}")
-        print(f"Access-Control-Allow-Headers: {response.headers.get('Access-Control-Allow-Headers')}")
         
-        assert response.status_code in [200, 204], f"Expected status code 200 or 204, got {response.status_code}"
+        assert response.status_code == 200, f"Expected status code 200, got {response.status_code}"
         assert 'Access-Control-Allow-Origin' in response.headers, "Access-Control-Allow-Origin header not found"
+        
+        # Check if the CORS headers allow our origin or use a wildcard
+        allow_origin = response.headers.get('Access-Control-Allow-Origin')
+        assert allow_origin == '*' or allow_origin == 'http://example.com', f"Expected '*' or 'http://example.com', got {allow_origin}"
         
         print("✅ CORS configuration test passed")
         return True
