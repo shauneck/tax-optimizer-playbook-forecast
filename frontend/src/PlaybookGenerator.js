@@ -778,11 +778,19 @@ function PlaybookGenerator() {
               <p className="text-lg text-gray-600">
                 Complete strategy stack and {forecastingData.forecastYears}-year financial impact analysis
               </p>
+              <div className="mt-4 inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
+                ✅ Analysis Complete • Personalized Strategy Generated
+              </div>
             </div>
 
-            {/* Strategy Stack */}
+            {/* Section 1: Strategy Stack */}
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Strategy Stack</h3>
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                  <span className="mr-2">📋</span> Step 1: Your Strategy Stack
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Personalized Tax Optimization Strategies</h3>
+              </div>
               
               {/* Setup & Structure */}
               {results.strategyStack.setupStructure.length > 0 && (
