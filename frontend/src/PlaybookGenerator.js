@@ -984,18 +984,31 @@ function PlaybookGenerator() {
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="text-center space-y-4">
-              <button
-                onClick={resetTool}
-                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 mr-4"
-              >
-                Run New Analysis
-              </button>
-              <button className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold text-lg">
-                Start My Escape Plan
-              </button>
-              <div className="mt-4 text-sm text-gray-600">
+            {/* Section 3: Next Steps */}
+            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-lg p-8 text-center">
+              <div className="inline-flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <span className="mr-2">🚀</span> Step 3: Implementation
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Implement Your Strategy?</h3>
+              <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                You now have a personalized roadmap to optimize your taxes and create 
+                <span className="font-bold text-green-600"> {formatCurrency(results.forecastData.totalValue)}</span> 
+                in lifetime value. Let's make it happen.
+              </p>
+              
+              <div className="space-y-4">
+                <button
+                  onClick={resetTool}
+                  className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 mr-4"
+                >
+                  Run New Analysis
+                </button>
+                <button className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold text-lg">
+                  Start My Escape Plan
+                </button>
+              </div>
+              
+              <div className="mt-6 text-sm text-gray-600">
                 Ready to implement your personalized tax optimization strategy?
               </div>
             </div>
