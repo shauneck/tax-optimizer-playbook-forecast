@@ -94,12 +94,221 @@ function PlaybookGenerator() {
     setFormData({ ...formData, [field]: value });
   };
 
-  const handleMultiSelect = (field, value) => {
-    const current = formData[field];
-    const updated = current.includes(value) 
-      ? current.filter(item => item !== value)
-      : [...current, value];
-    setFormData({ ...formData, [field]: updated });
+  const handleForecastingChange = (field, value) => {
+    setForecastingData({ ...forecastingData, [field]: value });
+  };
+
+  const generateStrategyStack = (data, forecastData) => {
+    const setupStructure = [];
+    const deductionStrategies = [];
+    const exitPlanning = [];
+    
+    // Setup & Structure Strategies
+    if (data.entityStructure === 'None' || data.entityStructure === 'Not sure') {
+      setupStructure.push({
+        title: 'Business Entity Formation',
+        complexity: 'Medium',
+        module: 'Module 2: Entity Optimization',
+        description: 'Establish optimal business structure for tax efficiency'
+      });
+    }
+    
+    if (data.incomeType === 'business-owner' || data.incomeType === 'blended') {
+      setupStructure.push({
+        title: 'S-Corp Election Strategy',
+        complexity: 'Medium',
+        module: 'Module 2: Entity Optimization',
+        description: 'Optimize payroll vs distribution split for tax savings'
+      });
+    }
+
+    if (data.strategyGoals.includes('Asset protection')) {
+      setupStructure.push({
+        title: 'Asset Protection Trust',
+        complexity: 'High',
+        module: 'Module 4: Advanced Planning',
+        description: 'Protect wealth from legal and financial risks'
+      });
+    }
+    
+    // Deduction Strategies
+    if (data.incomeType === 'business-owner' || data.incomeType === 'blended') {
+      deductionStrategies.push({
+        title: 'Business Expense Maximization',
+        complexity: 'Low',
+        module: 'Module 1: Foundation',
+        description: 'Optimize all legitimate business deductions'
+      });
+      
+      deductionStrategies.push({
+        title: 'Defined Benefit Pension Plan',
+        complexity: 'High',
+        module: 'Module 3: Retirement Planning',
+        description: 'High-contribution retirement strategy for business owners'
+      });
+    }
+    
+    if (data.receivesStockComp) {
+      deductionStrategies.push({
+        title: 'Stock Compensation Optimization',
+        complexity: 'Medium',
+        module: 'Module 3: Investment Strategies',
+        description: 'Timing strategies for RSUs, options, and ESPP'
+      });
+    }
+
+    if (parseInt(forecastData.capitalAvailable) > 50000) {
+      deductionStrategies.push({
+        title: 'Real Estate Investment Strategies',
+        complexity: 'Medium',
+        module: 'Module 3: Investment Strategies',
+        description: 'Cost segregation and bonus depreciation benefits'
+      });
+    }
+
+    if (parseInt(forecastData.capitalAvailable) > 100000) {
+      deductionStrategies.push({
+        title: 'Energy Tax Credit Investments',
+        complexity: 'High',
+        module: 'Module 3: Investment Strategies',
+        description: 'Solar, oil & gas, and renewable energy credits'
+      });
+    }
+    
+    // Exit Planning
+    if (data.strategyGoals.includes('Exit planning')) {
+      exitPlanning.push({
+        title: 'Qualified Small Business Stock (QSBS)',
+        complexity: 'High',
+        module: 'Module 4: Advanced Planning',
+        description: 'Up to $10M in tax-free business sale proceeds'
+      });
+      
+      exitPlanning.push({
+        title: 'Installment Sale Strategy',
+        complexity: 'Medium',
+        module: 'Module 4: Advanced Planning',
+        description: 'Defer capital gains through structured payments'
+      });
+    }
+
+    if (data.strategyGoals.includes('Build long-term passive income')) {
+      exitPlanning.push({
+        title: 'Conservation Easement',
+        complexity: 'High',
+        module: 'Module 4: Advanced Planning',
+        description: 'Land conservation for significant tax deductions'
+      });
+    }
+    
+    return { setupStructure, deductionStrategies, exitPlanning };
+  };
+
+  const calculateEstimatedSavings = () => {
+    const income = INCOME_BRACKETS[formData.incomeRange]?.default || 350000;
+    const taxLiability = calculateFederalTax(income);
+    
+    let baseSavingsMin = 12;
+    let baseSavingsMax = 18;
+    
+    // Adjust based on income type
+    if (formData.incomeType === 'business-owner') {
+      baseSavingsMin += 8;
+      baseSavingsMax += 15;
+    } else if (formData.incomeType === 'blended') {
+      baseSavingsMin += 6;
+      baseSavingsMax += 12;
+    }
+    
+    // Adjust based on entity structure
+    if (formData.entityStructure === 'None' || formData.entityStructure === 'Not sure') {
+      baseSavingsMin += 4;
+      baseSavingsMax += 8;
+    }
+    
+    // Adjust based on forecasting inputs
+    const businessProfit = parseInt(forecastingData.businessProfit) || 0;
+    const capitalAvailable = parseInt(forecastingData.capitalAvailable) || 0;
+    const restructurePercent = parseInt(forecastingData.restructurePercent) || 0;
+    
+    if (businessProfit > 500000) {
+      baseSavingsMin += 3;
+      baseSavingsMax += 6;
+    }
+    
+    if (capitalAvailable > 100000) {
+      baseSavingsMin += 2;
+      baseSavingsMax += 5;
+    }
+    
+    if (restructurePercent > 50) {
+      baseSavingsMin += 3;
+      baseSavingsMax += 7;
+    }
+    
+    // Cap at reasonable maximums
+    baseSavingsMin = Math.min(baseSavingsMin, 35);
+    baseSavingsMax = Math.min(baseSavingsMax, 45);
+    
+    const savingsMinDollar = taxLiability * (baseSavingsMin / 100);
+    const savingsMaxDollar = taxLiability * (baseSavingsMax / 100);
+    
+    return {
+      percent: { min: baseSavingsMin, max: baseSavingsMax },
+      dollar: { min: savingsMinDollar, max: savingsMaxDollar }
+    };
+  };
+
+  const calculateForecastData = () => {
+    const income = INCOME_BRACKETS[formData.incomeRange]?.default || 350000;
+    const taxLiability = calculateFederalTax(income);
+    const savings = calculateEstimatedSavings();
+    const avgSavingsPercent = (savings.percent.min + savings.percent.max) / 2;
+    
+    const annualTaxSavings = taxLiability * (avgSavingsPercent / 100);
+    const totalTaxWithoutStrategy = taxLiability * forecastingData.forecastYears;
+    const totalTaxSavings = annualTaxSavings * forecastingData.forecastYears;
+    
+    let compoundedSavings = 0;
+    if (forecastingData.reinvestSavings) {
+      const annualReturn = 0.06;
+      for (let year = 1; year <= forecastingData.forecastYears; year++) {
+        compoundedSavings += annualTaxSavings * Math.pow(1 + annualReturn, forecastingData.forecastYears - year);
+      }
+    }
+    
+    const totalValue = forecastingData.reinvestSavings ? compoundedSavings : totalTaxSavings;
+    
+    // Create chart data
+    const chartData = [];
+    for (let year = 1; year <= Math.min(forecastingData.forecastYears, 20); year += Math.max(1, Math.floor(forecastingData.forecastYears / 8))) {
+      const cumulativeTaxPaid = taxLiability * year;
+      let cumulativeValue = annualTaxSavings * year;
+      
+      if (forecastingData.reinvestSavings) {
+        cumulativeValue = 0;
+        for (let y = 1; y <= year; y++) {
+          cumulativeValue += annualTaxSavings * Math.pow(1.06, year - y);
+        }
+      }
+      
+      chartData.push({
+        year: `Year ${year}`,
+        doNothing: cumulativeTaxPaid,
+        implementStrategy: cumulativeValue
+      });
+    }
+    
+    return {
+      income,
+      taxLiability,
+      annualTaxSavings,
+      totalTaxWithoutStrategy,
+      totalTaxSavings,
+      compoundedSavings,
+      totalValue,
+      chartData
+    };
   };
 
   const nextStep = () => {
