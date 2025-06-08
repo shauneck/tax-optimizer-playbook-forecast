@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import html2pdf from 'html2pdf.js';
 
-// Enhanced Tooltip component for assumptions
+// Enhanced Tooltip component for assumptions - Fixed hover flicker
 const AssumptionsTooltip = ({ children }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isClickMode, setIsClickMode] = useState(false);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -21,25 +22,42 @@ const AssumptionsTooltip = ({ children }) => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isVisible && !event.target.closest('.assumptions-tooltip')) {
+      if (isVisible && isClickMode && !event.target.closest('.assumptions-tooltip')) {
         setIsVisible(false);
+        setIsClickMode(false);
       }
     };
 
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
-  }, [isVisible]);
+  }, [isVisible, isClickMode]);
 
-  const handleInteraction = () => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    setIsClickMode(true);
     setIsVisible(!isVisible);
   };
 
+  const handleMouseEnter = () => {
+    if (!isMobile && !isClickMode) {
+      setIsVisible(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile && !isClickMode) {
+      setIsVisible(false);
+    }
+  };
+
   return (
-    <div className="relative inline-block assumptions-tooltip">
+    <div 
+      className="relative inline-block assumptions-tooltip group"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <button
-        onMouseEnter={!isMobile ? () => setIsVisible(true) : undefined}
-        onMouseLeave={!isMobile ? () => setIsVisible(false) : undefined}
-        onClick={handleInteraction}
+        onClick={handleClick}
         className="inline-flex items-center justify-center w-6 h-6 ml-2 text-xl text-emerald-500 hover:opacity-80 transition-opacity duration-150 rounded-full hover:bg-emerald-50"
         aria-label="Show assumptions"
       >
@@ -66,10 +84,13 @@ const AssumptionsTooltip = ({ children }) => {
               <div className="absolute top-4 right-4 transform rotate-45 w-2 h-2 bg-white border-l border-b border-gray-200"></div>
             )}
             
-            {/* Close button for mobile */}
-            {isMobile && (
+            {/* Close button for mobile or click mode */}
+            {(isMobile || isClickMode) && (
               <button
-                onClick={() => setIsVisible(false)}
+                onClick={() => {
+                  setIsVisible(false);
+                  setIsClickMode(false);
+                }}
                 className="absolute top-2 right-2 w-6 h-6 text-gray-400 hover:text-gray-600"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
