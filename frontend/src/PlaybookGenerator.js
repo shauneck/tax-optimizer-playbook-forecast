@@ -331,7 +331,10 @@ function PlaybookGenerator() {
   };
 
   const prevStep = () => {
-    if (currentStep > 1) {
+    // Handle reverse navigation with conditional step
+    if (currentStep === 6 && formData.incomeType === 'business-owner') {
+      setCurrentStep(4); // Skip step 5 in reverse
+    } else if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
