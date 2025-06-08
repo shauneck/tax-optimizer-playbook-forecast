@@ -1577,10 +1577,43 @@ function PlaybookGenerator() {
                             <Legend />
                             <Bar dataKey="doNothing" fill="#ef4444" name="Cumulative Tax Paid (Do Nothing)" />
                             <Bar dataKey="implementStrategy" fill="#22c55e" name="Value Created (Implement Strategy)" />
+                            {forecastingData.enableWealthLoop && (
+                              <Bar dataKey="passiveIncome" fill="#8b5cf6" name="Annual Passive Income Generated" />
+                            )}
                           </BarChart>
                         </ResponsiveContainer>
                       </div>
                     </div>
+
+                    {/* Passive Income Projections */}
+                    {forecastingData.enableWealthLoop && results.forecastData.passiveIncomeProjections && results.forecastData.passiveIncomeProjections.length > 0 && (
+                      <div className="mb-8 bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-6 border-2 border-purple-200">
+                        <h4 className="text-xl font-bold mb-6 text-center text-purple-900">🏦 Passive Income Projections</h4>
+                        <div className="grid md:grid-cols-3 gap-6">
+                          {results.forecastData.passiveIncomeProjections.map((projection) => (
+                            <div key={projection.year} className="text-center bg-white rounded-lg p-4 border border-purple-300">
+                              <div className="text-2xl font-bold text-purple-600 mb-2">Year {projection.year}</div>
+                              <div className="text-lg font-bold text-gray-900 mb-1">
+                                {formatCurrency(projection.passiveIncome)} / year
+                              </div>
+                              <div className="text-sm text-gray-600">
+                                Total Wealth: {formatCurrency(projection.totalWealth)}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="text-center mt-6">
+                          <p className="text-lg font-bold text-purple-900">
+                            By implementing your strategy and reinvesting your savings, you could generate{' '}
+                            <span className="text-2xl">
+                              {results.forecastData.passiveIncomeProjections.length > 0 && 
+                               formatCurrency(results.forecastData.passiveIncomeProjections[results.forecastData.passiveIncomeProjections.length - 1].passiveIncome)}
+                            </span>{' '}
+                            in passive income by year {forecastingData.forecastYears}.
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
 
