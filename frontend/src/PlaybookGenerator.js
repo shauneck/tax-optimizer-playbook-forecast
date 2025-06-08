@@ -664,6 +664,7 @@ function PlaybookGenerator() {
         };
     }
   };
+  const generateQuarterlyReview = () => {
     const progress = getStrategyProgress();
     const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
     const notStartedStrategies = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.NOT_STARTED);
