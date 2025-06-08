@@ -1,5 +1,61 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+
+// 2025 Federal Tax Brackets for calculation
+const TAX_BRACKETS = {
+  single: [
+    { min: 0, max: 11600, rate: 0.10 },
+    { min: 11600, max: 47150, rate: 0.12 },
+    { min: 47150, max: 100525, rate: 0.22 },
+    { min: 100525, max: 191950, rate: 0.24 },
+    { min: 191950, max: 243725, rate: 0.32 },
+    { min: 243725, max: 609350, rate: 0.35 },
+    { min: 609350, max: Infinity, rate: 0.37 }
+  ]
+};
+
+// Income mappings for tax calculations
+const INCOME_BRACKETS = {
+  '<$200K': { default: 150000 },
+  '$200K–$500K': { default: 350000 },
+  '$500K–$1M': { default: 750000 },
+  '$1M–$5M': { default: 2500000 },
+  '$5M+': { default: 7500000 }
+};
+
+function calculateFederalTax(income) {
+  let tax = 0;
+  let remainingIncome = income;
+  
+  for (const bracket of TAX_BRACKETS.single) {
+    if (remainingIncome <= 0) break;
+    
+    const taxableInThisBracket = Math.min(remainingIncome, bracket.max - bracket.min);
+    tax += taxableInThisBracket * bracket.rate;
+    remainingIncome -= taxableInThisBracket;
+  }
+  
+  return tax;
+}
+
+function formatCurrency(amount) {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+function formatLargeNumber(amount) {
+  if (amount >= 1000000) {
+    return `$${(amount / 1000000).toFixed(1)}M`;
+  } else if (amount >= 1000) {
+    return `$${(amount / 1000).toFixed(0)}K`;
+  }
+  return formatCurrency(amount);
+}
 
 function PlaybookGenerator() {
   const navigate = useNavigate();
