@@ -648,9 +648,11 @@ function PlaybookGenerator() {
                         type="number"
                         value={forecastingData.businessProfit}
                         onChange={(e) => handleForecastingChange('businessProfit', e.target.value)}
-                        placeholder="Enter annual business profit"
+                        placeholder="e.g., 500000"
+                        min="0"
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                       />
+                      <p className="text-xs text-gray-500 mt-1">Enter your annual business profit before taxes</p>
                     </div>
                     
                     <div>
@@ -661,24 +663,30 @@ function PlaybookGenerator() {
                         type="number"
                         value={forecastingData.capitalAvailable}
                         onChange={(e) => handleForecastingChange('capitalAvailable', e.target.value)}
-                        placeholder="Enter available capital"
+                        placeholder="e.g., 250000"
+                        min="0"
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                       />
+                      <p className="text-xs text-gray-500 mt-1">Capital you could invest in real estate, energy credits, etc.</p>
                     </div>
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         What % of income could be restructured or offset?
                       </label>
-                      <input
-                        type="number"
-                        value={forecastingData.restructurePercent}
-                        onChange={(e) => handleForecastingChange('restructurePercent', e.target.value)}
-                        placeholder="Enter percentage (e.g., 30)"
-                        min="0"
-                        max="100"
-                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                      />
+                      <div className="relative">
+                        <input
+                          type="number"
+                          value={forecastingData.restructurePercent}
+                          onChange={(e) => handleForecastingChange('restructurePercent', e.target.value)}
+                          placeholder="e.g., 30"
+                          min="0"
+                          max="100"
+                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 pr-8"
+                        />
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">%</span>
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">Percentage of income that could be optimized through strategies</p>
                     </div>
                   </div>
                 </div>
