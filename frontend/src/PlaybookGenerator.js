@@ -979,8 +979,8 @@ function PlaybookGenerator() {
               >
                 Run New Analysis
               </button>
-              <button className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-lg">
-                Start My IRS Escape Plan
+              <button className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold text-lg">
+                Start My Escape Plan
               </button>
               <div className="mt-4 text-sm text-gray-600">
                 Ready to implement your personalized tax optimization strategy?
