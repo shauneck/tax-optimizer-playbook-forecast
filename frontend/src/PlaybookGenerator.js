@@ -3,6 +3,40 @@ import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import html2pdf from 'html2pdf.js';
 
+// Tooltip component for assumptions
+const AssumptionsTooltip = ({ children }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <div className="relative inline-block">
+      <button
+        onMouseEnter={() => setIsVisible(true)}
+        onMouseLeave={() => setIsVisible(false)}
+        onClick={() => setIsVisible(!isVisible)}
+        className="inline-flex items-center justify-center w-5 h-5 ml-2 text-gray-400 hover:text-gray-600 bg-gray-100 rounded-full transition-colors"
+        aria-label="Show assumptions"
+      >
+        <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+        </svg>
+      </button>
+      
+      {isVisible && (
+        <div className="absolute z-10 w-80 p-4 mt-2 bg-white border border-gray-200 rounded-md shadow-lg -left-32">
+          <div className="text-sm font-semibold text-gray-900 mb-2">Wealth Multiplier Assumptions</div>
+          <div className="text-sm text-gray-600 space-y-1">
+            <div>• Your annual tax savings remain consistent over the forecast period</div>
+            <div>• 100% of tax savings are reinvested each year</div>
+            <div>• Savings compound at your selected annual return rate</div>
+            <div>• Reinvested income is offset by depreciation (e.g., from real estate) to remain tax efficient</div>
+            <div>• Your full strategy stack is implemented beginning in Year 1</div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
 // 2025 Federal Tax Brackets for calculation
 const TAX_BRACKETS = {
   single: [
