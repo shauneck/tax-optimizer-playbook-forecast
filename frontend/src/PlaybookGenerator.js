@@ -431,7 +431,29 @@ function PlaybookGenerator() {
     const totalTaxSavings = annualTaxSavings * forecastingData.forecastYears;
     
     let compoundedSavings = 0;
-    if (forecastingData.reinvestSavings) {
+    let passiveIncomeProjections = [];
+    
+    if (forecastingData.reinvestSavings && forecastingData.enableWealthLoop) {
+      const annualReturn = 0.06;
+      let cumulativeInvestment = 0;
+      
+      for (let year = 1; year <= forecastingData.forecastYears; year++) {
+        cumulativeInvestment += annualTaxSavings;
+        const yearEndValue = cumulativeInvestment * Math.pow(1 + annualReturn, year);
+        compoundedSavings = yearEndValue;
+        
+        // Calculate passive income (6% of accumulated wealth)
+        const passiveIncome = yearEndValue * 0.06;
+        
+        if (year === 10 || year === 15 || year === 20) {
+          passiveIncomeProjections.push({
+            year,
+            passiveIncome,
+            totalWealth: yearEndValue
+          });
+        }
+      }
+    } else if (forecastingData.reinvestSavings) {
       const annualReturn = 0.06;
       for (let year = 1; year <= forecastingData.forecastYears; year++) {
         compoundedSavings += annualTaxSavings * Math.pow(1 + annualReturn, forecastingData.forecastYears - year);
@@ -445,18 +467,25 @@ function PlaybookGenerator() {
     for (let year = 1; year <= Math.min(forecastingData.forecastYears, 20); year += Math.max(1, Math.floor(forecastingData.forecastYears / 8))) {
       const cumulativeTaxPaid = taxLiability * year;
       let cumulativeValue = annualTaxSavings * year;
+      let cumulativePassiveIncome = 0;
       
       if (forecastingData.reinvestSavings) {
         cumulativeValue = 0;
         for (let y = 1; y <= year; y++) {
           cumulativeValue += annualTaxSavings * Math.pow(1.06, year - y);
         }
+        
+        // Calculate cumulative passive income generated
+        if (forecastingData.enableWealthLoop) {
+          cumulativePassiveIncome = cumulativeValue * 0.06;
+        }
       }
       
       chartData.push({
         year: `Year ${year}`,
         doNothing: cumulativeTaxPaid,
-        implementStrategy: cumulativeValue
+        implementStrategy: cumulativeValue,
+        passiveIncome: cumulativePassiveIncome
       });
     }
     
@@ -468,7 +497,8 @@ function PlaybookGenerator() {
       totalTaxSavings,
       compoundedSavings,
       totalValue,
-      chartData
+      chartData,
+      passiveIncomeProjections
     };
   };
 
