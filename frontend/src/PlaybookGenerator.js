@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
+import html2pdf from 'html2pdf.js';
 
 // 2025 Federal Tax Brackets for calculation
 const TAX_BRACKETS = {
@@ -22,6 +23,73 @@ const INCOME_BRACKETS = {
   '$500K–$1M': { default: 750000 },
   '$1M–$5M': { default: 2500000 },
   '$5M+': { default: 7500000 }
+};
+
+// Strategy implementation status options
+const STRATEGY_STATUS = {
+  NOT_STARTED: 'not_started',
+  IN_PROGRESS: 'in_progress',
+  IMPLEMENTED: 'implemented',
+  NOT_APPLICABLE: 'not_applicable'
+};
+
+// Educational content mapping
+const EDUCATIONAL_CONTENT = {
+  'Business Entity Formation': {
+    module: 'Module 2: Entity Optimization',
+    glossary: ['LLC', 'S-Corp', 'Tax Election'],
+    caseStudy: 'Small Business Structure Case Study'
+  },
+  'S-Corp Election Strategy': {
+    module: 'Module 2: Entity Optimization',
+    glossary: ['S-Corp', 'Payroll Tax', 'Distributions'],
+    caseStudy: '$500K Business Owner S-Corp Election'
+  },
+  'Asset Protection Trust': {
+    module: 'Module 4: Advanced Planning',
+    glossary: ['Irrevocable Trust', 'Asset Protection', 'Estate Planning'],
+    caseStudy: 'High Net Worth Asset Protection Plan'
+  },
+  'Business Expense Maximization': {
+    module: 'Module 1: Foundation',
+    glossary: ['Business Deductions', 'Ordinary & Necessary'],
+    caseStudy: 'Entrepreneur Expense Optimization'
+  },
+  'Defined Benefit Pension Plan': {
+    module: 'Module 3: Retirement Planning',
+    glossary: ['DB Plan', 'Contribution Limits', 'Actuarial'],
+    caseStudy: 'Professional Practice DB Plan'
+  },
+  'Stock Compensation Optimization': {
+    module: 'Module 3: Investment Strategies',
+    glossary: ['RSU', 'ISO', 'ESPP', '83(b) Election'],
+    caseStudy: 'Tech Executive Stock Comp Strategy'
+  },
+  'Real Estate Investment Strategies': {
+    module: 'Module 3: Investment Strategies',
+    glossary: ['Cost Segregation', 'Bonus Depreciation', 'Section 199A'],
+    caseStudy: 'Real Estate Investor Tax Strategy'
+  },
+  'Energy Tax Credit Investments': {
+    module: 'Module 3: Investment Strategies',
+    glossary: ['ITC', 'PTC', 'Energy Credits', 'Syndications'],
+    caseStudy: 'Solar Investment Tax Strategy'
+  },
+  'Qualified Small Business Stock (QSBS)': {
+    module: 'Module 4: Advanced Planning',
+    glossary: ['QSBS', 'Section 1202', 'Qualified Business'],
+    caseStudy: 'Startup Exit Planning with QSBS'
+  },
+  'Installment Sale Strategy': {
+    module: 'Module 4: Advanced Planning',
+    glossary: ['Installment Sale', 'Capital Gains Deferral'],
+    caseStudy: 'Business Sale Installment Strategy'
+  },
+  'Conservation Easement': {
+    module: 'Module 4: Advanced Planning',
+    glossary: ['Conservation Easement', 'Charitable Deduction'],
+    caseStudy: 'Land Conservation Tax Benefits'
+  }
 };
 
 function calculateFederalTax(income) {
@@ -84,10 +152,41 @@ function PlaybookGenerator() {
     },
     estimatedSavingsPercent: { min: 0, max: 0 },
     estimatedSavingsDollar: { min: 0, max: 0 },
-    forecastData: null
+    forecastData: null,
+    lastUpdated: null
   });
 
+  // New dashboard state
+  const [strategyStatuses, setStrategyStatuses] = useState({});
+  const [dashboardMode, setDashboardMode] = useState('input'); // 'input', 'results', 'dashboard'
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showQuarterlyReview, setShowQuarterlyReview] = useState(false);
+
+  // Load saved data from localStorage on component mount
+  useEffect(() => {
+    const savedData = localStorage.getItem('taxOptimizationData');
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      setFormData(parsed.formData || formData);
+      setForecastingData(parsed.forecastingData || forecastingData);
+      setResults(parsed.results || results);
+      setStrategyStatuses(parsed.strategyStatuses || {});
+      if (parsed.results && parsed.results.strategyStack) {
+        setDashboardMode('dashboard');
+      }
+    }
+  }, []);
+
+  // Save data to localStorage whenever state changes
+  useEffect(() => {
+    const dataToSave = {
+      formData,
+      forecastingData,
+      results,
+      strategyStatuses
+    };
+    localStorage.setItem('taxOptimizationData', JSON.stringify(dataToSave));
+  }, [formData, forecastingData, results, strategyStatuses]);
 
   const handleInputChange = (field, value) => {
     setFormData({ ...formData, [field]: value });
@@ -113,6 +212,7 @@ function PlaybookGenerator() {
     // Setup & Structure Strategies
     if (data.entityStructure === 'None' || data.entityStructure === 'Not sure') {
       setupStructure.push({
+        id: 'entity-formation',
         title: 'Business Entity Formation',
         complexity: 'Medium',
         module: 'Module 2: Entity Optimization',
@@ -122,6 +222,7 @@ function PlaybookGenerator() {
     
     if (data.incomeType === 'business-owner' || data.incomeType === 'blended') {
       setupStructure.push({
+        id: 's-corp-election',
         title: 'S-Corp Election Strategy',
         complexity: 'Medium',
         module: 'Module 2: Entity Optimization',
@@ -131,6 +232,7 @@ function PlaybookGenerator() {
 
     if (data.strategyGoals.includes('Asset protection')) {
       setupStructure.push({
+        id: 'asset-protection-trust',
         title: 'Asset Protection Trust',
         complexity: 'High',
         module: 'Module 4: Advanced Planning',
@@ -141,6 +243,7 @@ function PlaybookGenerator() {
     // Deduction Strategies
     if (data.incomeType === 'business-owner' || data.incomeType === 'blended') {
       deductionStrategies.push({
+        id: 'business-expense-max',
         title: 'Business Expense Maximization',
         complexity: 'Low',
         module: 'Module 1: Foundation',
@@ -148,6 +251,7 @@ function PlaybookGenerator() {
       });
       
       deductionStrategies.push({
+        id: 'defined-benefit-plan',
         title: 'Defined Benefit Pension Plan',
         complexity: 'High',
         module: 'Module 3: Retirement Planning',
@@ -157,6 +261,7 @@ function PlaybookGenerator() {
     
     if (data.receivesStockComp) {
       deductionStrategies.push({
+        id: 'stock-comp-optimization',
         title: 'Stock Compensation Optimization',
         complexity: 'Medium',
         module: 'Module 3: Investment Strategies',
@@ -167,6 +272,7 @@ function PlaybookGenerator() {
     const capitalAvailable = parseInt(forecastData.capitalAvailable) || 0;
     if (capitalAvailable > 50000) {
       deductionStrategies.push({
+        id: 'real-estate-strategies',
         title: 'Real Estate Investment Strategies',
         complexity: 'Medium',
         module: 'Module 3: Investment Strategies',
@@ -176,6 +282,7 @@ function PlaybookGenerator() {
 
     if (capitalAvailable > 100000) {
       deductionStrategies.push({
+        id: 'energy-tax-credits',
         title: 'Energy Tax Credit Investments',
         complexity: 'High',
         module: 'Module 3: Investment Strategies',
@@ -186,6 +293,7 @@ function PlaybookGenerator() {
     // Exit Planning
     if (data.strategyGoals.includes('Exit planning')) {
       exitPlanning.push({
+        id: 'qsbs-strategy',
         title: 'Qualified Small Business Stock (QSBS)',
         complexity: 'High',
         module: 'Module 4: Advanced Planning',
@@ -193,6 +301,7 @@ function PlaybookGenerator() {
       });
       
       exitPlanning.push({
+        id: 'installment-sale',
         title: 'Installment Sale Strategy',
         complexity: 'Medium',
         module: 'Module 4: Advanced Planning',
@@ -202,6 +311,7 @@ function PlaybookGenerator() {
 
     if (data.strategyGoals.includes('Build long-term passive income')) {
       exitPlanning.push({
+        id: 'conservation-easement',
         title: 'Conservation Easement',
         complexity: 'High',
         module: 'Module 4: Advanced Planning',
@@ -330,15 +440,25 @@ function PlaybookGenerator() {
     const estimatedSavings = calculateEstimatedSavings();
     const forecastData = calculateForecastData();
     
-    setResults({
+    const newResults = {
       strategyStack,
       estimatedSavingsPercent: estimatedSavings.percent,
       estimatedSavingsDollar: estimatedSavings.dollar,
-      forecastData
+      forecastData,
+      lastUpdated: new Date().toISOString()
+    };
+    
+    setResults(newResults);
+    
+    // Initialize strategy statuses
+    const newStatuses = {};
+    [...strategyStack.setupStructure, ...strategyStack.deductionStrategies, ...strategyStack.exitPlanning].forEach(strategy => {
+      newStatuses[strategy.id] = STRATEGY_STATUS.NOT_STARTED;
     });
+    setStrategyStatuses(newStatuses);
     
     setIsGenerating(false);
-    setCurrentStep(8); // Jump to results
+    setDashboardMode('dashboard');
   };
 
   const nextStep = () => {
@@ -403,8 +523,125 @@ function PlaybookGenerator() {
       },
       estimatedSavingsPercent: { min: 0, max: 0 },
       estimatedSavingsDollar: { min: 0, max: 0 },
-      forecastData: null
+      forecastData: null,
+      lastUpdated: null
     });
+    setStrategyStatuses({});
+    setDashboardMode('input');
+  };
+
+  const recalculatePlaybook = () => {
+    setCurrentStep(1);
+    setDashboardMode('input');
+  };
+
+  const updateStrategyStatus = (strategyId, status) => {
+    setStrategyStatuses(prev => ({
+      ...prev,
+      [strategyId]: status
+    }));
+  };
+
+  const getStrategyProgress = () => {
+    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+    const implementedCount = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.IMPLEMENTED).length;
+    return {
+      implemented: implementedCount,
+      total: allStrategies.length,
+      percentage: allStrategies.length > 0 ? Math.round((implementedCount / allStrategies.length) * 100) : 0
+    };
+  };
+
+  const generateQuarterlyReview = () => {
+    const progress = getStrategyProgress();
+    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+    const notStartedStrategies = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.NOT_STARTED);
+    
+    // Calculate potential missed savings from unimplemented strategies
+    const estimatedAnnualSavings = results.estimatedSavingsDollar.min + (results.estimatedSavingsDollar.max - results.estimatedSavingsDollar.min) / 2;
+    const missedSavingsPerStrategy = estimatedAnnualSavings / allStrategies.length;
+    
+    return {
+      progress,
+      notStartedStrategies: notStartedStrategies.slice(0, 3), // Top 3 priority items
+      estimatedMissedSavings: missedSavingsPerStrategy * notStartedStrategies.length,
+      recommendations: [
+        "Consider implementing entity restructure for immediate tax savings",
+        "Review business expense deductions for Q4 optimization",
+        "Schedule consultation for high-impact strategies"
+      ]
+    };
+  };
+
+  const exportToPDF = () => {
+    const element = document.getElementById('playbook-content');
+    const opt = {
+      margin: 1,
+      filename: 'tax-optimization-playbook.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    
+    html2pdf().set(opt).from(element).save();
+  };
+
+  const renderStrategyCard = (strategy, category) => {
+    const status = strategyStatuses[strategy.id] || STRATEGY_STATUS.NOT_STARTED;
+    const content = EDUCATIONAL_CONTENT[strategy.title] || {};
+    
+    return (
+      <div key={strategy.id} className="border border-gray-200 rounded-lg p-4 bg-white">
+        <div className="flex justify-between items-start mb-2">
+          <h5 className="font-semibold text-gray-900">{strategy.title}</h5>
+          <span className={`px-2 py-1 rounded text-xs font-medium ${
+            strategy.complexity === 'Low' ? 'bg-green-100 text-green-800' :
+            strategy.complexity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
+            'bg-red-100 text-red-800'
+          }`}>
+            {strategy.complexity}
+          </span>
+        </div>
+        
+        <p className="text-sm text-gray-600 mb-3">{strategy.description}</p>
+        
+        {/* Educational Content Links */}
+        <div className="flex flex-wrap gap-2 mb-3">
+          {content.module && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800">
+              📚 {content.module}
+            </span>
+          )}
+          {content.glossary && content.glossary.length > 0 && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800">
+              📖 {content.glossary.join(', ')}
+            </span>
+          )}
+          {content.caseStudy && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+              💼 {content.caseStudy}
+            </span>
+          )}
+        </div>
+        
+        {/* Strategy Status Selector */}
+        {dashboardMode === 'dashboard' && (
+          <div className="border-t pt-3">
+            <label className="block text-xs font-medium text-gray-700 mb-2">Implementation Status</label>
+            <select
+              value={status}
+              onChange={(e) => updateStrategyStatus(strategy.id, e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-blue-500"
+            >
+              <option value={STRATEGY_STATUS.NOT_STARTED}>❌ Not Started</option>
+              <option value={STRATEGY_STATUS.IN_PROGRESS}>⏳ In Progress</option>
+              <option value={STRATEGY_STATUS.IMPLEMENTED}>✅ Implemented</option>
+              <option value={STRATEGY_STATUS.NOT_APPLICABLE}>🚫 Not Applicable</option>
+            </select>
+          </div>
+        )}
+      </div>
+    );
   };
 
   if (isGenerating) {
@@ -446,17 +683,20 @@ function PlaybookGenerator() {
             ← Back to Platform
           </Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            AI Tax Optimization Tool
+            {dashboardMode === 'dashboard' ? 'Tax Optimization Dashboard' : 'AI Tax Optimization Tool'}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Get personalized tax strategies and see your lifetime financial impact in one comprehensive analysis.
+            {dashboardMode === 'dashboard' 
+              ? 'Manage your personalized tax strategies and track implementation progress.'
+              : 'Get personalized tax strategies and see your lifetime financial impact in one comprehensive analysis.'
+            }
           </p>
           <div className="mt-4 inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium">
-            Enhanced • Strategy Generation + Lifetime Forecasting
+            {dashboardMode === 'dashboard' ? '📊 Dashboard Mode' : '🔧 Enhanced • Strategy Generation + Lifetime Forecasting'}
           </div>
         </div>
 
-        {currentStep < 8 ? (
+        {dashboardMode === 'input' ? (
           /* Form Steps */
           <div className="max-w-2xl mx-auto">
             {/* Progress Bar */}
@@ -779,23 +1019,111 @@ function PlaybookGenerator() {
             </div>
           </div>
         ) : (
-          /* Results Display */
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Your Personalized Tax Optimization Results</h2>
-              <p className="text-lg text-gray-600">
-                Complete strategy stack and {forecastingData.forecastYears}-year financial impact analysis
-              </p>
-              <div className="mt-4 inline-block bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium">
-                ✅ Analysis Complete • Personalized Strategy Generated
+          /* Dashboard Mode */
+          <div className="max-w-7xl mx-auto" id="playbook-content">
+            {/* Dashboard Header */}
+            <div className="bg-white rounded-lg shadow-lg p-6 mb-8">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 mb-2">Your Tax Optimization Dashboard</h2>
+                  {results.lastUpdated && (
+                    <p className="text-sm text-gray-600">
+                      Last updated: {new Date(results.lastUpdated).toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                      })}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-wrap gap-3 mt-4 md:mt-0">
+                  <button
+                    onClick={recalculatePlaybook}
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+                  >
+                    🔄 Recalculate My Playbook
+                  </button>
+                  <button
+                    onClick={() => setShowQuarterlyReview(!showQuarterlyReview)}
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
+                  >
+                    📋 Quarterly Review
+                  </button>
+                  <button
+                    onClick={exportToPDF}
+                    className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+                  >
+                    📄 Download PDF Report
+                  </button>
+                </div>
               </div>
+              
+              {/* Progress Overview */}
+              {(() => {
+                const progress = getStrategyProgress();
+                return (
+                  <div className="mt-6 bg-gray-50 rounded-lg p-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-gray-700">Implementation Progress</span>
+                      <span className="text-sm text-gray-600">{progress.implemented} of {progress.total} strategies implemented</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div 
+                        className="bg-green-600 h-3 rounded-full transition-all duration-300"
+                        style={{ width: `${progress.percentage}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-1">{progress.percentage}% complete</p>
+                  </div>
+                );
+              })()}
             </div>
 
-            {/* Section 1: Strategy Stack */}
+            {/* Quarterly Review Panel */}
+            {showQuarterlyReview && (() => {
+              const review = generateQuarterlyReview();
+              return (
+                <div className="bg-gradient-to-r from-orange-50 to-red-50 border-l-4 border-orange-500 rounded-lg p-6 mb-8">
+                  <h3 className="text-xl font-bold text-orange-900 mb-4">🔍 Quarterly Tax Strategy Check-In</h3>
+                  
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-orange-800 mb-3">Priority Action Items</h4>
+                      <ul className="space-y-2">
+                        {review.notStartedStrategies.map(strategy => (
+                          <li key={strategy.id} className="text-sm text-orange-700">
+                            • {strategy.title} - {strategy.complexity} complexity
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <h4 className="font-semibold text-orange-800 mb-3">Potential Impact</h4>
+                      <p className="text-sm text-orange-700">
+                        Unimplemented strategies could be costing you approximately{' '}
+                        <span className="font-bold">{formatCurrency(review.estimatedMissedSavings)}</span> per year in missed tax savings.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 pt-4 border-t border-orange-200">
+                    <h4 className="font-semibold text-orange-800 mb-2">Recommended Next Steps</h4>
+                    <ul className="text-sm text-orange-700 space-y-1">
+                      {review.recommendations.map((rec, index) => (
+                        <li key={index}>• {rec}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Section 1: Strategy Stack with Tracking */}
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
               <div className="text-center mb-6">
                 <div className="inline-flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                  <span className="mr-2">📋</span> Step 1: Your Strategy Stack
+                  <span className="mr-2">📋</span> Your Strategy Stack
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">Personalized Tax Optimization Strategies</h3>
               </div>
@@ -805,22 +1133,9 @@ function PlaybookGenerator() {
                 <div className="mb-8">
                   <h4 className="text-lg font-bold text-gray-800 mb-4">Setup & Structure</h4>
                   <div className="grid md:grid-cols-2 gap-4">
-                    {results.strategyStack.setupStructure.map((strategy, index) => (
-                      <div key={index} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <h5 className="font-semibold text-gray-900">{strategy.title}</h5>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
-                            strategy.complexity === 'Low' ? 'bg-green-100 text-green-800' :
-                            strategy.complexity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {strategy.complexity}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">{strategy.description}</p>
-                        <p className="text-xs text-blue-600">{strategy.module}</p>
-                      </div>
-                    ))}
+                    {results.strategyStack.setupStructure.map((strategy) => 
+                      renderStrategyCard(strategy, 'setupStructure')
+                    )}
                   </div>
                 </div>
               )}
@@ -830,22 +1145,9 @@ function PlaybookGenerator() {
                 <div className="mb-8">
                   <h4 className="text-lg font-bold text-gray-800 mb-4">Deduction Strategies</h4>
                   <div className="grid md:grid-cols-2 gap-4">
-                    {results.strategyStack.deductionStrategies.map((strategy, index) => (
-                      <div key={index} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <h5 className="font-semibold text-gray-900">{strategy.title}</h5>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
-                            strategy.complexity === 'Low' ? 'bg-green-100 text-green-800' :
-                            strategy.complexity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {strategy.complexity}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">{strategy.description}</p>
-                        <p className="text-xs text-blue-600">{strategy.module}</p>
-                      </div>
-                    ))}
+                    {results.strategyStack.deductionStrategies.map((strategy) => 
+                      renderStrategyCard(strategy, 'deductionStrategies')
+                    )}
                   </div>
                 </div>
               )}
@@ -855,22 +1157,9 @@ function PlaybookGenerator() {
                 <div className="mb-8">
                   <h4 className="text-lg font-bold text-gray-800 mb-4">Exit Planning</h4>
                   <div className="grid md:grid-cols-2 gap-4">
-                    {results.strategyStack.exitPlanning.map((strategy, index) => (
-                      <div key={index} className="border border-gray-200 rounded-lg p-4">
-                        <div className="flex justify-between items-start mb-2">
-                          <h5 className="font-semibold text-gray-900">{strategy.title}</h5>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
-                            strategy.complexity === 'Low' ? 'bg-green-100 text-green-800' :
-                            strategy.complexity === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {strategy.complexity}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-600 mb-2">{strategy.description}</p>
-                        <p className="text-xs text-blue-600">{strategy.module}</p>
-                      </div>
-                    ))}
+                    {results.strategyStack.exitPlanning.map((strategy) => 
+                      renderStrategyCard(strategy, 'exitPlanning')
+                    )}
                   </div>
                 </div>
               )}
@@ -888,119 +1177,59 @@ function PlaybookGenerator() {
             </div>
 
             {/* Section 2: Lifetime Forecasting */}
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <div className="text-center mb-6">
-                <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
-                  <span className="mr-2">📈</span> Step 2: Lifetime Impact Analysis
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {forecastingData.forecastYears}-Year Financial Impact Forecast
-                </h3>
-              </div>
-              
-              {/* Key Impact Statement */}
-              <div className="text-center mb-8">
-                <div className="text-4xl font-bold text-red-600 mb-2">
-                  {formatLargeNumber(results.forecastData.totalTaxWithoutStrategy - results.forecastData.totalValue)}
-                </div>
-                <p className="text-lg text-gray-700">
-                  Over {forecastingData.forecastYears} years, doing nothing could cost you{' '}
-                  <span className="font-bold text-red-600">
-                    {formatCurrency(results.forecastData.totalTaxWithoutStrategy - results.forecastData.totalValue)}
-                  </span>{' '}
-                  in opportunity cost. Implementing your strategy could create{' '}
-                  <span className="font-bold text-green-600">
-                    {formatCurrency(results.forecastData.totalValue)}
-                  </span>{' '}
-                  in long-term value.
-                </p>
-              </div>
-
-              {/* Scenario Comparison */}
-              <div className="grid md:grid-cols-2 gap-8 mb-8">
-                {/* Scenario A: Do Nothing */}
-                <div className="bg-red-50 p-6 rounded-lg border-2 border-red-200">
-                  <h4 className="text-xl font-bold text-red-800 mb-4">Scenario A: Do Nothing</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span>Annual Tax Liability:</span>
-                      <span className="font-bold">{formatCurrency(results.forecastData.taxLiability)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Total Tax Over {forecastingData.forecastYears} Years:</span>
-                      <span className="font-bold text-red-600">
-                        {formatCurrency(results.forecastData.totalTaxWithoutStrategy)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Investment Growth:</span>
-                      <span className="font-bold">$0</span>
-                    </div>
+            {results.forecastData && (
+              <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                    <span className="mr-2">📈</span> Lifetime Impact Analysis
                   </div>
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {forecastingData.forecastYears}-Year Financial Impact Forecast
+                  </h3>
+                </div>
+                
+                {/* Key Impact Statement */}
+                <div className="text-center mb-8">
+                  <div className="text-4xl font-bold text-red-600 mb-2">
+                    {formatLargeNumber(results.forecastData.totalTaxWithoutStrategy - results.forecastData.totalValue)}
+                  </div>
+                  <p className="text-lg text-gray-700">
+                    Total wealth creation potential over {forecastingData.forecastYears} years:{' '}
+                    <span className="font-bold text-green-600">
+                      {formatCurrency(results.forecastData.totalValue)}
+                    </span>
+                  </p>
                 </div>
 
-                {/* Scenario B: Implement Strategy */}
-                <div className="bg-green-50 p-6 rounded-lg border-2 border-green-200">
-                  <h4 className="text-xl font-bold text-green-800 mb-4">Scenario B: Implement Strategy</h4>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span>Annual Tax Savings:</span>
-                      <span className="font-bold text-green-600">
-                        {formatCurrency(results.forecastData.annualTaxSavings)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Total Tax Saved:</span>
-                      <span className="font-bold text-green-600">
-                        {formatCurrency(results.forecastData.totalTaxSavings)}
-                      </span>
-                    </div>
-                    {forecastingData.reinvestSavings && (
-                      <div className="flex justify-between">
-                        <span>Investment Growth (6%):</span>
-                        <span className="font-bold text-green-600">
-                          {formatCurrency(results.forecastData.compoundedSavings - results.forecastData.totalTaxSavings)}
-                        </span>
-                      </div>
-                    )}
-                    <div className="border-t pt-3 flex justify-between text-lg font-bold">
-                      <span>Total Value Created:</span>
-                      <span className="text-green-600">
-                        {formatCurrency(results.forecastData.totalValue)}
-                      </span>
-                    </div>
+                {/* Chart */}
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold mb-4 text-center">Net Financial Delta</h4>
+                  <div className="h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={results.forecastData.chartData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="year" />
+                        <YAxis tickFormatter={formatLargeNumber} />
+                        <Tooltip formatter={(value) => formatCurrency(value)} />
+                        <Legend />
+                        <Bar dataKey="doNothing" fill="#ef4444" name="Cumulative Tax Paid (Do Nothing)" />
+                        <Bar dataKey="implementStrategy" fill="#22c55e" name="Value Created (Implement Strategy)" />
+                      </BarChart>
+                    </ResponsiveContainer>
                   </div>
                 </div>
               </div>
-
-              {/* Chart */}
-              <div className="mb-8">
-                <h4 className="text-xl font-bold mb-4 text-center">Net Financial Delta</h4>
-                <div className="h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={results.forecastData.chartData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="year" />
-                      <YAxis tickFormatter={formatLargeNumber} />
-                      <Tooltip formatter={(value) => formatCurrency(value)} />
-                      <Legend />
-                      <Bar dataKey="doNothing" fill="#ef4444" name="Cumulative Tax Paid (Do Nothing)" />
-                      <Bar dataKey="implementStrategy" fill="#22c55e" name="Value Created (Implement Strategy)" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </div>
+            )}
 
             {/* Section 3: Next Steps */}
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg shadow-lg p-8 text-center">
               <div className="inline-flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-full text-sm font-medium mb-6">
-                <span className="mr-2">🚀</span> Step 3: Implementation
+                <span className="mr-2">🚀</span> Implementation
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Implement Your Strategy?</h3>
               <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
                 You now have a personalized roadmap to optimize your taxes and create 
-                <span className="font-bold text-green-600"> {formatCurrency(results.forecastData.totalValue)}</span> 
+                <span className="font-bold text-green-600"> {formatCurrency(results.forecastData?.totalValue || 0)}</span> 
                 in lifetime value. Let's make it happen.
               </p>
               
@@ -1009,7 +1238,7 @@ function PlaybookGenerator() {
                   onClick={resetTool}
                   className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 mr-4"
                 >
-                  Run New Analysis
+                  New Analysis
                 </button>
                 <button className="px-8 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 font-bold text-lg">
                   Start My Escape Plan
