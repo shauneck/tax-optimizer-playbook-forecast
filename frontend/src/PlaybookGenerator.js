@@ -869,7 +869,7 @@ function PlaybookGenerator() {
 
               {/* Estimated Savings */}
               <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-lg text-center">
-                <h4 className="text-lg font-bold text-gray-900 mb-2">Estimated Tax Savings</h4>
+                <h4 className="text-lg font-bold text-gray-900 mb-2">Estimated Annual Tax Savings</h4>
                 <div className="text-3xl font-bold text-green-600 mb-2">
                   {results.estimatedSavingsPercent.min}–{results.estimatedSavingsPercent.max}%
                 </div>
@@ -879,11 +879,16 @@ function PlaybookGenerator() {
               </div>
             </div>
 
-            {/* Lifetime Tax Delta Forecasting */}
+            {/* Section 2: Lifetime Forecasting */}
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-                Lifetime Tax Delta Forecasting ({forecastingData.forecastYears} Years)
-              </h3>
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-full text-sm font-medium mb-4">
+                  <span className="mr-2">📈</span> Step 2: Lifetime Impact Analysis
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">
+                  {forecastingData.forecastYears}-Year Financial Impact Forecast
+                </h3>
+              </div>
               
               {/* Key Impact Statement */}
               <div className="text-center mb-8">
