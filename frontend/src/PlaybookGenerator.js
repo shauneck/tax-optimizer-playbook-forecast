@@ -337,63 +337,20 @@ function PlaybookGenerator() {
     // Simulate AI processing time
     await new Promise(resolve => setTimeout(resolve, 3000));
     
-    // Calculate estimated savings based on user profile
-    let estimatedSavingsPercent = 15; // Base savings
+    // Generate comprehensive strategy stack
+    const strategyStack = generateStrategyStack(formData, forecastingData);
+    const estimatedSavings = calculateEstimatedSavings();
+    const forecastData = calculateForecastData();
     
-    // Adjust based on income type
-    if (formData.incomeType === 'business-owner') {
-      estimatedSavingsPercent += 10;
-    } else if (formData.incomeType === '1099-contractor') {
-      estimatedSavingsPercent += 8;
-    } else if (formData.incomeType === 'blended') {
-      estimatedSavingsPercent += 12;
-    }
-    
-    // Adjust based on income range
-    if (formData.incomeRange === '$500K–$1M') {
-      estimatedSavingsPercent += 5;
-    } else if (formData.incomeRange === '$1M–$5M') {
-      estimatedSavingsPercent += 8;
-    } else if (formData.incomeRange === '$5M+') {
-      estimatedSavingsPercent += 12;
-    }
-    
-    // Adjust based on entity structure
-    if (formData.entityStructure === 'None' || formData.entityStructure === 'Not sure') {
-      estimatedSavingsPercent += 5;
-    }
-    
-    // Adjust based on strategy goals
-    if (formData.strategyGoals.length >= 3) {
-      estimatedSavingsPercent += 3;
-    }
-    
-    // Adjust for stock compensation
-    if (formData.receivesStockComp) {
-      estimatedSavingsPercent += 4;
-    }
-    
-    // Cap at reasonable maximum
-    estimatedSavingsPercent = Math.min(estimatedSavingsPercent, 40);
-    
-    // Store the result in localStorage with new structure
-    const playbookResult = {
-      incomeType: formData.incomeType,
-      incomeRange: formData.incomeRange,
-      entityStructure: formData.entityStructure,
-      strategyGoals: formData.strategyGoals,
-      receivesStockComp: formData.receivesStockComp,
-      estimated_savings_percent: estimatedSavingsPercent,
-      completion_date: new Date().toISOString(),
-      strategy_recommendations: generateStrategyRecommendations(formData, estimatedSavingsPercent)
-    };
-    
-    localStorage.setItem('irs_escape_plan_playbook', JSON.stringify(playbookResult));
+    setResults({
+      strategyStack,
+      estimatedSavingsPercent: estimatedSavings.percent,
+      estimatedSavingsDollar: estimatedSavings.dollar,
+      forecastData
+    });
     
     setIsGenerating(false);
-    
-    // Redirect to forecaster
-    navigate('/forecaster');
+    setCurrentStep(8); // Jump to results
   };
 
   const generateStrategyRecommendations = (data, savingsPercent) => {
