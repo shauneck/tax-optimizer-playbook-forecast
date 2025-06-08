@@ -472,13 +472,14 @@ function PlaybookGenerator() {
       
       if (forecastingData.reinvestSavings) {
         cumulativeValue = 0;
+        const annualReturn = forecastingData.returnRate / 100; // Use adjustable return rate
         for (let y = 1; y <= year; y++) {
-          cumulativeValue += annualTaxSavings * Math.pow(1.06, year - y);
+          cumulativeValue += annualTaxSavings * Math.pow(1 + annualReturn, year - y);
         }
         
         // Calculate cumulative passive income generated
         if (forecastingData.enableWealthLoop) {
-          cumulativePassiveIncome = cumulativeValue * 0.06;
+          cumulativePassiveIncome = cumulativeValue * annualReturn;
         }
       }
       
