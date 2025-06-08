@@ -1304,6 +1304,61 @@ function PlaybookGenerator() {
                   </div>
                 </div>
 
+                {/* Wealth Multiplier Loop Section */}
+                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-8 mb-8 border-2 border-purple-200">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">🔄 What Happens Next: The Wealth Multiplier Loop</h2>
+                  
+                  <p className="text-lg text-gray-700 mb-8 text-center max-w-3xl mx-auto">
+                    Your tax strategy isn't just about savings — it's the fuel for wealth compounding and long-term financial escape.
+                  </p>
+
+                  <div className="grid md:grid-cols-4 gap-6 mb-8">
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span className="text-2xl">💰</span>
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">1. Save Tax</h3>
+                      <p className="text-sm text-gray-600">Through entity structure + strategic deductions</p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span className="text-2xl">📈</span>
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">2. Reinvest</h3>
+                      <p className="text-sm text-gray-600">Tax savings into tax-favored assets</p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span className="text-2xl">🏦</span>
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">3. Generate</h3>
+                      <p className="text-sm text-gray-600">Passive income from investments</p>
+                    </div>
+                    
+                    <div className="text-center">
+                      <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <span className="text-2xl">🔄</span>
+                      </div>
+                      <h3 className="font-bold text-gray-900 mb-2">4. Repeat</h3>
+                      <p className="text-sm text-gray-600">Reduce future tax + compound wealth</p>
+                    </div>
+                  </div>
+
+                  {/* Flywheel Animation */}
+                  <div className="text-center mb-6">
+                    <div className="inline-block w-24 h-24 border-4 border-purple-300 border-t-purple-600 rounded-full animate-spin"></div>
+                    <p className="text-sm text-purple-700 mt-3 font-medium">The Wealth Flywheel in Motion</p>
+                  </div>
+
+                  <div className="text-center">
+                    <button className="px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium transition-all">
+                      📚 Learn More → Module 8: Wealth Multiplier Loop
+                    </button>
+                  </div>
+                </div>
+
                 {/* Strategy Stack */}
                 <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
                   <h2 className="text-2xl font-bold text-gray-900 mb-8">🎯 Your Strategy Stack</h2>
