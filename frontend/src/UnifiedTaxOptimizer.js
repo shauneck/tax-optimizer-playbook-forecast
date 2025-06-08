@@ -261,7 +261,7 @@ function UnifiedTaxOptimizer() {
       });
     }
 
-    setResults({
+    const newResults = {
       strategyRecommendations,
       estimatedSavingsPercent: savingsEstimate.estimated,
       estimatedSavingsRange: savingsEstimate.range,
@@ -274,8 +274,9 @@ function UnifiedTaxOptimizer() {
         totalValue,
         chartData
       }
-    });
+    };
     
+    setResults(newResults);
     setIsGenerating(false);
     setCurrentStep(8); // Jump to results
   };
