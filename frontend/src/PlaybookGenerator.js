@@ -67,6 +67,27 @@ function PlaybookGenerator() {
     strategyGoals: [],
     receivesStockComp: false
   });
+
+  // Enhanced forecasting inputs
+  const [forecastingData, setForecastingData] = useState({
+    businessProfit: '',
+    capitalAvailable: '',
+    restructurePercent: '',
+    forecastYears: 15,
+    reinvestSavings: true
+  });
+
+  const [results, setResults] = useState({
+    strategyStack: {
+      setupStructure: [],
+      deductionStrategies: [],
+      exitPlanning: []
+    },
+    estimatedSavingsPercent: { min: 0, max: 0 },
+    estimatedSavingsDollar: { min: 0, max: 0 },
+    forecastData: null
+  });
+
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleInputChange = (field, value) => {
