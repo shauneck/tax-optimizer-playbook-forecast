@@ -640,7 +640,30 @@ function PlaybookGenerator() {
     };
   };
 
-  const generateQuarterlyReview = () => {
+  const getIncomeFieldConfig = () => {
+    switch (formData.incomeType) {
+      case 'w2-employee':
+        return {
+          label: 'What is your annual W-2 income before taxes?',
+          placeholder: 'e.g., 275000'
+        };
+      case 'business-owner':
+        return {
+          label: 'What is your annual business profit before taxes?',
+          placeholder: 'e.g., 500000'
+        };
+      case 'blended':
+        return {
+          label: 'What is your combined income (W-2 + business profit) before taxes?',
+          placeholder: 'e.g., 800000'
+        };
+      default:
+        return {
+          label: 'What is your annual income before taxes?',
+          placeholder: 'e.g., 350000'
+        };
+    }
+  };
     const progress = getStrategyProgress();
     const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
     const notStartedStrategies = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.NOT_STARTED);
