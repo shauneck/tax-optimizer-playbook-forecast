@@ -94,6 +94,14 @@ function PlaybookGenerator() {
     setFormData({ ...formData, [field]: value });
   };
 
+  const handleMultiSelect = (field, value) => {
+    const current = formData[field];
+    const updated = current.includes(value) 
+      ? current.filter(item => item !== value)
+      : [...current, value];
+    setFormData({ ...formData, [field]: updated });
+  };
+
   const handleForecastingChange = (field, value) => {
     setForecastingData({ ...forecastingData, [field]: value });
   };
