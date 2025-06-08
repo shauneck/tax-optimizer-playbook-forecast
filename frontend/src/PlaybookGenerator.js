@@ -1698,6 +1698,8 @@ function PlaybookGenerator() {
       </div>
     </div>
   );
+    </div>
+  );
 }
 
 export default PlaybookGenerator;
