@@ -320,8 +320,13 @@ function PlaybookGenerator() {
   };
 
   const nextStep = () => {
-    if (currentStep < 5) {
+    // Skip stock compensation step for business owners
+    if (currentStep === 4 && formData.incomeType === 'business-owner') {
+      setCurrentStep(6); // Skip step 5
+    } else if (currentStep < 7) {
       setCurrentStep(currentStep + 1);
+    } else if (currentStep === 7) {
+      generatePlaybook();
     }
   };
 
