@@ -439,13 +439,13 @@ function PlaybookGenerator() {
       
       for (let year = 1; year <= forecastingData.forecastYears; year++) {
         cumulativeInvestment += annualTaxSavings;
-        const yearEndValue = cumulativeInvestment * Math.pow(1 + annualReturn, year);
+        const yearEndValue = cumulativeInvestment * Math.pow(1 + annualReturn, year - 1);
         compoundedSavings = yearEndValue;
         
         // Calculate passive income (6% of accumulated wealth)
         const passiveIncome = yearEndValue * 0.06;
         
-        if (year === 10 || year === 15 || year === 20) {
+        if ([10, 15, 20].includes(year) && year <= forecastingData.forecastYears) {
           passiveIncomeProjections.push({
             year,
             passiveIncome,
