@@ -601,7 +601,8 @@ function PlaybookGenerator() {
       restructurePercent: '',
       forecastYears: 15,
       reinvestSavings: true,
-      enableWealthLoop: true
+      enableWealthLoop: true,
+      returnRate: 6
     });
     setResults({
       strategyStack: {
