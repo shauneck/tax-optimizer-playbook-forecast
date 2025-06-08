@@ -153,7 +153,8 @@ function PlaybookGenerator() {
     restructurePercent: '',
     forecastYears: 15,
     reinvestSavings: true,
-    enableWealthLoop: true
+    enableWealthLoop: true,
+    returnRate: 6 // New field for adjustable return rate
   });
 
   const [results, setResults] = useState({
