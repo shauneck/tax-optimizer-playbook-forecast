@@ -15,14 +15,41 @@ function LandingPage() {
           </p>
         </div>
 
-        {/* Two-Step Process */}
-        <div className="max-w-5xl mx-auto mb-12">
+        {/* Tool Options */}
+        <div className="max-w-6xl mx-auto mb-12">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Your Path to Tax Optimization</h2>
-            <p className="text-gray-600">Complete our 2-step process to unlock your personalized tax strategy and lifetime savings forecast.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Choose Your Optimization Path</h2>
+            <p className="text-gray-600">Select the approach that best fits your needs</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Unified Tool (Featured) */}
+            <div className="bg-white rounded-lg shadow-lg p-8 relative overflow-hidden border-2 border-purple-200">
+              <div className="absolute top-4 right-4 bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-bold">
+                ⭐ Recommended
+              </div>
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Unified Tax Optimizer</h3>
+                <p className="text-gray-600 mb-6">
+                  Complete analysis in one tool. Get personalized strategies and lifetime forecasting with enhanced inputs for maximum accuracy.
+                </p>
+                <Link 
+                  to="/optimizer"
+                  className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors"
+                >
+                  Start Complete Analysis
+                </Link>
+              </div>
+              <div className="text-xs text-gray-500 text-center mt-4">
+                ⚡ 7-step comprehensive analysis • Beta
+              </div>
+            </div>
+
             {/* Step 1: AI Playbook Generator */}
             <div className="bg-white rounded-lg shadow-lg p-8 relative overflow-hidden">
               <div className="absolute top-4 right-4 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold">
@@ -36,7 +63,7 @@ function LandingPage() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">AI Strategy Generator</h3>
                 <p className="text-gray-600 mb-6">
-                  Answer 5 quick questions about your income, structure, and goals. Our AI analyzes your profile and generates personalized tax strategy recommendations with savings estimates.
+                  Answer 5 quick questions about your income, structure, and goals. Get personalized tax strategy recommendations with savings estimates.
                 </p>
                 <Link 
                   to="/playbook"
@@ -63,7 +90,7 @@ function LandingPage() {
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-3">Lifetime Impact Forecaster</h3>
                 <p className="text-gray-600 mb-6">
-                  See the long-term financial impact of your personalized strategy. Compare "do nothing" vs. implementation over 5-20 years with compound growth projections.
+                  See the long-term financial impact of your personalized strategy. Compare "do nothing" vs. implementation over 5-20 years.
                 </p>
                 <Link 
                   to="/forecaster"
@@ -125,11 +152,11 @@ function LandingPage() {
           </p>
           <div className="grid md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-2xl font-bold text-blue-600 mb-2">5 Minutes</div>
-              <p className="text-sm text-gray-600">Complete profile analysis</p>
+              <div className="text-2xl font-bold text-blue-600 mb-2">5-7 Minutes</div>
+              <p className="text-sm text-gray-600">Complete comprehensive analysis</p>
             </div>
             <div>
-              <div className="text-2xl font-bold text-green-600 mb-2">15-40%</div>
+              <div className="text-2xl font-bold text-green-600 mb-2">15-45%</div>
               <p className="text-sm text-gray-600">Typical tax savings identified</p>
             </div>
             <div>

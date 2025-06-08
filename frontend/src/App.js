@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './LandingPage';
 import PlaybookGenerator from './PlaybookGenerator';
 import TaxForecaster from './TaxForecaster';
+import UnifiedTaxOptimizer from './UnifiedTaxOptimizer';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/playbook" element={<PlaybookGenerator />} />
           <Route path="/forecaster" element={<TaxForecaster />} />
+          <Route path="/optimizer" element={<UnifiedTaxOptimizer />} />
         </Routes>
       </div>
     </Router>
