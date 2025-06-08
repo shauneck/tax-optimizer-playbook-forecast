@@ -1576,7 +1576,7 @@ function PlaybookGenerator() {
                           />
                           <div className="flex justify-between text-xs text-muted-foreground">
                             <span>3%</span>
-                            <span className="font-semibold text-emerald-600">{forecastingData.returnRate}%</span>
+                            <span className="font-semibold text-emerald-600">{forecastingData.returnRate.toFixed(1)}%</span>
                             <span>12%</span>
                           </div>
                           <p className="text-xs text-muted-foreground">Adjust your reinvestment return rate</p>
