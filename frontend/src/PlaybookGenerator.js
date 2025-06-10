@@ -1933,31 +1933,46 @@ function PlaybookGenerator() {
 
                         {/* Control Cards Grid - Time Horizon, Return Rate, and Wealth Loop */}
                         <div className="grid md:grid-cols-3 gap-6">
-                          {/* Time Horizon with Dropdown */}
+                          {/* Time Horizon with Green Slider */}
                           <div className="bg-gray-50 rounded-2xl p-6">
                             <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Time Horizon</div>
-                            <select
-                              value={forecastingData.forecastYears}
-                              onChange={(e) => {
-                                const newYears = parseInt(e.target.value);
-                                setForecastingData(prev => ({ ...prev, forecastYears: newYears }));
-                              }}
-                              className="w-full px-3 py-2 border rounded-md text-lg font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                            >
-                              <option value={5}>5 Years</option>
-                              <option value={10}>10 Years</option>
-                              <option value={15}>15 Years</option>
-                              <option value={20}>20 Years</option>
-                            </select>
-                            <div className="text-xs text-gray-600 mt-2 text-center">Forecast period</div>
+                            <div className="text-2xl font-bold text-gray-900 mb-3 text-center">{forecastingData.forecastYears} years</div>
+                            <div className="relative mb-2 flex items-center">
+                              <div 
+                                className="bg-emerald-100 h-2 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"
+                                style={{
+                                  background: `linear-gradient(to right, #10b981 0%, #10b981 ${((forecastingData.forecastYears - 5) / 15) * 100}%, #e5e7eb ${((forecastingData.forecastYears - 5) / 15) * 100}%, #e5e7eb 100%)`
+                                }}
+                              ></div>
+                              <input
+                                type="range"
+                                min="5"
+                                max="20"
+                                value={forecastingData.forecastYears}
+                                onChange={(e) => {
+                                  const newYears = parseInt(e.target.value);
+                                  setForecastingData(prev => ({ ...prev, forecastYears: newYears }));
+                                }}
+                                className="w-full bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
+                              />
+                            </div>
+                            <div className="flex justify-between text-xs text-gray-600">
+                              <span>5 years</span>
+                              <span>20 years</span>
+                            </div>
                           </div>
 
-                          {/* Return Rate Slider - Enhanced with Background */}
+                          {/* Return Rate Slider - Enhanced with Green Background */}
                           <div className="bg-gray-50 rounded-2xl p-6">
                             <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Return Rate</div>
                             <div className="text-2xl font-bold text-gray-900 mb-3 text-center">{forecastingData.returnRate}%</div>
                             <div className="relative mb-2 flex items-center">
-                              <div className="bg-emerald-100 h-1 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
+                              <div 
+                                className="bg-emerald-100 h-2 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"
+                                style={{
+                                  background: `linear-gradient(to right, #10b981 0%, #10b981 ${((forecastingData.returnRate - 3) / 9) * 100}%, #e5e7eb ${((forecastingData.returnRate - 3) / 9) * 100}%, #e5e7eb 100%)`
+                                }}
+                              ></div>
                               <input
                                 type="range"
                                 min="3"
@@ -1977,7 +1992,7 @@ function PlaybookGenerator() {
                             </div>
                           </div>
 
-                          {/* Wealth Multiplier Loop - Moved Inline */}
+                          {/* Wealth Multiplier Loop - Inline with other controls */}
                           <div className="bg-gray-50 rounded-2xl p-6">
                             <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Wealth Loop</div>
                             <div className="text-center mb-3">
