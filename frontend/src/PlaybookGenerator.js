@@ -1225,7 +1225,7 @@ function PlaybookGenerator() {
                       className={`text-left p-6 rounded-2xl border transition-all ${
                         formData.receivesStockComp === false
                           ? 'border-emerald-500 bg-emerald-50'
-                          : 'border-muted hover:border-emerald-300'
+                          : 'border-gray-300 hover:border-emerald-300'
                       }`}
                     >
                       <div className="font-semibold text-lg mb-2">No</div>
