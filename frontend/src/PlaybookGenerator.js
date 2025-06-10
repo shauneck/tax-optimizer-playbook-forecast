@@ -1738,10 +1738,7 @@ function PlaybookGenerator() {
                               type="checkbox"
                               checked={forecastingData.enableWealthLoop}
                               onChange={(e) => {
-                                handleForecastingChange('enableWealthLoop', e.target.checked);
-                                // Recalculate forecast data
-                                const newForecastData = calculateForecastData();
-                                setResults(prev => ({ ...prev, forecastData: newForecastData }));
+                                setForecastingData(prev => ({ ...prev, enableWealthLoop: e.target.checked }));
                               }}
                               className="mr-2 text-emerald-500 focus:ring-emerald-500"
                             />
