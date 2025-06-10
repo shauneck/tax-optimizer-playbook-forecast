@@ -1400,12 +1400,12 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 8: Forecast Parameters */}
-              {currentStep === 8 && (
+              {/* STEP 9: Forecast Parameters */}
+              {currentStep === 9 && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 8 of 8</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 9 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Forecast Settings</h2>
-                  <p className="text-base text-muted-foreground mb-8">Choose your forecasting parameters for lifetime projections</p>
+                  <p className="text-base text-gray-600 mb-8">Choose your forecasting parameters for lifetime projections</p>
                   
                   <div className="space-y-6">
                     <div>
