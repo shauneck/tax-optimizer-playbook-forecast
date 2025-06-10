@@ -317,13 +317,16 @@ frontend:
     implemented: true
     working: false
     file: "PlaybookGenerator.js"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
       - working: false
         agent: "testing"
         comment: "The Rate of Return slider exists with the correct range (3% to 12%) and default value (6%). The 'Compounding at: X% annually' text is displayed beside the slider as required. However, there was an issue with the slider value not updating in real-time during testing. When moving the slider, the displayed percentage did not change, though the slider position did move."
+      - working: false
+        agent: "testing"
+        comment: "Retested the Rate of Return slider. The slider exists with the correct range (3-12%) and shows 'Compounding at: 6% annually' text. However, when moving the slider to different values (4%, 8%, 12%), the displayed percentage and compounding text do not update in real-time. The slider position moves correctly, but the displayed values remain at 6%. This confirms the previous finding that the real-time update functionality is not working properly."
 
   - task: "Restored Forecast Time Horizon Adjustment"
     implemented: true
