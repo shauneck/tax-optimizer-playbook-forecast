@@ -1381,14 +1381,14 @@ function PlaybookGenerator() {
                 <button
                   onClick={prevStep}
                   disabled={currentStep === 1}
-                  className="px-6 py-2 border border-gray-300 text-gray-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-all"
+                  className="px-6 py-3 border border-muted text-muted-foreground rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted/50 transition-all"
                 >
                   Previous
                 </button>
                 <button
                   onClick={nextStep}
                   disabled={!isStepComplete()}
-                  className={`px-8 py-2 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed font-medium transition-all ${
+                  className={`px-6 py-3 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed font-semibold transition-all ${
                     currentStep === 8
                       ? 'bg-emerald-500 hover:bg-emerald-600'
                       : 'bg-emerald-500 hover:bg-emerald-600'
