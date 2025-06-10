@@ -1004,22 +1004,52 @@ function PlaybookGenerator() {
         }
       `}</style>
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-8">
-          <Link to="/" className="text-emerald-600 hover:text-emerald-700 mb-4 inline-block font-medium">
-            ← Back to Platform
-          </Link>
-          <h1 className="text-3xl font-semibold tracking-tight text-gray-900 mb-4">
-            Build Your Escape Plan
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Get personalized strategies, track implementation progress, and forecast your financial future.
-          </p>
-        </div>
-
         {dashboardMode === 'input' ? (
           /* Input Mode */
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-4xl mx-auto">
+            {/* Tool Description */}
+            <div className="text-center mb-8">
+              <p className="text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
+                Get personalized strategies, track implementation progress, and forecast your financial future.
+              </p>
+              
+              {/* How It Works Section */}
+              <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+                <div className="text-sm uppercase text-muted-foreground tracking-wide mb-4 text-center">How It Works</div>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-emerald-600 font-semibold text-sm">1</span>
+                    </div>
+                    <h3 className="font-semibold mb-2 text-sm">Profile Analysis</h3>
+                    <p className="text-xs text-muted-foreground">AI analyzes your income type and structure</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-emerald-600 font-semibold text-sm">2</span>
+                    </div>
+                    <h3 className="font-semibold mb-2 text-sm">Strategy Generation</h3>
+                    <p className="text-xs text-muted-foreground">Personalized recommendations and savings estimates</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="w-10 h-10 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                      <span className="text-emerald-600 font-semibold text-sm">3</span>
+                    </div>
+                    <h3 className="font-semibold mb-2 text-sm">Lifetime Forecast</h3>
+                    <p className="text-xs text-muted-foreground">See compound wealth creation over decades</p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Primary CTA */}
+              <button
+                onClick={() => setCurrentStep(1)}
+                className="bg-emerald-500 hover:bg-emerald-600 text-white px-6 py-3 rounded-md font-semibold transition-colors"
+              >
+                Plan Your Escape
+              </button>
+            </div>
+
             {/* Progress Indicator */}
             <div className="mb-8">
               <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
@@ -1031,7 +1061,7 @@ function PlaybookGenerator() {
                   <div
                     key={i}
                     className={`h-2 flex-1 rounded-full ${
-                      i < currentStep ? 'bg-emerald-500' : 'bg-gray-200'
+                      i < currentStep ? 'bg-emerald-500' : 'bg-muted'
                     }`}
                   />
                 ))}
