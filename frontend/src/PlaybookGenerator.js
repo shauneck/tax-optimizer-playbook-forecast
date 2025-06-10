@@ -251,6 +251,21 @@ function formatLargeNumber(amount) {
   return formatCurrency(amount);
 }
 
+// Format number with commas as user types
+function formatNumberInput(value) {
+  if (!value) return '';
+  // Remove any non-digit characters
+  const digitsOnly = value.toString().replace(/\D/g, '');
+  // Add commas
+  return digitsOnly.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// Parse formatted number back to plain number
+function parseFormattedNumber(value) {
+  if (!value) return '';
+  return value.toString().replace(/,/g, '');
+}
+
 function PlaybookGenerator() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
