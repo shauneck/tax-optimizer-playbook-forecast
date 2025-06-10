@@ -972,7 +972,7 @@ function PlaybookGenerator() {
             ← Back to Platform
           </Link>
           <h1 className="text-3xl font-semibold tracking-tight text-gray-900 mb-4">
-            AI Tax Optimization Playbook
+            Build Your Escape Plan
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             Get personalized strategies, track implementation progress, and forecast your financial future.
