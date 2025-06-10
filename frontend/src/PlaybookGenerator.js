@@ -1117,10 +1117,10 @@ function PlaybookGenerator() {
                       <button
                         key={option.value}
                         onClick={() => handleInputChange('incomeRange', option.value)}
-                        className={`text-left p-6 rounded-2xl border-2 transition-all ${
+                        className={`text-left p-6 rounded-2xl border transition-all ${
                           formData.incomeRange === option.value
                             ? 'border-emerald-500 bg-emerald-50'
-                            : 'border-gray-200 hover:border-gray-300'
+                            : 'border-muted hover:border-emerald-300'
                         }`}
                       >
                         <div className="font-semibold text-gray-900">{option.label}</div>
