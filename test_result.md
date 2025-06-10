@@ -357,12 +357,15 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Environment Verification - Backend API functionality"
-    - "Environment Verification - Frontend tool functionality"
-    - "Environment Verification - All major features working"
-  stuck_tasks: []
-  test_all: true
-  test_priority: "verification_testing"
+    - "Redesigned Consolidated Analysis Section"
+    - "Restored Rate of Return Slider"
+    - "Restored Forecast Time Horizon Adjustment"
+    - "Removed Conservation Easements"
+  stuck_tasks:
+    - "Restored Rate of Return Slider"
+    - "Restored Forecast Time Horizon Adjustment"
+  test_all: false
+  test_priority: "high_first"
 
 agent_communication:
   - agent: "main"
