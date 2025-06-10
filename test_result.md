@@ -369,7 +369,6 @@ test_plan:
     - "Removed Conservation Easements"
   stuck_tasks:
     - "Restored Rate of Return Slider"
-    - "Restored Forecast Time Horizon Adjustment"
   test_all: false
   test_priority: "high_first"
 
