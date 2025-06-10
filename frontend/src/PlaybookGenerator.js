@@ -1576,7 +1576,7 @@ function PlaybookGenerator() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-4">Investment strategy</label>
-                      <div className="space-y-3">
+                      <div className="space-y-3 max-w-lg mx-auto">
                         <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300">
                           <input
                             type="radio"
