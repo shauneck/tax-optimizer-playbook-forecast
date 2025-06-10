@@ -25,29 +25,6 @@ function ToolsDashboard() {
       ],
       isNew: true,
       isPremium: true
-    },
-    {
-      id: 'tax-forecaster',
-      title: 'Lifetime Impact Forecaster',
-      description: 'See the long-term financial impact of your personalized tax strategy over 5-20 years',
-      category: 'Analysis Tools',
-      complexity: 'Intermediate',
-      time: '3-5 minutes',
-      route: '/forecaster',
-      icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
-      ),
-      features: [
-        'Lifetime projections',
-        'Compound growth modeling',
-        'Scenario comparisons',
-        'Visual charts',
-        'ROI calculations'
-      ],
-      isNew: false,
-      isPremium: false
     }
   ];
 
