@@ -789,7 +789,9 @@ function PlaybookGenerator() {
         }
         return true; // Skip for business owners
       case 7:
-        return formData.rsuIncomePercent !== '';
+        return formData.rsuIncomePercent !== '' && 
+               parseInt(formData.rsuIncomePercent) >= 0 && 
+               parseInt(formData.rsuIncomePercent) <= 100;
       case 8: 
         return forecastingData.businessProfit !== '' && 
                forecastingData.capitalAvailable !== '' && 
