@@ -154,6 +154,11 @@ const EDUCATIONAL_CONTENT = {
     glossary: ['LLC', 'S-Corp', 'Tax Election'],
     caseStudy: 'Small Business Structure Case Study'
   },
+  'C-Corporation Election Strategy': {
+    module: 'Module 2: Entity Optimization',
+    glossary: ['C-Corp', 'Corporate Tax', 'Double Taxation', 'Qualified Small Business Stock'],
+    caseStudy: 'High-Income Solo Business Owner C-Corp Election'
+  },
   'S-Corp Election Strategy': {
     module: 'Module 2: Entity Optimization',
     glossary: ['S-Corp', 'Payroll Tax', 'Distributions'],
