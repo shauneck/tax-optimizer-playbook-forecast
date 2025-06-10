@@ -934,11 +934,11 @@ function PlaybookGenerator() {
     };
     
     return (
-      <div key={strategy.id} className="bg-white border rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow">
-        <div className="flex justify-between items-start mb-4">
+      <div key={strategy.id} className="bg-white border rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow h-48 flex flex-col">
+        <div className="flex justify-between items-start mb-3">
           <div className="flex-1">
-            <h4 className="text-lg font-semibold tracking-tight text-gray-900 mb-2">{strategy.title}</h4>
-            <div className="flex items-center gap-2 mb-3">
+            <h4 className="text-base font-semibold text-gray-900 mb-2 leading-tight">{strategy.title}</h4>
+            <div className="flex items-center gap-2 mb-2">
               <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${getComplexityColor()}`}>
                 {strategy.complexity}
               </span>
@@ -949,17 +949,17 @@ function PlaybookGenerator() {
               )}
             </div>
           </div>
-          <div className="text-xl ml-4">{getStatusIcon()}</div>
+          <div className="text-lg ml-3">{getStatusIcon()}</div>
         </div>
         
-        <p className="text-base text-muted-foreground mb-4 leading-relaxed">{strategy.description}</p>
+        <p className="text-sm text-gray-600 mb-3 leading-snug flex-1">{strategy.description}</p>
         
-        <div className="pt-4 border-t">
-          <label className="block text-sm font-medium text-gray-700 mb-2">Implementation Status</label>
+        <div className="pt-3 border-t mt-auto">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Implementation Status</label>
           <select
             value={status}
             onChange={(e) => updateStrategyStatus(strategy.id, e.target.value)}
-            className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
           >
             <option value={STRATEGY_STATUS.NOT_STARTED}>Not Started</option>
             <option value={STRATEGY_STATUS.IN_PROGRESS}>In Progress</option>
