@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function LandingPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -15,92 +15,29 @@ function LandingPage() {
           </p>
         </div>
 
-        {/* Tool Options */}
-        <div className="max-w-6xl mx-auto mb-12">
+        {/* Single Tool Option */}
+        <div className="max-w-4xl mx-auto mb-12">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Choose Your Optimization Path</h2>
-            <p className="text-gray-600">Select the approach that best fits your needs</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Build Your Escape Plan</h2>
+            <p className="text-gray-600">Complete tax optimization analysis in one comprehensive tool</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Unified Tool (Featured) */}
-            <div className="bg-white rounded-lg shadow-lg p-8 relative overflow-hidden border-2 border-purple-200">
-              <div className="absolute top-4 right-4 bg-purple-100 text-purple-600 px-3 py-1 rounded-full text-sm font-bold">
-                ⭐ Recommended
+          <div className="flex justify-center">
+            {/* Unified Tax Optimizer */}
+            <div className="bg-white rounded-lg shadow-lg p-8 relative overflow-hidden border-2 border-emerald-200 max-w-md w-full">
+              <div className="absolute top-4 right-4 bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full text-sm font-bold">
+                ⭐ Complete Solution
               </div>
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Unified Tax Optimizer</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">Build Your Escape Plan</h3>
                 <p className="text-gray-600 mb-6">
                   Complete analysis in one tool. Get personalized strategies and lifetime forecasting with enhanced inputs for maximum accuracy.
                 </p>
-                <Link 
-                  to="/optimizer"
-                  className="inline-block bg-purple-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-purple-700 transition-colors"
-                >
-                  Start Complete Analysis
-                </Link>
-              </div>
-              <div className="text-xs text-gray-500 text-center mt-4">
-                ⚡ 7-step comprehensive analysis • Beta
-              </div>
-            </div>
-
-            {/* Step 1: AI Playbook Generator */}
-            <div className="bg-white rounded-lg shadow-lg p-8 relative overflow-hidden">
-              <div className="absolute top-4 right-4 bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-sm font-bold">
-                Step 1
-              </div>
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">AI Strategy Generator</h3>
-                <p className="text-gray-600 mb-6">
-                  Answer 5 quick questions about your income, structure, and goals. Get personalized tax strategy recommendations with savings estimates.
-                </p>
-                <Link 
-                  to="/playbook"
-                  className="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-colors"
-                >
-                  Start Your Strategy
-                </Link>
-              </div>
-              <div className="text-xs text-gray-500 text-center mt-4">
-                ⏱️ Takes 2-3 minutes • Generates personalized savings %
-              </div>
-            </div>
-
-            {/* Step 2: Lifetime Tax Delta Forecaster */}
-            <div className="bg-white rounded-lg shadow-lg p-8 relative overflow-hidden">
-              <div className="absolute top-4 right-4 bg-green-100 text-green-600 px-3 py-1 rounded-full text-sm font-bold">
-                Step 2
-              </div>
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">Lifetime Impact Forecaster</h3>
-                <p className="text-gray-600 mb-6">
-                  See the long-term financial impact of your personalized strategy. Compare "do nothing" vs. implementation over 5-20 years.
-                </p>
-                <Link 
-                  to="/forecaster"
-                  className="inline-block bg-green-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-green-700 transition-colors"
-                >
-                  See Your Forecast
-                </Link>
-              </div>
-              <div className="text-xs text-gray-500 text-center mt-4">
-                ⚡ Uses your AI strategy data • Shows compound wealth growth
               </div>
             </div>
           </div>
