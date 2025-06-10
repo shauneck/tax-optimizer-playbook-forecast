@@ -1345,10 +1345,10 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 7: Enhanced Forecasting Inputs */}
-              {currentStep === 7 && (
+              {/* STEP 8: Enhanced Forecasting Inputs */}
+              {currentStep === 8 && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 7 of 8</div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 8 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Financial Details</h2>
                   <p className="text-base text-muted-foreground mb-8">Help us calculate more precise forecasting for your situation</p>
                   <div className="grid md:grid-cols-1 gap-6">
