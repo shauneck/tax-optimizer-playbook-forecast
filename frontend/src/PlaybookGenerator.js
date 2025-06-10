@@ -732,16 +732,26 @@ function PlaybookGenerator() {
       case 1: return formData.incomeType !== '';
       case 2: return formData.incomeRange !== '';
       case 3: return formData.entityStructure !== '';
-      case 4: return formData.strategyGoals.length > 0;
-      case 5: 
-        return formData.receivesStockComp !== null;
-      case 6:
+      case 4: 
+        // Business partners question only required for business owners
+        if (formData.incomeType === 'business-owner' || formData.incomeType === 'blended') {
+          return formData.hasBusinessPartners !== null;
+        }
+        return true; // Skip this step for W-2 employees
+      case 5: return formData.strategyGoals.length > 0;
+      case 6: 
+        // Stock compensation question only for W-2 and blended
+        if (formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') {
+          return formData.receivesStockComp !== null;
+        }
+        return true; // Skip for business owners
+      case 7:
         return formData.rsuIncomePercent !== '';
-      case 7: 
+      case 8: 
         return forecastingData.businessProfit !== '' && 
                forecastingData.capitalAvailable !== '' && 
                forecastingData.restructurePercent !== '';
-      case 8: return forecastingData.forecastYears > 0;
+      case 9: return forecastingData.forecastYears > 0;
       default: return false;
     }
   };
