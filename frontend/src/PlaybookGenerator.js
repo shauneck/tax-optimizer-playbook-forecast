@@ -344,6 +344,7 @@ function PlaybookGenerator() {
   // Save data to localStorage whenever state changes
   useEffect(() => {
     const dataToSave = {
+      version: STRATEGY_LOGIC_VERSION,
       formData,
       forecastingData,
       results,
