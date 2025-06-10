@@ -494,16 +494,6 @@ function PlaybookGenerator() {
         description: 'Defer capital gains through structured payments'
       });
     }
-
-    if (data.strategyGoals.includes('Build long-term passive income')) {
-      exitPlanning.push({
-        id: 'conservation-easement',
-        title: 'Conservation Easement',
-        complexity: 'Advanced',
-        module: 'Module 4: Advanced Planning',
-        description: 'Land conservation for significant tax deductions'
-      });
-    }
     
     return { setupStructure, deductionStrategies, exitPlanning };
   };
