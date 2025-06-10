@@ -2019,11 +2019,11 @@ function PlaybookGenerator() {
                           </div>
                         </div>
 
-                        {/* Investment Strategy Options - Center Aligned */}
-                        <div className="max-w-2xl mx-auto">
+                        {/* Investment Strategy Options - Center Aligned with Reduced Width */}
+                        <div className="max-w-3xl mx-auto">
                           <div className="text-sm uppercase text-gray-600 tracking-wide mb-4 text-center">Investment Approach</div>
                           <div className="flex justify-center gap-4">
-                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 max-w-xs">
+                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 w-64">
                               <input
                                 type="radio"
                                 name="reinvest"
@@ -2036,7 +2036,7 @@ function PlaybookGenerator() {
                                 <div className="text-sm text-gray-600">{forecastingData.returnRate}% annual return for compound growth</div>
                               </div>
                             </label>
-                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 max-w-xs">
+                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 w-64">
                               <input
                                 type="radio"
                                 name="reinvest"
