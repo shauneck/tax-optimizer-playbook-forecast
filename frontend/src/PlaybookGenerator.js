@@ -1093,8 +1093,8 @@ function PlaybookGenerator() {
             {/* Progress Indicator */}
             <div className="mb-8">
               <div className="flex items-center justify-between text-sm text-muted-foreground mb-4">
-                <span className="font-medium">Step {currentStep} of 8</span>
-                <span className="font-medium">{Math.round((currentStep / 8) * 100)}% Complete</span>
+                <span className="font-medium">Step {currentStep} of 9</span>
+                <span className="font-medium">{Math.round((currentStep / 9) * 100)}% Complete</span>
               </div>
               <div className="flex space-x-2">
                 {Array.from({ length: 8 }, (_, i) => (
