@@ -2055,10 +2055,10 @@ function PlaybookGenerator() {
                         </div>
 
                         {/* Investment Strategy Options - Center Aligned with Reduced Width */}
-                        <div className="max-w-3xl mx-auto">
-                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-4 text-center">Investment Approach</div>
-                          <div className="flex justify-center gap-4">
-                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 w-64">
+                        <div className="max-w-2xl mx-auto">
+                          <div className="text-xs uppercase text-gray-600 tracking-wide mb-3 text-center">Investment Approach</div>
+                          <div className="flex justify-center gap-3">
+                            <label className="flex items-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300 w-56">
                               <input
                                 type="radio"
                                 name="reinvest"
@@ -2067,11 +2067,11 @@ function PlaybookGenerator() {
                                 className="mr-3 text-emerald-500 focus:ring-emerald-500"
                               />
                               <div className="text-center">
-                                <div className="font-semibold text-gray-900">Reinvest tax savings</div>
-                                <div className="text-sm text-gray-600">{forecastingData.returnRate}% annual return for compound growth</div>
+                                <div className="font-semibold text-gray-900 text-sm">Reinvest tax savings</div>
+                                <div className="text-xs text-gray-600">{forecastingData.returnRate}% annual compound growth</div>
                               </div>
                             </label>
-                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 w-64">
+                            <label className="flex items-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300 w-56">
                               <input
                                 type="radio"
                                 name="reinvest"
@@ -2080,8 +2080,8 @@ function PlaybookGenerator() {
                                 className="mr-3 text-emerald-500 focus:ring-emerald-500"
                               />
                               <div className="text-center">
-                                <div className="font-semibold text-gray-900">Save tax reduction only</div>
-                                <div className="text-sm text-gray-600">Keep savings without additional investment</div>
+                                <div className="font-semibold text-gray-900 text-sm">Save tax reduction only</div>
+                                <div className="text-xs text-gray-600">Keep savings without investment</div>
                               </div>
                             </label>
                           </div>
