@@ -1966,15 +1966,15 @@ function PlaybookGenerator() {
                           </div>
                         </div>
 
-                        {/* Control Cards Grid - Time Horizon, Return Rate, and Wealth Loop */}
-                        <div className="grid md:grid-cols-3 gap-6">
+                        {/* Control Cards Grid - Compact and Aligned */}
+                        <div className="grid md:grid-cols-3 gap-4">
                           {/* Time Horizon with Green Slider */}
-                          <div className="bg-gray-50 rounded-2xl p-6">
-                            <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Time Horizon</div>
-                            <div className="text-2xl font-bold text-gray-900 mb-3 text-center">{forecastingData.forecastYears} years</div>
-                            <div className="relative mb-2 flex items-center">
+                          <div className="bg-gray-50 rounded-xl p-4">
+                            <div className="text-xs uppercase text-gray-600 tracking-wide mb-2 text-center">Time Horizon</div>
+                            <div className="text-xl font-bold text-gray-900 mb-3 text-center">{forecastingData.forecastYears} years</div>
+                            <div className="slider-container mb-2">
                               <div 
-                                className="bg-emerald-100 h-2 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"
+                                className="slider-track"
                                 style={{
                                   background: `linear-gradient(to right, #10b981 0%, #10b981 ${((forecastingData.forecastYears - 5) / 15) * 100}%, #e5e7eb ${((forecastingData.forecastYears - 5) / 15) * 100}%, #e5e7eb 100%)`
                                 }}
@@ -1988,22 +1988,22 @@ function PlaybookGenerator() {
                                   const newYears = parseInt(e.target.value);
                                   setForecastingData(prev => ({ ...prev, forecastYears: newYears }));
                                 }}
-                                className="w-full bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
+                                className="slider-input"
                               />
                             </div>
                             <div className="flex justify-between text-xs text-gray-600">
-                              <span>5 years</span>
-                              <span>20 years</span>
+                              <span>5</span>
+                              <span>20</span>
                             </div>
                           </div>
 
-                          {/* Return Rate Slider - Enhanced with Green Background */}
-                          <div className="bg-gray-50 rounded-2xl p-6">
-                            <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Return Rate</div>
-                            <div className="text-2xl font-bold text-gray-900 mb-3 text-center">{forecastingData.returnRate}%</div>
-                            <div className="relative mb-2 flex items-center">
+                          {/* Return Rate Slider - Center Aligned */}
+                          <div className="bg-gray-50 rounded-xl p-4">
+                            <div className="text-xs uppercase text-gray-600 tracking-wide mb-2 text-center">Return Rate</div>
+                            <div className="text-xl font-bold text-gray-900 mb-3 text-center">{forecastingData.returnRate}%</div>
+                            <div className="slider-container mb-2">
                               <div 
-                                className="bg-emerald-100 h-2 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"
+                                className="slider-track"
                                 style={{
                                   background: `linear-gradient(to right, #10b981 0%, #10b981 ${((forecastingData.returnRate - 3) / 9) * 100}%, #e5e7eb ${((forecastingData.returnRate - 3) / 9) * 100}%, #e5e7eb 100%)`
                                 }}
@@ -2017,19 +2017,19 @@ function PlaybookGenerator() {
                                   const newRate = parseInt(e.target.value);
                                   setForecastingData(prev => ({ ...prev, returnRate: newRate }));
                                 }}
-                                className="w-full bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
+                                className="slider-input"
                               />
                             </div>
-                            <div className="text-xs text-gray-600 mb-2 text-center">Compounding at: {forecastingData.returnRate}% annually</div>
+                            <div className="text-xs text-gray-600 mb-1 text-center">Compounding at: {forecastingData.returnRate}% annually</div>
                             <div className="flex justify-between text-xs text-gray-600">
                               <span>3%</span>
                               <span>12%</span>
                             </div>
                           </div>
 
-                          {/* Wealth Multiplier Loop - Inline with other controls */}
-                          <div className="bg-gray-50 rounded-2xl p-6">
-                            <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Wealth Loop</div>
+                          {/* Wealth Multiplier Loop - Inline and Compact */}
+                          <div className="bg-gray-50 rounded-xl p-4">
+                            <div className="text-xs uppercase text-gray-600 tracking-wide mb-2 text-center">Wealth Loop</div>
                             <div className="text-center mb-3">
                               <label className="flex items-center justify-center">
                                 <input
@@ -2046,9 +2046,9 @@ function PlaybookGenerator() {
                               </label>
                             </div>
                             {forecastingData.enableWealthLoop && (
-                              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
-                                <div className="text-xs text-purple-700 font-medium mb-1">Active Wealth Multiplier</div>
-                                <div className="text-xs text-purple-600">Compounding passive income generation</div>
+                              <div className="bg-purple-50 border border-purple-200 rounded-lg p-2">
+                                <div className="text-xs text-purple-700 font-medium mb-1">Active Multiplier</div>
+                                <div className="text-xs text-purple-600">Compounding passive income</div>
                               </div>
                             )}
                           </div>
