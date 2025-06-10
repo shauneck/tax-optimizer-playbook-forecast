@@ -1097,7 +1097,7 @@ function PlaybookGenerator() {
                 <span className="font-medium">{Math.round((currentStep / 9) * 100)}% Complete</span>
               </div>
               <div className="flex space-x-2">
-                {Array.from({ length: 8 }, (_, i) => (
+                {Array.from({ length: 9 }, (_, i) => (
                   <div
                     key={i}
                     className={`h-2 flex-1 rounded-full ${
