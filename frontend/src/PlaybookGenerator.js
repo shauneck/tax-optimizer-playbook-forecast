@@ -1344,7 +1344,7 @@ function PlaybookGenerator() {
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Stock Compensation Details</h2>
                   <p className="text-base text-muted-foreground mb-8">What percentage of your income comes from stock compensation?</p>
                   
-                  <div className="max-w-md">
+                  <div className="max-w-md mx-auto text-center">
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Stock Compensation Percentage
                     </label>
@@ -1362,7 +1362,7 @@ function PlaybookGenerator() {
                         placeholder="e.g., 30"
                         min="0"
                         max="100"
-                        className="w-full px-4 py-3 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8"
+                        className="w-full px-4 py-3 border rounded-md text-lg text-center focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8"
                       />
                       <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-600">%</span>
                     </div>
