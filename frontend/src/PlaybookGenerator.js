@@ -353,9 +353,9 @@ function PlaybookGenerator() {
     // Handle formatted number inputs for specific fields
     if (field === 'businessProfit' || field === 'capitalAvailable') {
       const plainValue = parseFormattedNumber(value);
-      setForecastingData({ ...forecastingData, [field]: plainValue });
+      setForecastingData(prevData => ({ ...prevData, [field]: plainValue }));
     } else {
-      setForecastingData({ ...forecastingData, [field]: value });
+      setForecastingData(prevData => ({ ...prevData, [field]: value }));
     }
   };
 
