@@ -497,13 +497,16 @@ function PlaybookGenerator() {
     
     // Exit Planning
     if (data.strategyGoals.includes('Exit planning')) {
-      exitPlanning.push({
-        id: 'qsbs-strategy',
-        title: 'Qualified Small Business Stock (QSBS)',
-        complexity: 'Advanced',
-        module: 'Module 4: Advanced Planning',
-        description: 'Up to $10M in tax-free business sale proceeds'
-      });
+      // QSBS only applies to C-corp entities
+      if (data.entityStructure === 'C-corp') {
+        exitPlanning.push({
+          id: 'qsbs-strategy',
+          title: 'Qualified Small Business Stock (QSBS)',
+          complexity: 'Advanced',
+          module: 'Module 4: Advanced Planning',
+          description: 'Up to $10M in tax-free business sale proceeds'
+        });
+      }
       
       exitPlanning.push({
         id: 'installment-sale',
