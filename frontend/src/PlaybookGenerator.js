@@ -700,14 +700,26 @@ function PlaybookGenerator() {
   };
 
   const nextStep = () => {
-    // Skip stock compensation step for business owners
-    if (currentStep === 4 && formData.incomeType === 'business-owner') {
-      setCurrentStep(7); // Skip steps 5 and 6
-    } else if (currentStep === 5 && !formData.receivesStockComp) {
-      setCurrentStep(7); // Skip RSU percentage step if no stock comp
-    } else if (currentStep < 8) {
+    // Handle conditional step flow
+    if (currentStep === 4) {
+      // Business partners question - skip for W-2 employees
+      if (formData.incomeType === 'w2-employee') {
+        setCurrentStep(5); // Go to strategy goals
+      } else {
+        setCurrentStep(5); // Business owners and blended continue to strategy goals
+      }
+    } else if (currentStep === 5) {
+      // Strategy goals completed, go to stock compensation or skip
+      if (formData.incomeType === 'business-owner') {
+        setCurrentStep(8); // Skip stock compensation steps for business owners
+      } else {
+        setCurrentStep(6); // W-2 and blended go to stock compensation
+      }
+    } else if (currentStep === 6 && !formData.receivesStockComp) {
+      setCurrentStep(8); // Skip RSU percentage if no stock comp
+    } else if (currentStep < 9) {
       setCurrentStep(currentStep + 1);
-    } else if (currentStep === 8) {
+    } else if (currentStep === 9) {
       generatePlaybook();
     }
   };
