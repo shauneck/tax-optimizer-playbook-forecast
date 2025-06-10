@@ -1579,9 +1579,9 @@ function PlaybookGenerator() {
                       <label className="block text-sm font-medium text-gray-700 mb-4">
                         Forecast timeframe: {forecastingData.forecastYears} years
                       </label>
-                      <div className="relative mb-2 flex items-center">
+                      <div className="slider-container mb-2">
                         <div 
-                          className="bg-emerald-100 h-2 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"
+                          className="slider-track"
                           style={{
                             background: `linear-gradient(to right, #10b981 0%, #10b981 ${((forecastingData.forecastYears - 5) / 15) * 100}%, #e5e7eb ${((forecastingData.forecastYears - 5) / 15) * 100}%, #e5e7eb 100%)`
                           }}
@@ -1592,7 +1592,7 @@ function PlaybookGenerator() {
                           max="20"
                           value={forecastingData.forecastYears}
                           onChange={(e) => handleForecastingChange('forecastYears', parseInt(e.target.value))}
-                          className="w-full bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
+                          className="slider-input"
                         />
                       </div>
                       <div className="flex justify-between text-xs text-muted-foreground mt-1">
