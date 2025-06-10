@@ -4,6 +4,28 @@ import { Link } from 'react-router-dom';
 function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-green-100">
+      {/* Navigation Header */}
+      <div className="bg-gray-900">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="text-white text-xl font-semibold">
+              IRS Escape Plan
+            </div>
+            <nav className="flex items-center space-x-6">
+              <Link to="/tools" className="text-white hover:text-emerald-300 transition-colors">
+                Tools
+              </Link>
+              <Link 
+                to="/tools/escape-plan"
+                className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
+              >
+                Build Your Escape Plan
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-12">
         {/* Consolidated Header + Main CTA */}
         <div className="text-center mb-16">
@@ -16,10 +38,18 @@ function LandingPage() {
           
           {/* Primary CTA */}
           <Link 
-            to="/optimizer"
-            className="inline-block bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-colors text-lg shadow-lg"
+            to="/tools/escape-plan"
+            className="inline-block bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-colors text-lg shadow-lg mr-4"
           >
             Plan Your Escape
+          </Link>
+          
+          {/* Secondary CTA */}
+          <Link 
+            to="/tools"
+            className="inline-block border-2 border-emerald-600 text-emerald-600 px-8 py-4 rounded-lg font-bold hover:bg-emerald-50 transition-colors text-lg"
+          >
+            View All Tools
           </Link>
         </div>
 
@@ -47,6 +77,62 @@ function LandingPage() {
               </div>
               <h3 className="font-semibold mb-2 text-sm">Lifetime Forecast</h3>
               <p className="text-xs text-gray-600">See compound wealth creation over decades with visual projections</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Available Tools Section */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <h2 className="text-2xl font-semibold text-center text-gray-900 mb-8">
+            Complete Tax Optimization Suite
+          </h2>
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Build Your Escape Plan */}
+            <div className="bg-white rounded-lg shadow-sm p-6 border-2 border-emerald-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-emerald-100 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Build Your Escape Plan</h3>
+                  <span className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full">PREMIUM</span>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 mb-4">
+                Complete multi-step analysis with strategy recommendations, implementation tracking, and lifetime projections.
+              </p>
+              <Link
+                to="/tools/escape-plan"
+                className="block w-full bg-emerald-500 hover:bg-emerald-600 text-white text-center px-4 py-2 rounded-lg font-medium transition-colors"
+              >
+                Launch Tool
+              </Link>
+            </div>
+
+            {/* Lifetime Impact Forecaster */}
+            <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center mr-4">
+                  <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-1">Lifetime Impact Forecaster</h3>
+                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full">ANALYSIS</span>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 mb-4">
+                See the long-term financial impact of your personalized tax strategy over 5-20 years.
+              </p>
+              <Link
+                to="/forecaster"
+                className="block w-full border border-gray-300 text-gray-600 text-center px-4 py-2 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+              >
+                Launch Tool
+              </Link>
             </div>
           </div>
         </div>
