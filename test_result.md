@@ -330,7 +330,7 @@ frontend:
 
   - task: "Restored Forecast Time Horizon Adjustment"
     implemented: true
-    working: false
+    working: true
     file: "PlaybookGenerator.js"
     stuck_count: 0
     priority: "high"
@@ -339,6 +339,9 @@ frontend:
       - working: false
         agent: "testing"
         comment: "The forecast time horizon control is implemented as a slider rather than a dropdown as specified in the requirements. The requirement was for a dropdown with clear options: 5, 10, 15, 20 years. While the time horizon control does exist and allows selection of these values, it's implemented as a slider instead of a dropdown menu."
+      - working: true
+        agent: "testing"
+        comment: "Retested the Time Horizon control and found it is now implemented as a dropdown with the required options (5, 10, 15, 20 years) as specified in the requirements. The dropdown is properly styled with focus effects and appears to trigger forecast recalculation when changed. This fix has been successfully implemented."
 
   - task: "Removed Conservation Easements"
     implemented: true
