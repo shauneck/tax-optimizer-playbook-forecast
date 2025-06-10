@@ -1483,12 +1483,12 @@ function PlaybookGenerator() {
               {/* STEP 8: Enhanced Forecasting Inputs */}
               {currentStep === 8 && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 8 of 9</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 8 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Financial Details</h2>
-                  <p className="text-base text-muted-foreground mb-8">Help us calculate more precise forecasting for your situation</p>
-                  <div className="grid md:grid-cols-1 gap-6">
+                  <p className="text-base text-gray-600 mb-8">Help us calculate more precise forecasting for your situation</p>
+                  <div className="max-w-lg mx-auto space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 text-center">
                         {getIncomeFieldConfig().label}
                       </label>
                       <input
@@ -1496,12 +1496,12 @@ function PlaybookGenerator() {
                         value={formatNumberInput(forecastingData.businessProfit)}
                         onChange={(e) => handleForecastingChange('businessProfit', e.target.value)}
                         placeholder={getIncomeFieldConfig().placeholder}
-                        className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                        className="w-full max-w-[250px] mx-auto h-10 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-center"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 text-center">
                         Capital available for tax-advantaged investments
                       </label>
                       <input
@@ -1509,16 +1509,16 @@ function PlaybookGenerator() {
                         value={formatNumberInput(forecastingData.capitalAvailable)}
                         onChange={(e) => handleForecastingChange('capitalAvailable', e.target.value)}
                         placeholder="e.g., 250,000"
-                        className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+                        className="w-full max-w-[250px] mx-auto h-10 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-center"
                       />
-                      <p className="text-xs text-muted-foreground mt-1">Capital you could invest in real estate, energy credits, etc.</p>
+                      <p className="text-xs text-gray-600 mt-1 text-center">Capital you could invest in real estate, energy credits, etc.</p>
                     </div>
                     
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-2 text-center">
                         Percentage of income that could be restructured or offset
                       </label>
-                      <div className="relative max-w-xs">
+                      <div className="relative max-w-[150px] mx-auto">
                         <input
                           type="number"
                           value={forecastingData.restructurePercent}
@@ -1526,9 +1526,9 @@ function PlaybookGenerator() {
                           placeholder="30"
                           min="0"
                           max="100"
-                          className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8"
+                          className="w-full h-10 px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8 text-center"
                         />
-                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-muted-foreground">%</span>
+                        <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-600">%</span>
                       </div>
                     </div>
                   </div>
