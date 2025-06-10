@@ -1911,60 +1911,66 @@ function PlaybookGenerator() {
                       </div>
 
                       {/* Enhanced Forecast Controls */}
-                      <div className="grid md:grid-cols-4 gap-6 mb-8">
-                        {/* Time Horizon with Dropdown */}
+                      <div className="space-y-6 mb-8">
+                        {/* Investment Strategy (Full Width) */}
                         <div className="bg-gray-50 rounded-2xl p-6">
-                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Time Horizon</div>
-                          <select
-                            value={forecastingData.forecastYears}
-                            onChange={(e) => {
-                              const newYears = parseInt(e.target.value);
-                              setForecastingData(prev => ({ ...prev, forecastYears: newYears }));
-                            }}
-                            className="w-full px-3 py-2 border rounded-md text-lg font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                          >
-                            <option value={5}>5 Years</option>
-                            <option value={10}>10 Years</option>
-                            <option value={15}>15 Years</option>
-                            <option value={20}>20 Years</option>
-                          </select>
-                          <div className="text-xs text-gray-600 mt-2">Forecast period</div>
-                        </div>
-
-                        {/* Return Rate Slider - Enhanced */}
-                        <div className="bg-gray-50 rounded-2xl p-6">
-                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Return Rate</div>
-                          <div className="text-2xl font-bold text-gray-900 mb-3">{forecastingData.returnRate}%</div>
-                          <input
-                            type="range"
-                            min="3"
-                            max="12"
-                            value={forecastingData.returnRate}
-                            onChange={(e) => {
-                              const newRate = parseInt(e.target.value);
-                              setForecastingData(prev => ({ ...prev, returnRate: newRate }));
-                            }}
-                            className="w-full mb-2"
-                          />
-                          <div className="text-xs text-gray-600 mb-2">Compounding at: {forecastingData.returnRate}% annually</div>
-                          <div className="flex justify-between text-xs text-gray-600">
-                            <span>3%</span>
-                            <span>12%</span>
-                          </div>
-                        </div>
-
-                        {/* Reinvestment Strategy */}
-                        <div className="bg-gray-50 rounded-2xl p-6">
-                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Reinvestment</div>
+                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Investment Strategy</div>
                           <div className="text-2xl font-bold text-gray-900 mb-3">
-                            {forecastingData.reinvestSavings ? 'Yes' : 'No'}
+                            {forecastingData.reinvestSavings ? 'Reinvest Savings' : 'Save Only'}
                           </div>
                           <div className="text-xs text-gray-600">
-                            {forecastingData.reinvestSavings ? `${forecastingData.returnRate}% annual return` : 'Cash savings only'}
+                            {forecastingData.reinvestSavings ? `${forecastingData.returnRate}% annual return compound growth` : 'Cash savings without additional investment'}
                           </div>
                         </div>
 
-                        {/* Wealth Multiplier Loop */}
+                        {/* Center-aligned Time Horizon and Return Rate */}
+                        <div className="flex justify-center gap-6">
+                          {/* Time Horizon with Dropdown */}
+                          <div className="bg-gray-50 rounded-2xl p-6 w-64">
+                            <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Time Horizon</div>
+                            <select
+                              value={forecastingData.forecastYears}
+                              onChange={(e) => {
+                                const newYears = parseInt(e.target.value);
+                                setForecastingData(prev => ({ ...prev, forecastYears: newYears }));
+                              }}
+                              className="w-full px-3 py-2 border rounded-md text-lg font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                            >
+                              <option value={5}>5 Years</option>
+                              <option value={10}>10 Years</option>
+                              <option value={15}>15 Years</option>
+                              <option value={20}>20 Years</option>
+                            </select>
+                            <div className="text-xs text-gray-600 mt-2 text-center">Forecast period</div>
+                          </div>
+
+                          {/* Return Rate Slider - Enhanced with Background */}
+                          <div className="bg-gray-50 rounded-2xl p-6 w-64">
+                            <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Return Rate</div>
+                            <div className="text-2xl font-bold text-gray-900 mb-3 text-center">{forecastingData.returnRate}%</div>
+                            <div className="relative mb-2">
+                              <div className="bg-emerald-100 h-2 rounded-full absolute inset-0"></div>
+                              <input
+                                type="range"
+                                min="3"
+                                max="12"
+                                value={forecastingData.returnRate}
+                                onChange={(e) => {
+                                  const newRate = parseInt(e.target.value);
+                                  setForecastingData(prev => ({ ...prev, returnRate: newRate }));
+                                }}
+                                className="w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
+                              />
+                            </div>
+                            <div className="text-xs text-gray-600 mb-2 text-center">Compounding at: {forecastingData.returnRate}% annually</div>
+                            <div className="flex justify-between text-xs text-gray-600">
+                              <span>3%</span>
+                              <span>12%</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Wealth Multiplier Loop (Full Width) */}
                         <div className="bg-gray-50 rounded-2xl p-6">
                           <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Wealth Loop</div>
                           <label className="flex items-center">
