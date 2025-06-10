@@ -48,8 +48,8 @@ function LandingPage() {
           <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">How It Works</h2>
           <div className="flex items-center justify-between">
             <div className="text-center flex-1">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-blue-600 font-bold">1</span>
+              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-emerald-600 font-bold">1</span>
               </div>
               <h3 className="font-semibold mb-2">Profile Analysis</h3>
               <p className="text-sm text-gray-600">AI analyzes your income type, structure, and goals to identify optimization opportunities</p>
@@ -60,8 +60,8 @@ function LandingPage() {
               </svg>
             </div>
             <div className="text-center flex-1">
-              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-green-600 font-bold">2</span>
+              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-emerald-600 font-bold">2</span>
               </div>
               <h3 className="font-semibold mb-2">Strategy Generation</h3>
               <p className="text-sm text-gray-600">Personalized recommendations with estimated savings percentage based on your profile</p>
@@ -72,12 +72,22 @@ function LandingPage() {
               </svg>
             </div>
             <div className="text-center flex-1">
-              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                <span className="text-purple-600 font-bold">3</span>
+              <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                <span className="text-emerald-600 font-bold">3</span>
               </div>
               <h3 className="font-semibold mb-2">Lifetime Forecast</h3>
               <p className="text-sm text-gray-600">See compound wealth creation over decades with visual comparisons and projections</p>
             </div>
+          </div>
+          
+          {/* CTA Button */}
+          <div className="text-center mt-8 pt-6 border-t">
+            <Link 
+              to="/optimizer"
+              className="inline-block bg-emerald-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-emerald-700 transition-colors text-lg"
+            >
+              Plan Your Escape
+            </Link>
           </div>
         </div>
 
