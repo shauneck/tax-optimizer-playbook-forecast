@@ -216,8 +216,8 @@ function TaxForecaster() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link to="/tools" className="text-blue-600 hover:underline mb-4 inline-block">
-            ← Back to Tools
+          <Link to="/" className="text-blue-600 hover:underline mb-4 inline-block">
+            ← Back to Platform
           </Link>
           <h1 className="text-4xl font-bold text-gray-900 mb-2">
             Lifetime Tax Delta Forecaster
