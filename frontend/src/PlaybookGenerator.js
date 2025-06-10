@@ -1751,12 +1751,12 @@ function PlaybookGenerator() {
                     </p>
                   </div>
 
-                  <div className="grid lg:grid-cols-2 gap-8">
+                  <div className="space-y-8">
                     {/* Setup & Structure */}
                     {results.strategyStack.setupStructure.length > 0 && (
                       <div>
-                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-4">Setup & Structure</div>
-                        <div className="space-y-4">
+                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Setup & Structure</div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                           {results.strategyStack.setupStructure.map(renderStrategyCard)}
                         </div>
                       </div>
@@ -1765,8 +1765,8 @@ function PlaybookGenerator() {
                     {/* Deduction Strategies */}
                     {results.strategyStack.deductionStrategies.length > 0 && (
                       <div>
-                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-4">Deduction Strategies</div>
-                        <div className="space-y-4">
+                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Deduction Strategies</div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                           {results.strategyStack.deductionStrategies.map(renderStrategyCard)}
                         </div>
                       </div>
@@ -1774,9 +1774,9 @@ function PlaybookGenerator() {
 
                     {/* Exit Planning */}
                     {results.strategyStack.exitPlanning.length > 0 && (
-                      <div className="lg:col-span-2 mt-8">
-                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-4">Exit Planning</div>
-                        <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Exit Planning</div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                           {results.strategyStack.exitPlanning.map(renderStrategyCard)}
                         </div>
                       </div>
