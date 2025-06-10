@@ -1887,7 +1887,10 @@ function PlaybookGenerator() {
                     {/* Lifetime Forecast Section */}
                     <div className="bg-white rounded-2xl shadow-sm p-8">
                       <div className="text-center mb-8">
-                        <h3 className="text-3xl font-semibold text-gray-900 mb-4">Your Lifetime Wealth Impact</h3>
+                        <div className="flex items-center justify-center mb-4">
+                          <h3 className="text-3xl font-semibold text-gray-900">Your Lifetime Wealth Impact</h3>
+                          <WealthImpactTooltip />
+                        </div>
                         <div className="text-center mb-6">
                           <div className="text-5xl font-bold text-emerald-600 mb-3">
                             {formatCurrency(results.forecastData?.totalValue || 0)}
