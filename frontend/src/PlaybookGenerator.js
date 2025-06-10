@@ -1116,8 +1116,8 @@ function PlaybookGenerator() {
         <div className="bg-gradient-to-r from-emerald-600 to-emerald-500">
           <div className="container mx-auto px-4 py-6">
             <div className="flex items-center justify-between">
-              <Link to="/" className="text-white hover:text-emerald-100 font-medium transition-colors">
-                ← Back to Platform
+              <Link to="/tools" className="text-white hover:text-emerald-100 font-medium transition-colors">
+                ← Back to Tools
               </Link>
               <h1 className="text-3xl font-semibold text-white">
                 Build Your Escape Plan
