@@ -943,6 +943,23 @@ function PlaybookGenerator() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Dark Nav Bar with Emerald Gradient Header */}
+      <div className="bg-gray-900">
+        <div className="bg-gradient-to-r from-emerald-600 to-emerald-500">
+          <div className="container mx-auto px-4 py-6">
+            <div className="flex items-center justify-between">
+              <Link to="/" className="text-white hover:text-emerald-100 font-medium transition-colors">
+                ← Back to Platform
+              </Link>
+              <h1 className="text-3xl font-semibold text-white">
+                Build Your Escape Plan
+              </h1>
+              <div className="w-32"></div> {/* Spacer for centering */}
+            </div>
+          </div>
+        </div>
+      </div>
+
       <style jsx>{`
         input[type="range"] {
           -webkit-appearance: none;
