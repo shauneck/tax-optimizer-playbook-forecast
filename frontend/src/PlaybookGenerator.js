@@ -1202,12 +1202,45 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 4: Strategy Goals */}
-              {currentStep === 4 && (
+              {/* STEP 4: Business Partners (only for business owners) */}
+              {currentStep === 4 && (formData.incomeType === 'business-owner' || formData.incomeType === 'blended') && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 4 of 8</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 4 of 9</div>
+                  <h2 className="text-3xl font-semibold text-gray-900 mb-2">Business Partnership</h2>
+                  <p className="text-base text-gray-600 mb-8">Do you have any partners in your business?</p>
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <button
+                      onClick={() => handleInputChange('hasBusinessPartners', false)}
+                      className={`text-left p-6 rounded-2xl border transition-all ${
+                        formData.hasBusinessPartners === false
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-300 hover:border-emerald-300'
+                      }`}
+                    >
+                      <div className="font-semibold text-lg mb-2">No</div>
+                      <div className="text-sm text-gray-600">I am the sole owner of my business</div>
+                    </button>
+                    <button
+                      onClick={() => handleInputChange('hasBusinessPartners', true)}
+                      className={`text-left p-6 rounded-2xl border transition-all ${
+                        formData.hasBusinessPartners === true
+                          ? 'border-emerald-500 bg-emerald-50'
+                          : 'border-gray-300 hover:border-emerald-300'
+                      }`}
+                    >
+                      <div className="font-semibold text-lg mb-2">Yes</div>
+                      <div className="text-sm text-gray-600">I have one or more business partners</div>
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 5: Strategy Goals */}
+              {currentStep === 5 && (
+                <div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 5 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Strategy Goals</h2>
-                  <p className="text-base text-muted-foreground mb-8">What are your main tax optimization goals? (Select all that apply)</p>
+                  <p className="text-base text-gray-600 mb-8">What are your main tax optimization goals? (Select all that apply)</p>
                   <div className="grid md:grid-cols-2 gap-4">
                     {[
                       { value: 'Reduce current tax liability', label: 'Reduce current tax liability', desc: 'Lower taxes owed this year' },
