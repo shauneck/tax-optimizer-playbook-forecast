@@ -12,9 +12,6 @@ function LandingPage() {
               IRS Escape Plan
             </div>
             <nav className="flex items-center space-x-6">
-              <Link to="/tools" className="text-white hover:text-emerald-300 transition-colors">
-                Tools
-              </Link>
               <Link 
                 to="/tools/escape-plan"
                 className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
