@@ -99,15 +99,15 @@ function LandingPage() {
           </p>
           <div className="grid md:grid-cols-3 gap-6 text-center">
             <div>
-              <div className="text-2xl font-bold text-blue-600 mb-2">5-7 Minutes</div>
+              <div className="text-2xl font-bold text-emerald-600 mb-2">5-7 Minutes</div>
               <p className="text-sm text-gray-600">Complete comprehensive analysis</p>
             </div>
             <div>
-              <div className="text-2xl font-bold text-green-600 mb-2">15-45%</div>
+              <div className="text-2xl font-bold text-emerald-600 mb-2">15-45%</div>
               <p className="text-sm text-gray-600">Typical tax savings identified</p>
             </div>
             <div>
-              <div className="text-2xl font-bold text-purple-600 mb-2">$1M+</div>
+              <div className="text-2xl font-bold text-emerald-600 mb-2">$1M+</div>
               <p className="text-sm text-gray-600">Lifetime value creation potential</p>
             </div>
           </div>
