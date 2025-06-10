@@ -1223,11 +1223,10 @@ function PlaybookGenerator() {
                         {getIncomeFieldConfig().label}
                       </label>
                       <input
-                        type="number"
-                        value={forecastingData.businessProfit}
+                        type="text"
+                        value={formatNumberInput(forecastingData.businessProfit)}
                         onChange={(e) => handleForecastingChange('businessProfit', e.target.value)}
                         placeholder={getIncomeFieldConfig().placeholder}
-                        min="0"
                         className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
                     </div>
@@ -1237,11 +1236,10 @@ function PlaybookGenerator() {
                         Capital available for tax-advantaged investments
                       </label>
                       <input
-                        type="number"
-                        value={forecastingData.capitalAvailable}
+                        type="text"
+                        value={formatNumberInput(forecastingData.capitalAvailable)}
                         onChange={(e) => handleForecastingChange('capitalAvailable', e.target.value)}
-                        placeholder="e.g., 250000"
-                        min="0"
+                        placeholder="e.g., 250,000"
                         className="w-full px-4 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
                       />
                       <p className="text-xs text-muted-foreground mt-1">Capital you could invest in real estate, energy credits, etc.</p>
