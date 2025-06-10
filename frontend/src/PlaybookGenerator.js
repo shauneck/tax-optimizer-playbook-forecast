@@ -1603,8 +1603,8 @@ function PlaybookGenerator() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-4">Investment strategy</label>
-                      <div className="space-y-3 max-w-lg mx-auto">
-                        <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300">
+                      <div className="space-y-3 max-w-md mx-auto">
+                        <label className="flex items-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300">
                           <input
                             type="radio"
                             name="reinvest"
@@ -1617,7 +1617,7 @@ function PlaybookGenerator() {
                             <div className="text-sm text-muted-foreground">6% annual return for compound growth</div>
                           </div>
                         </label>
-                        <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300">
+                        <label className="flex items-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300">
                           <input
                             type="radio"
                             name="reinvest"
