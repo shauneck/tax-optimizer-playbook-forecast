@@ -1315,10 +1315,10 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 6: RSU Percentage (Only if receives stock comp) */}
-              {currentStep === 6 && formData.receivesStockComp && (
+              {/* STEP 7: RSU Percentage (Only if receives stock comp) */}
+              {currentStep === 7 && formData.receivesStockComp && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 6 of 8</div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 7 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Stock Compensation Details</h2>
                   <p className="text-base text-muted-foreground mb-8">What percentage of your income comes from stock compensation?</p>
                   <div className="grid md:grid-cols-2 gap-4">
