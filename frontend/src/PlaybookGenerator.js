@@ -392,6 +392,19 @@ function PlaybookGenerator() {
       });
     }
     
+    // C-corp recommendation for high-income solo business owners
+    if ((data.incomeType === 'business-owner' || data.incomeType === 'blended') && 
+        (data.incomeRange === '$1M–$5M' || data.incomeRange === '$5M+') &&
+        data.hasBusinessPartners === false) {
+      setupStructure.push({
+        id: 'c-corp-election',
+        title: 'C-Corporation Election Strategy',
+        complexity: 'Advanced',
+        module: 'Module 2: Entity Optimization',
+        description: 'Optimal structure for solo high-income business owners to minimize taxes and enable strategic planning'
+      });
+    }
+    
     if (data.incomeType === 'business-owner' || data.incomeType === 'blended') {
       setupStructure.push({
         id: 's-corp-election',
@@ -402,9 +415,10 @@ function PlaybookGenerator() {
       });
     }
 
-    // MSO Strategy for high-income business owners
+    // MSO Strategy for high-income business owners WITH partners
     if ((data.incomeType === 'business-owner' || data.incomeType === 'blended') && 
-        (data.incomeRange === '$1M–$5M' || data.incomeRange === '$5M+')) {
+        (data.incomeRange === '$1M–$5M' || data.incomeRange === '$5M+') &&
+        data.hasBusinessPartners === true) {
       setupStructure.push({
         id: 'mso-strategy',
         title: 'Split operations into an MSO + operating entity',
