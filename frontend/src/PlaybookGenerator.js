@@ -726,13 +726,25 @@ function PlaybookGenerator() {
 
   const prevStep = () => {
     // Handle reverse navigation with conditional steps
-    if (currentStep === 7) {
+    if (currentStep === 8) {
       if (formData.incomeType === 'business-owner') {
-        setCurrentStep(4); // Skip stock comp steps
+        setCurrentStep(5); // Skip stock comp steps for business owners
       } else if (!formData.receivesStockComp) {
-        setCurrentStep(5); // Go back to stock comp question
+        setCurrentStep(6); // Go back to stock comp question
       } else {
-        setCurrentStep(6); // Go back to RSU percentage
+        setCurrentStep(7); // Go back to RSU percentage
+      }
+    } else if (currentStep === 6) {
+      if (formData.incomeType === 'w2-employee') {
+        setCurrentStep(5); // Skip business partners for W-2
+      } else {
+        setCurrentStep(5); // Go back to strategy goals
+      }
+    } else if (currentStep === 5) {
+      if (formData.incomeType === 'w2-employee') {
+        setCurrentStep(3); // Skip business partners for W-2
+      } else {
+        setCurrentStep(4); // Go back to business partners
       }
     } else if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
