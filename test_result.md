@@ -357,6 +357,9 @@ frontend:
       - working: true
         agent: "testing"
         comment: "Verified that Conservation Easements have been completely removed from the strategy generation logic. No mention of Conservation Easements was found in the page content or in any of the strategy recommendations. The removal is complete as required."
+      - working: true
+        agent: "testing"
+        comment: "Confirmed that Conservation Easements have been completely removed from the strategy generation logic. The STRATEGY_LOGIC_VERSION has been updated to '2.0' to ensure any cached data containing old strategies like Conservation Easements is cleared automatically."
 
 metadata:
   created_by: "main_agent"
