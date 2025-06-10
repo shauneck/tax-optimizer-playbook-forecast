@@ -100,12 +100,119 @@ const AssumptionsTooltip = ({ children }) => {
             )}
             
             <div className="text-sm font-semibold text-gray-900 mb-3">Wealth Multiplier Assumptions</div>
-            <div className="text-sm text-muted-foreground space-y-2">
+            <div className="text-sm text-gray-600 space-y-2">
               <div>• Tax savings remain consistent over time</div>
               <div>• 100% of savings are reinvested annually</div>
               <div>• Reinvested savings compound at your selected return rate</div>
               <div>• Real estate income is offset by depreciation to remain tax efficient</div>
               <div>• All recommended strategies are implemented starting in Year 1</div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
+// Simple tooltip component for lifetime wealth impact
+const WealthImpactTooltip = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isClickMode, setIsClickMode] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isVisible && isClickMode && !event.target.closest('.wealth-impact-tooltip')) {
+        setIsVisible(false);
+        setIsClickMode(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isVisible, isClickMode]);
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    setIsClickMode(true);
+    setIsVisible(!isVisible);
+  };
+
+  const handleMouseEnter = () => {
+    if (!isMobile && !isClickMode) {
+      setIsVisible(true);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!isMobile && !isClickMode) {
+      setIsVisible(false);
+    }
+  };
+
+  return (
+    <div 
+      className="relative inline-block wealth-impact-tooltip"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <button
+        onClick={handleClick}
+        className="inline-flex items-center justify-center w-6 h-6 ml-2 text-emerald-500 hover:opacity-80 transition-opacity duration-150 rounded-full hover:bg-emerald-50"
+        aria-label="What this number means"
+      >
+        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+        </svg>
+      </button>
+      
+      {isVisible && (
+        <>
+          {/* Backdrop for mobile */}
+          {isMobile && (
+            <div className="fixed inset-0 bg-black bg-opacity-25 z-40" onClick={() => setIsVisible(false)} />
+          )}
+          
+          {/* Tooltip */}
+          <div className={`absolute z-50 w-80 max-w-sm p-4 bg-white border border-gray-200 rounded-md shadow-lg transition-opacity duration-200 ease-in-out ${
+            isMobile 
+              ? 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2' 
+              : '-top-2 -left-32'
+          }`}>
+            {/* Arrow indicator for desktop */}
+            {!isMobile && (
+              <div className="absolute top-4 right-4 transform rotate-45 w-2 h-2 bg-white border-l border-b border-gray-200"></div>
+            )}
+            
+            {/* Close button for mobile or click mode */}
+            {(isMobile || isClickMode) && (
+              <button
+                onClick={() => {
+                  setIsVisible(false);
+                  setIsClickMode(false);
+                }}
+                className="absolute top-2 right-2 w-6 h-6 text-gray-400 hover:text-gray-600"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+            
+            <div className="text-sm font-semibold text-gray-900 mb-3">What this number means:</div>
+            <div className="text-sm text-gray-600">
+              This value shows the projected benefit of implementing your tax strategy, including tax savings and potential compounding returns based on your selected assumptions.
             </div>
           </div>
         </>
