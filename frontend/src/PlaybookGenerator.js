@@ -1788,7 +1788,7 @@ function PlaybookGenerator() {
                   <h2 className="text-3xl font-semibold tracking-tight text-gray-900 mb-4">Ready to Implement Your Strategy?</h2>
                   <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                     You now have a personalized roadmap to optimize your taxes and create 
-                    <span className="font-bold text-emerald-600"> {formatCurrency(results.forecastData?.totalValue || 0)}</span> 
+                    <span className="font-bold text-emerald-600"> {formatCurrency(results.forecastData?.totalValue || 0)} </span> 
                     in lifetime value.
                   </p>
                   
