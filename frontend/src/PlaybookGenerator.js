@@ -1054,7 +1054,7 @@ function PlaybookGenerator() {
                   <div
                     key={i}
                     className={`h-2 flex-1 rounded-full ${
-                      i < currentStep ? 'bg-emerald-500' : 'bg-muted'
+                      i < currentStep ? 'bg-emerald-500' : 'bg-gray-200'
                     }`}
                   />
                 ))}
