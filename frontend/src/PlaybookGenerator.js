@@ -271,6 +271,7 @@ function PlaybookGenerator() {
     incomeRange: '',
     entityStructure: '',
     strategyGoals: [],
+    hasBusinessPartners: null, // New field for business partners
     receivesStockComp: false,
     rsuIncomePercent: ''
   });
