@@ -1341,26 +1341,30 @@ function PlaybookGenerator() {
                   <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 7 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Stock Compensation Details</h2>
                   <p className="text-base text-muted-foreground mb-8">What percentage of your income comes from stock compensation?</p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {[
-                      { value: '10-25%', label: '10-25%', desc: 'Small portion of total compensation' },
-                      { value: '25-50%', label: '25-50%', desc: 'Moderate portion of total compensation' },
-                      { value: '50-75%', label: '50-75%', desc: 'Large portion of total compensation' },
-                      { value: '75%+', label: '75%+', desc: 'Majority of total compensation' }
-                    ].map((option) => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleInputChange('rsuIncomePercent', option.value)}
-                        className={`text-left p-6 rounded-2xl border transition-all ${
-                          formData.rsuIncomePercent === option.value
-                            ? 'border-emerald-500 bg-emerald-50'
-                            : 'border-gray-300 hover:border-emerald-300'
-                        }`}
-                      >
-                        <div className="font-semibold text-lg mb-2">{option.label}</div>
-                        <div className="text-sm text-muted-foreground">{option.desc}</div>
-                      </button>
-                    ))}
+                  
+                  <div className="max-w-md">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Stock Compensation Percentage
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="number"
+                        value={formData.rsuIncomePercent}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Validate between 0 and 100
+                          if (value === '' || (parseInt(value) >= 0 && parseInt(value) <= 100)) {
+                            handleInputChange('rsuIncomePercent', value);
+                          }
+                        }}
+                        placeholder="e.g., 30"
+                        min="0"
+                        max="100"
+                        className="w-full px-4 py-3 border rounded-md text-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 pr-8"
+                      />
+                      <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-lg text-gray-600">%</span>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-2">Enter a value between 0 and 100</p>
                   </div>
                 </div>
               )}
