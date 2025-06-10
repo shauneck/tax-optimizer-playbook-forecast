@@ -1154,6 +1154,10 @@ function PlaybookGenerator() {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
+        input[type="range"]::-webkit-slider-thumb:hover {
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        
         input[type="range"]::-moz-range-track {
           background: #e5e7eb;
           height: 8px;
@@ -1169,6 +1173,10 @@ function PlaybookGenerator() {
           cursor: pointer;
           border: 2px solid #ffffff;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        input[type="range"]:hover {
+          opacity: 0.8;
         }
       `}</style>
       <div className="container mx-auto px-4 py-8 max-w-6xl">
