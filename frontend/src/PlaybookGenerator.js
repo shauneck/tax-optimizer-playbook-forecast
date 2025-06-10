@@ -1043,34 +1043,31 @@ function PlaybookGenerator() {
     };
     
     return (
-      <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
-        <div className="flex justify-between items-start mb-3">
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
-              <h4 className="text-base font-semibold text-gray-900 leading-tight flex-1">{strategy.title}</h4>
-              <div className="text-lg ml-2">{getStatusIcon()}</div>
-            </div>
-            <div className="flex items-center gap-2 mb-3">
+      <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
+        <div className="flex items-start justify-between mb-2">
+          <div className="flex-1 min-w-0">
+            <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
+            <div className="flex items-center gap-2 flex-wrap">
               <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor()}`}>
                 {strategy.complexity}
               </span>
               {content.module && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600 truncate">
                   {content.module}
                 </span>
               )}
             </div>
           </div>
+          <div className="text-lg ml-2 flex-shrink-0">{getStatusIcon()}</div>
         </div>
         
-        <p className="text-sm text-gray-600 mb-4 leading-snug line-clamp-3">{strategy.description}</p>
+        <p className="text-sm text-gray-600 mb-3 leading-snug line-clamp-2">{strategy.description}</p>
         
         <div className="mt-auto">
-          <label className="block text-sm font-medium text-gray-700 mb-1">Implementation Status</label>
           <select
             value={status}
             onChange={(e) => updateStrategyStatus(strategy.id, e.target.value)}
-            className="w-full px-3 py-2 border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
+            className="w-full px-2 py-1 border rounded-md text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500"
           >
             <option value={STRATEGY_STATUS.NOT_STARTED}>Not Started</option>
             <option value={STRATEGY_STATUS.IN_PROGRESS}>In Progress</option>
