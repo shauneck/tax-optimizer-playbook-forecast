@@ -210,11 +210,6 @@ const EDUCATIONAL_CONTENT = {
     module: 'Module 4: Advanced Planning',
     glossary: ['Installment Sale', 'Capital Gains Deferral'],
     caseStudy: 'Business Sale Installment Strategy'
-  },
-  'Conservation Easement': {
-    module: 'Module 4: Advanced Planning',
-    glossary: ['Conservation Easement', 'Charitable Deduction'],
-    caseStudy: 'Land Conservation Tax Benefits'
   }
 };
 
