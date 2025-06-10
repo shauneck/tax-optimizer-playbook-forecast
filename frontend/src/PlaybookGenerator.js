@@ -1685,10 +1685,7 @@ function PlaybookGenerator() {
                             value={forecastingData.forecastYears}
                             onChange={(e) => {
                               const newYears = parseInt(e.target.value);
-                              handleForecastingChange('forecastYears', newYears);
-                              // Recalculate forecast data immediately
-                              const newForecastData = calculateForecastData();
-                              setResults(prev => ({ ...prev, forecastData: newForecastData }));
+                              setForecastingData(prev => ({ ...prev, forecastYears: newYears }));
                             }}
                             className="w-full px-3 py-2 border rounded-md text-lg font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           >
