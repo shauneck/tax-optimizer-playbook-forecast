@@ -1676,12 +1676,13 @@ function PlaybookGenerator() {
                           <select
                             value={forecastingData.forecastYears}
                             onChange={(e) => {
-                              handleForecastingChange('forecastYears', parseInt(e.target.value));
-                              // Recalculate forecast data
+                              const newYears = parseInt(e.target.value);
+                              handleForecastingChange('forecastYears', newYears);
+                              // Recalculate forecast data immediately
                               const newForecastData = calculateForecastData();
                               setResults(prev => ({ ...prev, forecastData: newForecastData }));
                             }}
-                            className="w-full px-3 py-2 border rounded-md text-lg font-semibold bg-white"
+                            className="w-full px-3 py-2 border rounded-md text-lg font-semibold bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
                           >
                             <option value={5}>5 Years</option>
                             <option value={10}>10 Years</option>
@@ -1701,8 +1702,9 @@ function PlaybookGenerator() {
                             max="12"
                             value={forecastingData.returnRate}
                             onChange={(e) => {
-                              handleForecastingChange('returnRate', parseInt(e.target.value));
-                              // Recalculate forecast data
+                              const newRate = parseInt(e.target.value);
+                              handleForecastingChange('returnRate', newRate);
+                              // Recalculate forecast data immediately
                               const newForecastData = calculateForecastData();
                               setResults(prev => ({ ...prev, forecastData: newForecastData }));
                             }}
