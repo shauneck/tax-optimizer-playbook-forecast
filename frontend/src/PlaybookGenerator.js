@@ -1785,10 +1785,10 @@ function PlaybookGenerator() {
                 </div>
 
                 {/* 2. Implementation Status Tracker */}
-                <div className="bg-white rounded-2xl shadow-sm p-8 mb-12">
-                  <div className="flex items-center justify-between mb-6">
+                <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
+                  <div className="flex items-center justify-between">
                     <div>
-                      <h2 className="text-3xl font-semibold text-gray-900 mb-2">Implementation Progress</h2>
+                      <h2 className="text-3xl font-semibold text-gray-900 mb-1">Implementation Progress</h2>
                       <p className="text-base text-gray-600">Track your progress on each recommended strategy</p>
                     </div>
                     <div className="text-right">
