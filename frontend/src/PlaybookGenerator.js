@@ -1386,7 +1386,7 @@ function PlaybookGenerator() {
                 <button
                   onClick={prevStep}
                   disabled={currentStep === 1}
-                  className="px-6 py-3 border border-muted text-muted-foreground rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-muted/50 transition-all"
+                  className="px-6 py-3 border border-gray-300 text-gray-600 rounded-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-all"
                 >
                   Previous
                 </button>
