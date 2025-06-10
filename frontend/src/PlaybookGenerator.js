@@ -936,27 +936,29 @@ function PlaybookGenerator() {
     };
     
     return (
-      <div key={strategy.id} className="bg-white border rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow h-48 flex flex-col">
+      <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow">
         <div className="flex justify-between items-start mb-3">
           <div className="flex-1">
-            <h4 className="text-base font-semibold text-gray-900 mb-2 leading-tight">{strategy.title}</h4>
-            <div className="flex items-center gap-2 mb-2">
-              <span className={`inline-flex items-center px-2 py-1 rounded-md text-xs font-medium ${getComplexityColor()}`}>
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-base font-semibold text-gray-900 leading-tight flex-1">{strategy.title}</h4>
+              <div className="text-lg ml-2">{getStatusIcon()}</div>
+            </div>
+            <div className="flex items-center gap-2 mb-3">
+              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor()}`}>
                 {strategy.complexity}
               </span>
               {content.module && (
-                <span className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-gray-100 text-gray-600">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600">
                   {content.module}
                 </span>
               )}
             </div>
           </div>
-          <div className="text-lg ml-3">{getStatusIcon()}</div>
         </div>
         
-        <p className="text-sm text-gray-600 mb-3 leading-snug flex-1">{strategy.description}</p>
+        <p className="text-sm text-gray-600 mb-4 leading-snug line-clamp-3">{strategy.description}</p>
         
-        <div className="pt-3 border-t mt-auto">
+        <div className="mt-auto">
           <label className="block text-sm font-medium text-gray-700 mb-1">Implementation Status</label>
           <select
             value={status}
