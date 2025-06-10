@@ -1711,10 +1711,7 @@ function PlaybookGenerator() {
                             value={forecastingData.returnRate}
                             onChange={(e) => {
                               const newRate = parseInt(e.target.value);
-                              handleForecastingChange('returnRate', newRate);
-                              // Recalculate forecast data immediately
-                              const newForecastData = calculateForecastData();
-                              setResults(prev => ({ ...prev, forecastData: newForecastData }));
+                              setForecastingData(prev => ({ ...prev, returnRate: newRate }));
                             }}
                             className="w-full mb-2"
                           />
