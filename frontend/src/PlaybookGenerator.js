@@ -1666,35 +1666,35 @@ function PlaybookGenerator() {
                 {/* Profile Summary */}
                 <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
                   <div className="text-sm uppercase text-gray-600 tracking-wide mb-4">Profile</div>
-                  <div className="grid md:grid-cols-4 gap-6">
-                    <div>
-                      <div className="text-sm text-gray-600">Income Type</div>
-                      <div className="font-semibold text-gray-900">{formData.incomeType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</div>
+                  <div className="flex flex-wrap gap-x-6 gap-y-2">
+                    <div className="flex items-center gap-x-2">
+                      <span className="text-sm text-gray-600">Income Type:</span>
+                      <span className="font-semibold text-gray-900">{formData.incomeType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
                     </div>
-                    <div>
-                      <div className="text-sm text-gray-600">Income Range</div>
-                      <div className="font-semibold text-gray-900">{formData.incomeRange}</div>
+                    <div className="flex items-center gap-x-2">
+                      <span className="text-sm text-gray-600">Income Range:</span>
+                      <span className="font-semibold text-gray-900">{formData.incomeRange}</span>
                     </div>
-                    <div>
-                      <div className="text-sm text-gray-600">Entity Structure</div>
-                      <div className="font-semibold text-gray-900">{formData.entityStructure}</div>
+                    <div className="flex items-center gap-x-2">
+                      <span className="text-sm text-gray-600">Entity Structure:</span>
+                      <span className="font-semibold text-gray-900">{formData.entityStructure}</span>
                     </div>
                     {/* Only show stock compensation for W-2 and blended income types */}
                     {(formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') && (
-                      <div>
-                        <div className="text-sm text-gray-600">Stock Compensation</div>
-                        <div className="font-semibold text-gray-900">
+                      <div className="flex items-center gap-x-2">
+                        <span className="text-sm text-gray-600">Stock Compensation:</span>
+                        <span className="font-semibold text-gray-900">
                           {formData.receivesStockComp ? `Yes (${formData.rsuIncomePercent}%)` : 'No'}
-                        </div>
+                        </span>
                       </div>
                     )}
                     {/* Show business partners for business owners */}
                     {(formData.incomeType === 'business-owner' || formData.incomeType === 'blended') && (
-                      <div>
-                        <div className="text-sm text-gray-600">Business Partners</div>
-                        <div className="font-semibold text-gray-900">
+                      <div className="flex items-center gap-x-2">
+                        <span className="text-sm text-gray-600">Business Partners:</span>
+                        <span className="font-semibold text-gray-900">
                           {formData.hasBusinessPartners === true ? 'Yes' : formData.hasBusinessPartners === false ? 'No' : 'Not specified'}
-                        </div>
+                        </span>
                       </div>
                     )}
                   </div>
