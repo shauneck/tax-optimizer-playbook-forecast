@@ -302,6 +302,14 @@ function PlaybookGenerator() {
   const [showQuarterlyReview, setShowQuarterlyReview] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
 
+  // Update forecast data whenever forecasting parameters change
+  useEffect(() => {
+    if (hasExistingData && results.forecastData) {
+      const newForecastData = calculateForecastData();
+      setResults(prev => ({ ...prev, forecastData: newForecastData }));
+    }
+  }, [forecastingData.forecastYears, forecastingData.returnRate, forecastingData.enableWealthLoop, forecastingData.reinvestSavings]);
+
   // Load saved data from localStorage on component mount
   useEffect(() => {
     const savedData = localStorage.getItem('taxOptimizationData');
