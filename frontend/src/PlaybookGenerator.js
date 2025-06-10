@@ -144,6 +144,9 @@ const STRATEGY_STATUS = {
   NOT_APPLICABLE: 'not_applicable'
 };
 
+// Version for cache invalidation
+const STRATEGY_LOGIC_VERSION = '2.0'; // Updated to clear old Conservation Easement data
+
 // Educational content mapping
 const EDUCATIONAL_CONTENT = {
   'Business Entity Formation': {
