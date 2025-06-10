@@ -1479,7 +1479,7 @@ function PlaybookGenerator() {
                       : 'bg-emerald-500 hover:bg-emerald-600'
                   }`}
                 >
-                  {currentStep === 8 ? 'Generate My Tax Plan' : 'Continue'}
+                  {currentStep === 9 ? 'Generate My Tax Plan' : 'Continue'}
                 </button>
               </div>
             </div>
