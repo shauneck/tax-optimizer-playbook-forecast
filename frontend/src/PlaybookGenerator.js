@@ -317,14 +317,26 @@ function PlaybookGenerator() {
   useEffect(() => {
     const savedData = localStorage.getItem('taxOptimizationData');
     if (savedData) {
-      const parsed = JSON.parse(savedData);
-      if (parsed.results && parsed.results.strategyStack && parsed.results.strategyStack.setupStructure.length > 0) {
-        setFormData(parsed.formData || formData);
-        setForecastingData(parsed.forecastingData || forecastingData);
-        setResults(parsed.results || results);
-        setStrategyStatuses(parsed.strategyStatuses || {});
-        setHasExistingData(true);
-        setDashboardMode('dashboard');
+      try {
+        const parsed = JSON.parse(savedData);
+        // Check version and clear cache if outdated
+        if (parsed.version !== STRATEGY_LOGIC_VERSION) {
+          console.log('Cache version mismatch, clearing outdated data');
+          localStorage.removeItem('taxOptimizationData');
+          return;
+        }
+        
+        if (parsed.results && parsed.results.strategyStack && parsed.results.strategyStack.setupStructure.length > 0) {
+          setFormData(parsed.formData || formData);
+          setForecastingData(parsed.forecastingData || forecastingData);
+          setResults(parsed.results || results);
+          setStrategyStatuses(parsed.strategyStatuses || {});
+          setHasExistingData(true);
+          setDashboardMode('dashboard');
+        }
+      } catch (error) {
+        console.log('Error parsing saved data, clearing cache', error);
+        localStorage.removeItem('taxOptimizationData');
       }
     }
   }, []);
