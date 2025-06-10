@@ -1931,10 +1931,10 @@ function PlaybookGenerator() {
                           </div>
                         </div>
 
-                        {/* Center-aligned Time Horizon and Return Rate */}
-                        <div className="flex justify-center gap-6">
+                        {/* Control Cards Grid - Time Horizon, Return Rate, and Wealth Loop */}
+                        <div className="grid md:grid-cols-3 gap-6">
                           {/* Time Horizon with Dropdown */}
-                          <div className="bg-gray-50 rounded-2xl p-6 w-64">
+                          <div className="bg-gray-50 rounded-2xl p-6">
                             <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Time Horizon</div>
                             <select
                               value={forecastingData.forecastYears}
@@ -1953,11 +1953,11 @@ function PlaybookGenerator() {
                           </div>
 
                           {/* Return Rate Slider - Enhanced with Background */}
-                          <div className="bg-gray-50 rounded-2xl p-6 w-64">
+                          <div className="bg-gray-50 rounded-2xl p-6">
                             <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Return Rate</div>
                             <div className="text-2xl font-bold text-gray-900 mb-3 text-center">{forecastingData.returnRate}%</div>
-                            <div className="relative mb-2">
-                              <div className="bg-emerald-100 h-2 rounded-full absolute inset-0"></div>
+                            <div className="relative mb-2 flex items-center">
+                              <div className="bg-emerald-100 h-1 rounded-full absolute left-0 right-0 top-1/2 transform -translate-y-1/2"></div>
                               <input
                                 type="range"
                                 min="3"
@@ -1967,7 +1967,7 @@ function PlaybookGenerator() {
                                   const newRate = parseInt(e.target.value);
                                   setForecastingData(prev => ({ ...prev, returnRate: newRate }));
                                 }}
-                                className="w-full h-2 bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
+                                className="w-full bg-transparent rounded-lg appearance-none cursor-pointer relative z-10 hover:opacity-80 transition-opacity"
                               />
                             </div>
                             <div className="text-xs text-gray-600 mb-2 text-center">Compounding at: {forecastingData.returnRate}% annually</div>
@@ -1976,30 +1976,65 @@ function PlaybookGenerator() {
                               <span>12%</span>
                             </div>
                           </div>
+
+                          {/* Wealth Multiplier Loop - Moved Inline */}
+                          <div className="bg-gray-50 rounded-2xl p-6">
+                            <div className="text-sm uppercase text-gray-600 tracking-wide mb-3 text-center">Wealth Loop</div>
+                            <div className="text-center mb-3">
+                              <label className="flex items-center justify-center">
+                                <input
+                                  type="checkbox"
+                                  checked={forecastingData.enableWealthLoop}
+                                  onChange={(e) => {
+                                    setForecastingData(prev => ({ ...prev, enableWealthLoop: e.target.checked }));
+                                  }}
+                                  className="mr-2 text-emerald-500 focus:ring-emerald-500"
+                                />
+                                <span className="text-sm font-semibold text-gray-900">
+                                  {forecastingData.enableWealthLoop ? 'Enabled' : 'Disabled'}
+                                </span>
+                              </label>
+                            </div>
+                            {forecastingData.enableWealthLoop && (
+                              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                                <div className="text-xs text-purple-700 font-medium mb-1">Active Wealth Multiplier</div>
+                                <div className="text-xs text-purple-600">Compounding passive income generation</div>
+                              </div>
+                            )}
+                          </div>
                         </div>
 
-                        {/* Wealth Multiplier Loop (Full Width) */}
-                        <div className="bg-gray-50 rounded-2xl p-6">
-                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Wealth Loop</div>
-                          <label className="flex items-center">
-                            <input
-                              type="checkbox"
-                              checked={forecastingData.enableWealthLoop}
-                              onChange={(e) => {
-                                setForecastingData(prev => ({ ...prev, enableWealthLoop: e.target.checked }));
-                              }}
-                              className="mr-2 text-emerald-500 focus:ring-emerald-500"
-                            />
-                            <span className="text-sm font-semibold text-gray-900">
-                              {forecastingData.enableWealthLoop ? 'Enabled' : 'Disabled'}
-                            </span>
-                          </label>
-                          {forecastingData.enableWealthLoop && (
-                            <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 mt-3">
-                              <div className="text-xs text-purple-700 font-medium mb-1">Active Wealth Multiplier</div>
-                              <div className="text-xs text-purple-600">Compounding passive income generation</div>
-                            </div>
-                          )}
+                        {/* Investment Strategy Options - Center Aligned */}
+                        <div className="max-w-2xl mx-auto">
+                          <div className="text-sm uppercase text-gray-600 tracking-wide mb-4 text-center">Investment Approach</div>
+                          <div className="flex justify-center gap-4">
+                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 max-w-xs">
+                              <input
+                                type="radio"
+                                name="reinvest"
+                                checked={forecastingData.reinvestSavings}
+                                onChange={() => setForecastingData(prev => ({ ...prev, reinvestSavings: true }))}
+                                className="mr-3 text-emerald-500 focus:ring-emerald-500"
+                              />
+                              <div className="text-center">
+                                <div className="font-semibold text-gray-900">Reinvest tax savings</div>
+                                <div className="text-sm text-gray-600">{forecastingData.returnRate}% annual return for compound growth</div>
+                              </div>
+                            </label>
+                            <label className="flex items-center p-4 rounded-2xl border cursor-pointer hover:border-emerald-300 max-w-xs">
+                              <input
+                                type="radio"
+                                name="reinvest"
+                                checked={!forecastingData.reinvestSavings}
+                                onChange={() => setForecastingData(prev => ({ ...prev, reinvestSavings: false }))}
+                                className="mr-3 text-emerald-500 focus:ring-emerald-500"
+                              />
+                              <div className="text-center">
+                                <div className="font-semibold text-gray-900">Save tax reduction only</div>
+                                <div className="text-sm text-gray-600">Keep savings without additional investment</div>
+                              </div>
+                            </label>
+                          </div>
                         </div>
                       </div>
 
