@@ -1134,12 +1134,13 @@ function PlaybookGenerator() {
           appearance: none;
           background: transparent;
           cursor: pointer;
+          height: 20px;
         }
         
         input[type="range"]::-webkit-slider-track {
-          background: #e5e7eb;
-          height: 8px;
-          border-radius: 4px;
+          background: transparent;
+          height: 6px;
+          border-radius: 3px;
         }
         
         input[type="range"]::-webkit-slider-thumb {
@@ -1150,8 +1151,9 @@ function PlaybookGenerator() {
           border-radius: 50%;
           background: #10b981;
           cursor: pointer;
-          border: 2px solid #ffffff;
+          border: 3px solid #ffffff;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          margin-top: -7px;
         }
         
         input[type="range"]::-webkit-slider-thumb:hover {
@@ -1159,9 +1161,9 @@ function PlaybookGenerator() {
         }
         
         input[type="range"]::-moz-range-track {
-          background: #e5e7eb;
-          height: 8px;
-          border-radius: 4px;
+          background: transparent;
+          height: 6px;
+          border-radius: 3px;
           border: none;
         }
         
@@ -1171,12 +1173,37 @@ function PlaybookGenerator() {
           border-radius: 50%;
           background: #10b981;
           cursor: pointer;
-          border: 2px solid #ffffff;
+          border: 3px solid #ffffff;
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
         
         input[type="range"]:hover {
           opacity: 0.8;
+        }
+
+        .slider-container {
+          position: relative;
+          height: 20px;
+          display: flex;
+          align-items: center;
+        }
+        
+        .slider-track {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          right: 0;
+          height: 6px;
+          transform: translateY(-50%);
+          border-radius: 3px;
+          z-index: 1;
+        }
+        
+        .slider-input {
+          position: relative;
+          z-index: 2;
+          width: 100%;
+          margin: 0;
         }
       `}</style>
       <div className="container mx-auto px-4 py-8 max-w-6xl">
