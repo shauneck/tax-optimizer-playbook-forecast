@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 // Import components directly in this file to avoid import issues
 import LandingPage from './LandingPage';
-import ToolsDashboard from './ToolsDashboard';
 import PlaybookGenerator from './PlaybookGenerator';
 import TaxForecaster from './TaxForecaster';
 
@@ -14,7 +13,6 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/tools" element={<ToolsDashboard />} />
           <Route path="/tools/escape-plan" element={<PlaybookGenerator />} />
           <Route path="/playbook" element={<PlaybookGenerator />} />
           <Route path="/forecaster" element={<TaxForecaster />} />
