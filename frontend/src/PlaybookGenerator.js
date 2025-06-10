@@ -831,22 +831,22 @@ function PlaybookGenerator() {
       case 'w2-employee':
         return {
           label: 'What is your annual W-2 income before taxes?',
-          placeholder: 'e.g., 275000'
+          placeholder: 'e.g., 275,000'
         };
       case 'business-owner':
         return {
           label: 'What is your annual business profit before taxes?',
-          placeholder: 'e.g., 500000'
+          placeholder: 'e.g., 500,000'
         };
       case 'blended':
         return {
           label: 'What is your combined income (W-2 + business profit) before taxes?',
-          placeholder: 'e.g., 800000'
+          placeholder: 'e.g., 800,000'
         };
       default:
         return {
           label: 'What is your annual income before taxes?',
-          placeholder: 'e.g., 350000'
+          placeholder: 'e.g., 350,000'
         };
     }
   };
