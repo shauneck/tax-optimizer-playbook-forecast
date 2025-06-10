@@ -808,6 +808,7 @@ function PlaybookGenerator() {
       incomeRange: '',
       entityStructure: '',
       strategyGoals: [],
+      hasBusinessPartners: null,
       receivesStockComp: false,
       rsuIncomePercent: ''
     });
