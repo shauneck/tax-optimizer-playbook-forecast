@@ -1440,7 +1440,7 @@ function PlaybookGenerator() {
                   </button>
                   <button
                     onClick={() => setShowQuarterlyReview(!showQuarterlyReview)}
-                    className="bg-white border border-muted text-muted-foreground p-6 rounded-2xl text-center hover:bg-muted/50 transition-all"
+                    className="bg-white border border-gray-300 text-gray-600 p-6 rounded-2xl text-center hover:bg-gray-50 transition-all"
                   >
                     <div className="text-xl font-semibold mb-2">Quarterly Review</div>
                     <div className="text-sm">Progress check-in</div>
