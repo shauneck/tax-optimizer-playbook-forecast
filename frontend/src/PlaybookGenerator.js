@@ -347,7 +347,13 @@ function PlaybookGenerator() {
   };
 
   const handleForecastingChange = (field, value) => {
-    setForecastingData({ ...forecastingData, [field]: value });
+    // Handle formatted number inputs for specific fields
+    if (field === 'businessProfit' || field === 'capitalAvailable') {
+      const plainValue = parseFormattedNumber(value);
+      setForecastingData({ ...forecastingData, [field]: plainValue });
+    } else {
+      setForecastingData({ ...forecastingData, [field]: value });
+    }
   };
 
   const generateStrategyStack = (data, forecastData) => {
