@@ -39,17 +39,9 @@ function LandingPage() {
           {/* Primary CTA */}
           <Link 
             to="/tools/escape-plan"
-            className="inline-block bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-colors text-lg shadow-lg mr-4"
+            className="inline-block bg-emerald-600 text-white px-8 py-4 rounded-lg font-bold hover:bg-emerald-700 transition-colors text-lg shadow-lg"
           >
             Plan Your Escape
-          </Link>
-          
-          {/* Secondary CTA */}
-          <Link 
-            to="/tools"
-            className="inline-block border-2 border-emerald-600 text-emerald-600 px-8 py-4 rounded-lg font-bold hover:bg-emerald-50 transition-colors text-lg"
-          >
-            View All Tools
           </Link>
         </div>
 
