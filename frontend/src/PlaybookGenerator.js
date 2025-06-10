@@ -1566,12 +1566,24 @@ function PlaybookGenerator() {
                       <div className="text-sm text-gray-600">Entity Structure</div>
                       <div className="font-semibold text-gray-900">{formData.entityStructure}</div>
                     </div>
-                    <div>
-                      <div className="text-sm text-gray-600">Stock Compensation</div>
-                      <div className="font-semibold text-gray-900">
-                        {formData.receivesStockComp ? `Yes (${formData.rsuIncomePercent}%)` : 'No'}
+                    {/* Only show stock compensation for W-2 and blended income types */}
+                    {(formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') && (
+                      <div>
+                        <div className="text-sm text-gray-600">Stock Compensation</div>
+                        <div className="font-semibold text-gray-900">
+                          {formData.receivesStockComp ? `Yes (${formData.rsuIncomePercent}%)` : 'No'}
+                        </div>
                       </div>
-                    </div>
+                    )}
+                    {/* Show business partners for business owners */}
+                    {(formData.incomeType === 'business-owner' || formData.incomeType === 'blended') && (
+                      <div>
+                        <div className="text-sm text-gray-600">Business Partners</div>
+                        <div className="font-semibold text-gray-900">
+                          {formData.hasBusinessPartners === true ? 'Yes' : formData.hasBusinessPartners === false ? 'No' : 'Not specified'}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   {results.lastUpdated && (
                     <div className="mt-6 pt-6 border-t">
