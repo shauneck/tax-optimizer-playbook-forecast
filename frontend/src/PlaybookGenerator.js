@@ -1604,28 +1604,28 @@ function PlaybookGenerator() {
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-6">Investment strategy</label>
                       <div className="space-y-4 max-w-md mx-auto">
-                        <label className="flex items-center justify-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300">
+                        <label className="flex items-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300">
                           <input
                             type="radio"
                             name="reinvest"
                             checked={forecastingData.reinvestSavings}
                             onChange={() => handleForecastingChange('reinvestSavings', true)}
-                            className="mr-3 text-emerald-500 focus:ring-emerald-500"
+                            className="mr-3 text-emerald-500 focus:ring-emerald-500 flex-shrink-0"
                           />
-                          <div className="text-center">
+                          <div className="text-left">
                             <div className="font-semibold text-gray-900">Reinvest tax savings</div>
                             <div className="text-sm text-muted-foreground">6% annual return for compound growth</div>
                           </div>
                         </label>
-                        <label className="flex items-center justify-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300">
+                        <label className="flex items-center p-3 rounded-xl border cursor-pointer hover:border-emerald-300">
                           <input
                             type="radio"
                             name="reinvest"
                             checked={!forecastingData.reinvestSavings}
                             onChange={() => handleForecastingChange('reinvestSavings', false)}
-                            className="mr-3 text-emerald-500 focus:ring-emerald-500"
+                            className="mr-3 text-emerald-500 focus:ring-emerald-500 flex-shrink-0"
                           />
-                          <div className="text-center">
+                          <div className="text-left">
                             <div className="font-semibold text-gray-900">Save tax reduction only</div>
                             <div className="text-sm text-muted-foreground">Keep savings without additional investment</div>
                           </div>
