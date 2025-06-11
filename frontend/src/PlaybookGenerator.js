@@ -1829,23 +1829,23 @@ function PlaybookGenerator() {
 
                 {/* 2. Implementation Status Tracker */}
                 <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1 text-center">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
                       <h2 className="text-2xl font-semibold text-gray-900 mb-1">Implementation Progress</h2>
                       <p className="text-sm text-gray-600">Track your progress on each recommended strategy</p>
                     </div>
-                    <div className="flex-shrink-0 ml-4">
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-emerald-600 mb-1">
-                          {getStrategyProgress().implemented}/{getStrategyProgress().total}
-                        </div>
-                        <div className="text-xs text-gray-600 mb-2">Strategies Implemented</div>
-                        <div className="w-24 bg-gray-200 rounded-full h-2 ml-auto">
-                          <div 
-                            className="bg-emerald-500 h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${getStrategyProgress().percentage}%` }}
-                          ></div>
-                        </div>
+                    <div className="flex flex-col items-end text-right">
+                      <div className="text-2xl font-bold text-emerald-600 mb-1">
+                        {getStrategyProgress().implemented}/{getStrategyProgress().total}
+                      </div>
+                      <div className="text-xs text-gray-600 mb-2">
+                        Strategies Implemented
+                      </div>
+                      <div className="w-24 bg-gray-200 rounded-full h-2">
+                        <div 
+                          className="bg-emerald-500 h-2 rounded-full transition-all duration-300"
+                          style={{ width: `${getStrategyProgress().percentage}%` }}
+                        ></div>
                       </div>
                     </div>
                   </div>
