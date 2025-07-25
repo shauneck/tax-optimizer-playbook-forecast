@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import html2pdf from 'html2pdf.js';
+import { strategyMatcher } from './utils/strategyMatcher';
 
 // Enhanced Tooltip component for assumptions - Fixed hover flicker
 const AssumptionsTooltip = ({ children }) => {
