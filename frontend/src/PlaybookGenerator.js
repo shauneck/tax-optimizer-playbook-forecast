@@ -893,24 +893,10 @@ function PlaybookGenerator() {
   const renderStrategyCard = (strategy) => {
     const status = strategyStatuses[strategy.id] || STRATEGY_STATUS.NOT_STARTED;
     
-    // Handle suppressed strategies (those with suppression rules)
-    if (strategy.issuppressed) {
-      return (
-        <div key={strategy.id} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 shadow-sm">
-          <div className="flex items-start justify-between mb-2">
-            <div className="flex-1 min-w-0">
-              <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
-            </div>
-            <div className="text-lg ml-2 flex-shrink-0">⚠️</div>
-          </div>
-          
-          <div className="bg-yellow-100 border border-yellow-200 rounded-lg p-3">
-            <p className="text-sm text-yellow-800">{strategy.suppressionMessage}</p>
-          </div>
-        </div>
-      );
-    }
+    // ✅ HOOKS FIRST - Always call hooks unconditionally at the top level
+    const [isExpanded, setIsExpanded] = useState(false);
     
+    // Helper functions (no hooks here)
     const getStatusIcon = () => {
       switch (status) {
         case STRATEGY_STATUS.IMPLEMENTED: return '✅';
@@ -929,7 +915,24 @@ function PlaybookGenerator() {
       }
     };
     
-    const [isExpanded, setIsExpanded] = useState(false);
+    // ✅ CONDITIONAL RENDERING AFTER HOOKS
+    // Handle suppressed strategies (those with suppression rules)
+    if (strategy.issuppressed) {
+      return (
+        <div key={strategy.id} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 shadow-sm">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
+            </div>
+            <div className="text-lg ml-2 flex-shrink-0">⚠️</div>
+          </div>
+          
+          <div className="bg-yellow-100 border border-yellow-200 rounded-lg p-3">
+            <p className="text-sm text-yellow-800">{strategy.suppressionMessage}</p>
+          </div>
+        </div>
+      );
+    }
     
     return (
       <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
