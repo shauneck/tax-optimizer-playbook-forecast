@@ -890,13 +890,11 @@ function PlaybookGenerator() {
     }
   };
 
-  const renderStrategyCard = (strategy) => {
+  // ✅ SEPARATE COMPONENT: Handles its own state safely
+  const StrategyCard = ({ strategy }) => {
+    const [isExpanded, setIsExpanded] = useState(false);
     const status = strategyStatuses[strategy.id] || STRATEGY_STATUS.NOT_STARTED;
     
-    // ✅ HOOKS FIRST - Always call hooks unconditionally at the top level
-    const [isExpanded, setIsExpanded] = useState(false);
-    
-    // Helper functions (no hooks here)
     const getStatusIcon = () => {
       switch (status) {
         case STRATEGY_STATUS.IMPLEMENTED: return '✅';
@@ -915,11 +913,10 @@ function PlaybookGenerator() {
       }
     };
     
-    // ✅ CONDITIONAL RENDERING AFTER HOOKS
-    // Handle suppressed strategies (those with suppression rules)
+    // Handle suppressed strategies
     if (strategy.issuppressed) {
       return (
-        <div key={strategy.id} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 shadow-sm">
+        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 shadow-sm">
           <div className="flex items-start justify-between mb-2">
             <div className="flex-1 min-w-0">
               <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
@@ -935,7 +932,7 @@ function PlaybookGenerator() {
     }
     
     return (
-      <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
         {/* Card Header */}
         <div className="p-4">
           <div className="flex items-start justify-between mb-2">
@@ -1066,6 +1063,11 @@ function PlaybookGenerator() {
       </div>
     );
   };
+
+  // ✅ SAFE RENDER FUNCTION: No hooks, just returns JSX
+  const renderStrategyCard = (strategy) => (
+    <StrategyCard key={strategy.id} strategy={strategy} />
+  );
 
   if (isGenerating) {
     return (
