@@ -547,12 +547,35 @@ function PlaybookGenerator() {
     baseSavingsMin = Math.min(baseSavingsMin, 35);
     baseSavingsMax = Math.min(baseSavingsMax, 45);
     
-    const savingsMinDollar = taxLiability * (baseSavingsMin / 100);
-    const savingsMaxDollar = taxLiability * (baseSavingsMax / 100);
+    // Calculate base savings from percentage approach
+    const baseSavingsMinDollar = taxLiability * (baseSavingsMin / 100);
+    const baseSavingsMaxDollar = taxLiability * (baseSavingsMax / 100);
+    
+    // Get strategy-specific savings from JSON cards
+    const applicableStrategies = strategyMatcher.getApplicableStrategies(formData, forecastingData);
+    const strategySavings = strategyMatcher.calculateStrategySavings(applicableStrategies);
+    
+    // Combine base savings with strategy-specific savings
+    // Use a weighted approach to avoid double counting
+    const strategySavingsWeight = 0.3; // 30% weight to strategy-specific data
+    const baseSavingsWeight = 0.7; // 70% weight to existing calculation logic
+    
+    const combinedMinSavings = (baseSavingsMinDollar * baseSavingsWeight) + (strategySavings * strategySavingsWeight);
+    const combinedMaxSavings = (baseSavingsMaxDollar * baseSavingsWeight) + (strategySavings * 1.2 * strategySavingsWeight);
+    
+    // Convert back to percentages
+    const combinedMinPercent = (combinedMinSavings / taxLiability) * 100;
+    const combinedMaxPercent = (combinedMaxSavings / taxLiability) * 100;
     
     return {
-      percent: { min: baseSavingsMin, max: baseSavingsMax },
-      dollar: { min: savingsMinDollar, max: savingsMaxDollar }
+      percent: { 
+        min: Math.round(combinedMinPercent), 
+        max: Math.round(combinedMaxPercent) 
+      },
+      dollar: { 
+        min: Math.round(combinedMinSavings), 
+        max: Math.round(combinedMaxSavings) 
+      }
     };
   };
 
