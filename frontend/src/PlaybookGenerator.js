@@ -892,7 +892,24 @@ function PlaybookGenerator() {
 
   const renderStrategyCard = (strategy) => {
     const status = strategyStatuses[strategy.id] || STRATEGY_STATUS.NOT_STARTED;
-    const content = EDUCATIONAL_CONTENT[strategy.title] || {};
+    
+    // Handle suppressed strategies (those with suppression rules)
+    if (strategy.issuppressed) {
+      return (
+        <div key={strategy.id} className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 shadow-sm">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
+            </div>
+            <div className="text-lg ml-2 flex-shrink-0">⚠️</div>
+          </div>
+          
+          <div className="bg-yellow-100 border border-yellow-200 rounded-lg p-3">
+            <p className="text-sm text-yellow-800">{strategy.suppressionMessage}</p>
+          </div>
+        </div>
+      );
+    }
     
     const getStatusIcon = () => {
       switch (status) {
@@ -912,28 +929,126 @@ function PlaybookGenerator() {
       }
     };
     
+    const [isExpanded, setIsExpanded] = useState(false);
+    
     return (
-      <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl p-3 shadow-sm hover:shadow-md transition-shadow">
-        <div className="flex items-start justify-between mb-2">
-          <div className="flex-1 min-w-0">
-            <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor()}`}>
-                {strategy.complexity}
-              </span>
-              {content.module && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600 truncate">
-                  {content.module}
+      <div key={strategy.id} className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+        {/* Card Header */}
+        <div className="p-4">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor()}`}>
+                  {strategy.complexity}
                 </span>
-              )}
+                {strategy.moduleReference && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-gray-100 text-gray-600 truncate">
+                    {strategy.moduleReference.module}
+                  </span>
+                )}
+              </div>
             </div>
+            <div className="text-lg ml-2 flex-shrink-0">{getStatusIcon()}</div>
           </div>
-          <div className="text-lg ml-2 flex-shrink-0">{getStatusIcon()}</div>
+          
+          {/* Summary */}
+          <p className="text-sm text-gray-600 mb-3 leading-snug line-clamp-3">{strategy.summary}</p>
+          
+          {/* Quantified Example Preview */}
+          {strategy.quantifiedExample && strategy.quantifiedExample.annualSavings && (
+            <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-2 mb-3">
+              <div className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-1">Potential Savings</div>
+              <div className="text-sm font-bold text-emerald-800">
+                {typeof strategy.quantifiedExample.annualSavings === 'number' 
+                  ? formatCurrency(strategy.quantifiedExample.annualSavings) 
+                  : strategy.quantifiedExample.annualSavings} annually
+              </div>
+            </div>
+          )}
+          
+          {/* Expand/Collapse Button */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="w-full text-left text-xs text-emerald-600 hover:text-emerald-700 font-medium mb-3 flex items-center"
+          >
+            {isExpanded ? 'Show less' : 'Show details'}
+            <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+          </button>
         </div>
         
-        <p className="text-sm text-gray-600 mb-3 leading-snug line-clamp-2">{strategy.description}</p>
+        {/* Expanded Content */}
+        {isExpanded && (
+          <div className="border-t border-gray-100 p-4 bg-gray-50">
+            {/* Full Description */}
+            <div className="mb-4">
+              <h5 className="font-semibold text-gray-800 mb-2 text-sm">How it Works</h5>
+              <p className="text-sm text-gray-600 leading-relaxed">{strategy.description}</p>
+            </div>
+            
+            {/* How It Works Steps */}
+            {strategy.howItWorks && strategy.howItWorks.length > 0 && (
+              <div className="mb-4">
+                <h5 className="font-semibold text-gray-800 mb-2 text-sm">Implementation Steps</h5>
+                <ol className="text-sm text-gray-600 space-y-1">
+                  {strategy.howItWorks.map((step, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="bg-emerald-100 text-emerald-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">
+                        {index + 1}
+                      </span>
+                      <span>{step}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
+            
+            {/* Quantified Examples Detail */}
+            {strategy.quantifiedExample && (
+              <div className="mb-4">
+                <h5 className="font-semibold text-gray-800 mb-2 text-sm">Financial Impact</h5>
+                <div className="bg-white border border-gray-200 rounded-lg p-3">
+                  {Object.entries(strategy.quantifiedExample).map(([key, value]) => {
+                    if (key === 'annualSavings') return null; // Already shown above
+                    return (
+                      <div key={key} className="flex justify-between items-center py-1 text-sm">
+                        <span className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}:</span>
+                        <span className="font-semibold text-gray-800">{value}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            
+            {/* Glossary Terms */}
+            {strategy.glossaryTerms && strategy.glossaryTerms.length > 0 && (
+              <div className="mb-4">
+                <h5 className="font-semibold text-gray-800 mb-2 text-sm">Key Terms</h5>
+                <div className="flex flex-wrap gap-1">
+                  {strategy.glossaryTerms.map((term, index) => (
+                    <span key={index} className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-blue-100 text-blue-700">
+                      {term}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+            
+            {/* CTA */}
+            {strategy.cta && (
+              <div className="mb-4">
+                <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors">
+                  {strategy.cta.action}
+                </button>
+                <p className="text-xs text-gray-500 mt-2 text-center">{strategy.cta.text}</p>
+              </div>
+            )}
+          </div>
+        )}
         
-        <div className="mt-auto">
+        {/* Implementation Status Dropdown */}
+        <div className="p-4 border-t border-gray-100">
           <select
             value={status}
             onChange={(e) => updateStrategyStatus(strategy.id, e.target.value)}
