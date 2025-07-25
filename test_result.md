@@ -103,15 +103,124 @@
 #====================================================================================================
 
 user_problem_statement: >
-  Rebuild the unified Tax Optimization Tool by extending the original IRS Escape Plan AI Playbook Generator already integrated with the app.
-  This version must include all original Playbook strategy logic, and then layer on forecasting features in one continuous experience.
-  Key requirements:
-  - Use original playbook strategy logic 
-  - Add forecasting input fields (business profit, capital available, restructure percentage)
-  - Calculate tax savings estimates and lifetime forecasting (5-20 years)
-  - Show scenario comparisons with charts
-  - Fix RSU/stock compensation logic to only show for W-2/Blended income types
-  - Final CTA for "Start My Escape Plan"
+  Integrate a modular strategy card engine into the existing Escape Plan Builder. The enhancement includes:
+  - Replace hardcoded strategy logic with JSON-driven approach
+  - 8 strategy cards with eligibilityCriteria, quantifiedExample, howItWorks, moduleReference, glossaryTerms, and CTA logic  
+  - Dynamic matching based on user inputs (income type, business profit, entity structure, etc.)
+  - Visual placement in existing sections: Setup & Structure, Deduction Strategies, Exit Planning
+  - Forecast integration using quantified examples from strategy cards
+  - Implementation status tracking with progress indicators
+  - Suppression rule support for strategies that shouldn't show under certain conditions
+
+backend:
+  - task: "Modular strategy card engine integration - backend compatibility"
+    implemented: true
+    working: "needs_testing"
+    file: "server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: true
+        agent: "main"
+        comment: "Backend remains unchanged for this frontend enhancement. Existing API endpoints continue to work as before."
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Backend compatibility needs verification after JSON-driven strategy integration to ensure no breaking changes."
+
+frontend:
+  - task: "JSON strategy cards data file"
+    implemented: true
+    working: "needs_testing"
+    file: "/app/frontend/src/data/strategyCards.json"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Created strategyCards.json with 8 comprehensive strategy cards including F-Reorg to C-Corp, Loan-Based Split-Dollar, QOF, Oil & Gas, REPS Lite, Tax Alpha Fund, Cost Segregation, and Installment Sale strategies. Each card has eligibilityCriteria, quantifiedExample, howItWorks, glossaryTerms, moduleReference, and CTA."
+
+  - task: "Strategy matching engine"
+    implemented: true
+    working: "needs_testing"  
+    file: "/app/frontend/src/utils/strategyMatcher.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Created StrategyMatcher class with comprehensive eligibility evaluation logic. Handles userType, hasPartners, businessProfitMin, isAccredited, hasRental, isQP criteria. Includes suppression rule support and strategy-specific savings calculations."
+
+  - task: "Replace hardcoded generateStrategyStack function"
+    implemented: true
+    working: "needs_testing"
+    file: "/app/frontend/src/PlaybookGenerator.js"
+    stuck_count: 0  
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Replaced 150+ lines of hardcoded strategy logic with JSON-driven approach using strategyMatcher.generateStrategyStack(). Maintains three-category structure (Setup & Structure, Deduction Strategies, Exit Planning)."
+
+  - task: "Enhanced strategy card UI with JSON fields"
+    implemented: true
+    working: "needs_testing"
+    file: "/app/frontend/src/PlaybookGenerator.js - renderStrategyCard function"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Completely redesigned renderStrategyCard to display summary, quantifiedExample preview, expandable details with howItWorks steps, financial impact breakdown, glossary terms, CTA buttons, and suppression rule handling. Added expand/collapse functionality for detailed view."
+
+  - task: "Quantified examples integration into forecasting"
+    implemented: true
+    working: "needs_testing"
+    file: "/app/frontend/src/PlaybookGenerator.js - calculateEstimatedSavings function"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Enhanced calculateEstimatedSavings to incorporate strategy-specific quantified examples using strategyMatcher.calculateStrategySavings(). Uses weighted approach (70% existing logic, 30% JSON strategy data) to avoid double counting while leveraging specific financial projections from strategy cards."
+
+  - task: "Implementation status tracking enhancement"
+    implemented: true
+    working: "needs_testing"
+    file: "/app/frontend/src/PlaybookGenerator.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "needs_testing"
+        agent: "main"
+        comment: "Existing implementation tracker remains functional with new JSON strategy cards. Shows 'X of Y strategies implemented' with progress bar. Strategy status dropdowns updated to work with new card structure."
+
+metadata:
+  created_by: "main_agent"
+  version: "2.0"
+  test_sequence: 1
+  run_ui: true
+
+test_plan:
+  current_focus:
+    - "JSON strategy cards data file"
+    - "Strategy matching engine"
+    - "Replace hardcoded generateStrategyStack function"
+    - "Enhanced strategy card UI with JSON fields"
+    - "Quantified examples integration into forecasting"
+  stuck_tasks: []
+  test_all: true
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: "Successfully integrated modular strategy card engine into existing Escape Plan Builder. Key accomplishments: 1) Created strategyCards.json with 8 comprehensive strategy cards, 2) Built StrategyMatcher class with sophisticated eligibility evaluation, 3) Replaced hardcoded strategy logic with JSON-driven approach, 4) Enhanced UI to display rich strategy card data with expand/collapse functionality, 5) Integrated quantified examples into savings calculations, 6) Maintained existing implementation tracking. Ready for comprehensive testing to verify all functionality works correctly with new modular system."
 
 backend:
   - task: "Basic FastAPI backend setup"
