@@ -77,7 +77,7 @@ export class StrategyMatcher {
   }
 
   // Check if a strategy meets eligibility criteria
-  checkEligibility(strategy, formData, forecastingData) {
+  checkEligibility(strategy, formData, forecastingData, context = {}) {
     const criteria = strategy.eligibilityCriteria;
     
     // First check suppression rules
