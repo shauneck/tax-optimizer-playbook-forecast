@@ -40,14 +40,82 @@
     }
   },
   {
+    "strategyId": "mso_structure",
+    "title": "Management Services Organization (MSO) Structure",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "hasPartners": true,
+      "businessProfitMin": 500000
+    },
+    "summary": "Create a Management Services Organization (MSO) to shift profits to a C-Corp taxed at 21%, even if the core business is a partnership.",
+    "description": "An MSO structure allows business owners with partners to create a separate C-Corp entity that provides management services to the main business. This enables profit-shifting to the C-Corp, which is taxed at the lower 21% corporate rate, while maintaining the partnership structure for the core operations. This is particularly powerful for professional practices and businesses where direct conversion to C-Corp isn't practical due to partnership agreements.",
+    "howItWorks": [
+      "Establish a separate C-Corp entity (the MSO) to provide management services",
+      "Transfer management functions, intellectual property, and administrative services to the MSO",
+      "The partnership pays management fees to the MSO, creating deductible expenses",
+      "MSO profits are taxed at 21% instead of individual rates up to 37%",
+      "Retained earnings in the MSO can fund additional tax strategies"
+    ],
+    "quantifiedExample": {
+      "partnershipProfit": "$7.5M annual partnership profit",
+      "managementFees": "$3M shifted to MSO as management fees",
+      "taxSavings": "$480,000 annual tax savings (37% vs 21%)",
+      "annualSavings": 480000,
+      "additionalBenefits": "Creates C-Corp vehicle for split-dollar and other strategies"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Business Module 3",
+      "title": "Multi-Entity Structures for Partnerships"
+    },
+    "glossaryTerms": ["MSO", "Management Services Organization", "Multi-Entity", "Profit Shifting"],
+    "cta": {
+      "text": "See how an MSO structure could reduce taxes while maintaining your partnership.",
+      "action": "Launch MSO Strategy Analysis"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
+  },
+  {
     "strategyId": "loan_based_split_dollar",
     "title": "Loan-Based Split-Dollar Strategy",
     "category": "Setup & Structure",
     "eligibilityCriteria": {
       "userType": "business_owner",
-      "hasCcorp": true,
+      "businessProfitMin": 500000,
       "retainedEarningsMin": 250000
     },
+    "summary": "Use your C-Corp's retained earnings to fund a tax-free life insurance structure without triggering dividend or gift tax.",
+    "description": "This strategy uses a loan from your C-Corp to a living trust, which then funds a permanent life insurance policy (typically an Indexed or Variable Universal Life policy). The policy grows tax-deferred and allows you to access cash value via policy loans, which are not considered taxable income by the IRS. This works with existing C-Corps or C-Corps created through F-Reorg or MSO structures.",
+    "howItWorks": [
+      "C-Corp loans funds to a grantor living trust",
+      "Trust uses funds to purchase a life insurance policy",
+      "Policy accumulates tax-deferred cash value",
+      "You access capital via tax-free policy loans",
+      "No dividend tax, no gift tax, full capital control"
+    ],
+    "quantifiedExample": {
+      "inputCapital": "$1,000,000 loan from C-Corp",
+      "policyGrowth": "6–7% projected tax-free growth",
+      "capitalAccess": "Tax-free policy loans starting Year 2",
+      "longTermValue": "$5.2M+ projected policy value after 5 years",
+      "annualSavings": 238000,
+      "taxImpact": "Avoids 23.8% dividend tax on extraction"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 2",
+      "title": "The Capital Vault (Split-Dollar)"
+    },
+    "glossaryTerms": ["Loan-Based Split-Dollar", "Living Trust", "Permanent Life Insurance"],
+    "cta": {
+      "text": "Explore how this strategy could give you personal access to your C-Corp's retained earnings — tax-free.",
+      "action": "Learn more or speak with a strategist"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
+  },
     "summary": "Use your C-Corp's retained earnings to fund a tax-free life insurance structure without triggering dividend or gift tax.",
     "description": "This strategy uses a loan from your C-Corp to a living trust, which then funds a permanent life insurance policy (typically an Indexed or Variable Universal Life policy). The policy grows tax-deferred and allows you to access cash value via policy loans, which are not considered taxable income by the IRS.",
     "howItWorks": [
