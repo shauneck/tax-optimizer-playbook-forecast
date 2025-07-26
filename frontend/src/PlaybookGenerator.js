@@ -1036,6 +1036,15 @@ function PlaybookGenerator() {
               </div>
             )}
             
+            {/* Strategy Note */}
+            {strategy.note && (
+              <div className="mb-4">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <p className="text-sm text-blue-800">{strategy.note}</p>
+                </div>
+              </div>
+            )}
+            
             {/* CTA */}
             {strategy.cta && (
               <div className="mb-4">
@@ -1043,6 +1052,18 @@ function PlaybookGenerator() {
                   {strategy.cta.action}
                 </button>
                 <p className="text-xs text-gray-500 mt-2 text-center">{strategy.cta.text}</p>
+              </div>
+            )}
+            
+            {/* Conditional CTA for MSO users who could benefit from F-Reorg */}
+            {strategy.conditionalCta && (
+              <div className="mb-4">
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+                  <p className="text-sm text-amber-800 mb-2">{strategy.conditionalCta.text}</p>
+                  <button className="w-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors">
+                    {strategy.conditionalCta.action}
+                  </button>
+                </div>
               </div>
             )}
           </div>
