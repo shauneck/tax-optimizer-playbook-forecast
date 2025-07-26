@@ -2049,6 +2049,16 @@ function PlaybookGenerator() {
           </div>
         )}
       </div>
+
+      {/* Strategy Modal */}
+      <StrategyModal
+        strategy={selectedStrategy}
+        isOpen={isModalOpen}
+        onClose={closeStrategyModal}
+        strategyStatus={strategyStatuses[selectedStrategy?.id] || STRATEGY_STATUS.NOT_STARTED}
+        onStatusChange={updateStrategyStatus}
+        formatCurrency={formatCurrency}
+      />
     </div>
   );
 }
