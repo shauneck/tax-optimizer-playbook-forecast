@@ -99,11 +99,11 @@ export class StrategyMatcher {
   }
 
   // Check if suppression rule applies
-  checkSuppressionRule(suppressionRule, formData, forecastingData) {
+  checkSuppressionRule(suppressionRule, formData, forecastingData, context = {}) {
     for (const [key, value] of Object.entries(suppressionRule)) {
       if (key === 'message') continue; // Skip the message field
       
-      if (this.evaluateCriterion(key, value, formData, forecastingData)) {
+      if (this.evaluateCriterion(key, value, formData, forecastingData, context)) {
         return true; // Suppression rule triggered
       }
     }
@@ -111,7 +111,7 @@ export class StrategyMatcher {
   }
 
   // Evaluate individual eligibility criteria
-  evaluateCriterion(key, value, formData, forecastingData) {
+  evaluateCriterion(key, value, formData, forecastingData, context = {}) {
     switch (key) {
       case 'userType':
         return this.checkUserType(value, formData);
