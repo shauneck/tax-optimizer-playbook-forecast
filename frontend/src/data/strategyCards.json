@@ -1,0 +1,329 @@
+[
+  {
+    "strategyId": "f_reorg_c_corp",
+    "title": "F-Reorg to C-Corp (Entity Restructure)",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "hasPartners": false,
+      "businessProfitMin": 500000
+    },
+    "summary": "Convert your S-Corp to a C-Corp using a tax-free F-reorganization to unlock lower corporate tax rates, retained earnings advantages, and Qualified Small Business Stock (QSBS) benefits.",
+    "description": "An F-Reorg allows a sole owner to restructure an S-Corp into a C-Corp without triggering a taxable event. Once converted, the business profits are taxed at 21% inside the corporation instead of flowing through at up to 37%. This enables strategic capital retention, QSBS qualification for a potential tax-free exit, and improved access to corporate investment strategies.",
+    "howItWorks": [
+      "Complete an F-Reorg under IRC §368 to restructure from S-Corp to C-Corp",
+      "Salary continues to be paid to the owner (W-2), taxed at individual rates",
+      "Excess profits are retained at 21% corporate tax rate",
+      "Starts QSBS clock under IRC §1202 for a potential $15M+ tax-free exit after 5 years"
+    ],
+    "quantifiedExample": {
+      "preReorgTaxes": "$2.8M S-Corp profit × 37% = $1,036,000 tax",
+      "postReorgTaxes": "$500K salary × 37% + $2.3M × 21% = $668,000",
+      "annualSavings": 368000,
+      "longTermBenefit": "Potential $15M+ tax-free QSBS exit after 5 years"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 1",
+      "title": "Entity Structuring & Income Capture"
+    },
+    "glossaryTerms": ["F-Reorganization", "C-Corp", "QSBS"],
+    "cta": {
+      "text": "Explore how an F-Reorg could reduce your tax rate and set you up for a $15M tax-free exit.",
+      "action": "See if your business qualifies"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced",
+    "suppressionRule": {
+      "businessProfitMax": 499999,
+      "message": "At your current profit level, an S-Corp is likely more efficient due to the 20% QBI deduction under IRC §199A. A C-Corp structure may trigger double taxation without delivering a material benefit."
+    }
+  },
+  {
+    "strategyId": "mso_structure",
+    "title": "Management Services Organization (MSO) Structure",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "hasPartners": true,
+      "businessProfitMin": 500000
+    },
+    "summary": "Create a Management Services Organization (MSO) to shift profits to a C-Corp taxed at 21%, even if the core business is a partnership.",
+    "description": "An MSO structure allows business owners with partners to create a separate C-Corp entity that provides management services to the main business. This enables profit-shifting to the C-Corp, which is taxed at the lower 21% corporate rate, while maintaining the partnership structure for the core operations. This is particularly powerful for professional practices and businesses where direct conversion to C-Corp isn't practical due to partnership agreements.",
+    "howItWorks": [
+      "Establish a separate C-Corp entity (the MSO) to provide management services",
+      "Transfer management functions, intellectual property, and administrative services to the MSO",
+      "The partnership pays management fees to the MSO, creating deductible expenses",
+      "MSO profits are taxed at 21% instead of individual rates up to 37%",
+      "Retained earnings in the MSO can fund additional tax strategies"
+    ],
+    "quantifiedExample": {
+      "partnershipProfit": "$7.5M annual partnership profit",
+      "managementFees": "$3M shifted to MSO as management fees",
+      "taxSavings": "$480,000 annual tax savings (37% vs 21%)",
+      "annualSavings": 480000,
+      "additionalBenefits": "Creates C-Corp vehicle for split-dollar and other strategies"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Business Module 3",
+      "title": "Multi-Entity Structures for Partnerships"
+    },
+    "glossaryTerms": ["MSO", "Management Services Organization", "Multi-Entity", "Profit Shifting"],
+    "cta": {
+      "text": "See how an MSO structure could reduce taxes while maintaining your partnership.",
+      "action": "Launch MSO Strategy Analysis"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
+  },
+  {
+    "strategyId": "loan_based_split_dollar",
+    "title": "Loan-Based Split-Dollar Strategy",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "businessProfitMin": 500000,
+      "retainedEarningsMin": 250000
+    },
+    "summary": "Use your C-Corp's retained earnings to fund a tax-free life insurance structure without triggering dividend or gift tax.",
+    "description": "This strategy uses a loan from your C-Corp to a living trust, which then funds a permanent life insurance policy (typically an Indexed or Variable Universal Life policy). The policy grows tax-deferred and allows you to access cash value via policy loans, which are not considered taxable income by the IRS. This works with existing C-Corps or C-Corps created through F-Reorg or MSO structures.",
+    "howItWorks": [
+      "C-Corp loans funds to a grantor living trust",
+      "Trust uses funds to purchase a life insurance policy",
+      "Policy accumulates tax-deferred cash value",
+      "You access capital via tax-free policy loans",
+      "No dividend tax, no gift tax, full capital control"
+    ],
+    "quantifiedExample": {
+      "inputCapital": "$1,000,000 loan from C-Corp",
+      "policyGrowth": "6–7% projected tax-free growth",
+      "capitalAccess": "Tax-free policy loans starting Year 2",
+      "longTermValue": "$5.2M+ projected policy value after 5 years",
+      "annualSavings": 238000,
+      "taxImpact": "Avoids 23.8% dividend tax on extraction"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 2",
+      "title": "The Capital Vault (Split-Dollar)"
+    },
+    "glossaryTerms": ["Loan-Based Split-Dollar", "Living Trust", "Permanent Life Insurance"],
+    "cta": {
+      "text": "Explore how this strategy could give you personal access to your C-Corp's retained earnings — tax-free.",
+      "action": "Learn more or speak with a strategist"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
+  },
+  {
+    "strategyId": "qualified_opportunity_fund",
+    "title": "Qualified Opportunity Fund (QOF)",
+    "category": "Exit Planning",
+    "eligibilityCriteria": {
+      "hasCapGains": true
+    },
+    "summary": "Defer and potentially eliminate capital gains taxes by reinvesting into a Qualified Opportunity Fund.",
+    "description": "The Qualified Opportunity Fund strategy allows investors with capital gains to defer taxation until December 31, 2026, and potentially eliminate taxes on new growth after a 10-year hold.",
+    "howItWorks": [
+      "Sell an appreciated asset",
+      "Reinvest the gain into a QOF within 180 days",
+      "Defer capital gains tax until December 31, 2026",
+      "Hold for 10 years to eliminate tax on all future growth"
+    ],
+    "quantifiedExample": {
+      "gainReinvested": "$700,000 capital gain",
+      "taxDeferral": "$166,600 in deferred capital gains taxes",
+      "longTermBenefit": "100% tax-free growth on QOF appreciation",
+      "projectedIRR": "15%",
+      "annualSavings": 166600
+    },
+    "moduleReference": {
+      "course": "W-2 & Business Owner Escape Plan",
+      "module": "W2 Modules 3-4, BO Module 10",
+      "title": "Turn Capital Gains Into Zero-Tax Growth"
+    },
+    "glossaryTerms": ["Qualified Opportunity Fund", "QOF", "Capital Gains Deferral"],
+    "cta": {
+      "text": "See how a QOF could defer and eliminate tax on your gains.",
+      "action": "Launch QOF Playbook"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Intermediate"
+  },
+  {
+    "strategyId": "oil_and_gas",
+    "title": "Oil & Gas Investment (IDC Deduction)",
+    "category": "Deduction Strategies",
+    "eligibilityCriteria": {
+      "isAccredited": true
+    },
+    "summary": "Offset high-income W-2 or business income with up to 85-90% first-year deductions through oil & gas partnerships.",
+    "description": "Oil & gas investments allow accredited investors to deduct Intangible Drilling Costs (IDCs) in the year of investment. Under IRC §263(c), IDCs can offset W-2 income or active business profits directly.",
+    "howItWorks": [
+      "Invest in a qualifying oil & gas drilling partnership",
+      "Deduct 80-90% of the investment amount in Year 1",
+      "Receive income from production",
+      "Apply 15% depletion allowance on oil income"
+    ],
+    "quantifiedExample": {
+      "investment": "$300,000",
+      "firstYearDeduction": "$255,000 (85%)",
+      "taxSavings": "$94,350 (at 37%)",
+      "annualSavings": 94350,
+      "depletionIncome": "15% of oil income tax-free"
+    },
+    "moduleReference": {
+      "course": "W-2 & Business Owner Escape Plan",
+      "module": "W2 Module 2, BO Module 3",
+      "title": "Strategic Deductions with Oil & Gas"
+    },
+    "glossaryTerms": ["Oil & Gas", "Intangible Drilling Costs", "Percentage Depletion"],
+    "cta": {
+      "text": "Explore how oil & gas investments can eliminate your tax bill.",
+      "action": "Launch Oil & Gas Strategy"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
+  },
+  {
+    "strategyId": "reps_lite",
+    "title": "REPS Lite (Real Estate Benefits Without Time Commitment)",
+    "category": "Deduction Strategies",
+    "eligibilityCriteria": {
+      "isAccredited": true,
+      "hasRental": false
+    },
+    "summary": "Generate REPS-level deductions without qualifying as a Real Estate Professional or managing a rental property.",
+    "description": "REPS Lite pairs Tax Alpha Funds (which generate ordinary losses and capital gains) with passive real estate syndications (which generate depreciation and income).",
+    "howItWorks": [
+      "Invest in a Tax Alpha Fund designed for REPS Lite",
+      "Invest in passive real estate syndications",
+      "Use ordinary losses to offset W-2 or business income",
+      "Use real estate depreciation to offset capital gains"
+    ],
+    "quantifiedExample": {
+      "capitalDeployed": "$1,000,000",
+      "deductionsGenerated": "$150,000 ordinary loss + $180,000 depreciation",
+      "totalTaxSavings": "$102,300 in Year 1",
+      "annualSavings": 102300,
+      "ongoingIncome": "$87,500 tax-advantaged annual cash flow"
+    },
+    "moduleReference": {
+      "course": "W-2 & Business Owner Escape Plan",
+      "module": "W2 Module 7, BO Module 4",
+      "title": "REPS Lite: Real Estate Benefits Without the Hassle"
+    },
+    "glossaryTerms": ["REPS Lite", "Depreciation", "Passive Real Estate Syndication"],
+    "cta": {
+      "text": "See how REPS Lite creates real estate benefits without time requirements.",
+      "action": "Launch REPS Lite Strategy"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Intermediate"
+  },
+  {
+    "strategyId": "tax_alpha_fund",
+    "title": "Tax Alpha Fund",
+    "category": "Deduction Strategies",
+    "eligibilityCriteria": {
+      "isQP": true
+    },
+    "summary": "Offset active income using advanced fund structures that generate ordinary losses while maintaining net positive returns.",
+    "description": "Tax Alpha Funds are sophisticated investment vehicles designed to generate paper losses for tax purposes while producing actual economic gains. They're only available to Qualified Purchasers.",
+    "howItWorks": [
+      "Invest in a Qualified Purchaser-only fund",
+      "Fund generates ordinary losses and strategic gains",
+      "Losses offset W-2 or business income",
+      "Gains can be neutralized with real estate depreciation"
+    ],
+    "quantifiedExample": {
+      "capitalDeployed": "$500,000",
+      "lossesGenerated": "$150,000 ordinary loss",
+      "taxSavings": "$55,500 at 37%",
+      "annualSavings": 55500,
+      "netReturn": "$5,000 gain after tax"
+    },
+    "moduleReference": {
+      "course": "W-2 & Business Owner Escape Plan",
+      "module": "W2 Module 3, 7; BO Module 3–4",
+      "title": "RSU Restructuring and Strategic Deductions"
+    },
+    "glossaryTerms": ["Tax Alpha Fund", "Ordinary Loss", "Qualified Purchaser"],
+    "cta": {
+      "text": "See if you qualify to access tax-alpha investment structures.",
+      "action": "Launch Tax Alpha Strategy"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
+  },
+  {
+    "strategyId": "cost_segregation",
+    "title": "Cost Segregation + Bonus Depreciation",
+    "category": "Deduction Strategies",
+    "eligibilityCriteria": {
+      "hasRental": true
+    },
+    "summary": "Accelerate depreciation on rental or business real estate to unlock massive first-year write-offs.",
+    "description": "Cost segregation studies identify building components that can be reclassified and depreciated over shorter timeframes (5, 7, or 15 years). These components are then eligible for 100% bonus depreciation.",
+    "howItWorks": [
+      "Conduct a cost segregation study",
+      "Break building into short-life components",
+      "Apply 100% bonus depreciation",
+      "Deduct entire component value in Year 1"
+    ],
+    "quantifiedExample": {
+      "propertyValue": "$750,000 STR (25% land)",
+      "deductionGenerated": "$168,750 eligible for bonus depreciation",
+      "taxSavings": "$62,438 at 37%",
+      "annualSavings": 62438
+    },
+    "moduleReference": {
+      "course": "W-2 & Business Owner Escape Plan",
+      "module": "W2 Modules 2, 6, 8; BO Module 3",
+      "title": "Short-Term Rentals and Accelerated Depreciation"
+    },
+    "glossaryTerms": ["Cost Segregation", "Bonus Depreciation", "STR"],
+    "cta": {
+      "text": "Run a cost segregation analysis to unlock 6-figure write-offs.",
+      "action": "Launch Depreciation Strategy"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Intermediate"
+  },
+  {
+    "strategyId": "installment_sale",
+    "title": "Installment Sale (IRC §453)",
+    "category": "Exit Planning",
+    "eligibilityCriteria": {
+      "hasCapGains": true
+    },
+    "summary": "Spread a large capital gain over multiple tax years to manage bracket exposure and control your exit timeline.",
+    "description": "An installment sale allows you to sell a business or appreciated asset and receive payment over time. This spreads your taxable gain over multiple years, reducing your effective tax rate and giving you more flexibility.",
+    "howItWorks": [
+      "Structure a sale agreement with installment payments",
+      "Recognize taxable gain only as principal is received",
+      "Smooths income across tax years",
+      "Pairs well with QOF, CRT, or Roth conversion strategies"
+    ],
+    "quantifiedExample": {
+      "saleValue": "$5,000,000",
+      "spread": "Gain spread over 5 years = ~$1,000,000/year",
+      "bracketImpact": "Avoids spike into top tax bracket in year of sale",
+      "strategicPairing": "Can pair with QOF for deferred and eliminated gains",
+      "annualSavings": 120000
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 10",
+      "title": "The Exit Plan"
+    },
+    "glossaryTerms": ["Installment Sale", "Capital Gains", "IRC §453"],
+    "cta": {
+      "text": "Learn how to use an installment sale to reduce taxes on a large liquidity event.",
+      "action": "Launch Exit Strategy Planner"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Intermediate"
+  }
+]
