@@ -103,9 +103,15 @@ export class StrategyMatcher {
         return formData.entityStructure === 'C-corp';
       
       case 'retainedEarningsMin':
-        // This would need additional form data or could be estimated from business profit
+        // For split-dollar eligibility, check if user has C-Corp OR can create one
         const businessProfit = this.getBusinessProfit(formData, forecastingData);
-        return businessProfit >= value; // Simplified assumption
+        const hasExistingCcorp = formData.entityStructure === 'C-corp';
+        const canCreateCcorp = this.canCreateCcorp(formData, forecastingData);
+        
+        if (hasExistingCcorp || canCreateCcorp) {
+          return businessProfit >= value; // Has the retained earnings capacity
+        }
+        return false;
       
       case 'hasCapGains':
         // Infer from various sources - exit planning goal, high income, or stock compensation
@@ -130,6 +136,22 @@ export class StrategyMatcher {
         console.warn(`Unknown eligibility criterion: ${key}`);
         return false;
     }
+  }
+
+  // Helper method: Check if user can create a C-Corp (via F-Reorg or MSO)
+  canCreateCcorp(formData, forecastingData) {
+    const businessProfit = this.getBusinessProfit(formData, forecastingData);
+    const isBusinessOwner = this.checkUserType('business_owner', formData);
+    
+    if (!isBusinessOwner || businessProfit < 500000) {
+      return false; // Must be business owner with sufficient profit
+    }
+    
+    // Can create C-Corp via F-Reorg (no partners) or MSO (with partners)
+    const canDoFReorg = formData.hasBusinessPartners === false;
+    const canDoMSO = formData.hasBusinessPartners === true;
+    
+    return canDoFReorg || canDoMSO;
   }
 
   // Helper methods for specific criteria evaluations
