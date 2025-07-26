@@ -158,6 +158,10 @@ export class StrategyMatcher {
         // Qualified Purchaser - $5M+ investable assets
         return this.isQualifiedPurchaser(formData, forecastingData);
       
+      case 'qsbsClockStarted':
+        // QSBS eligibility - requires F-Reorg to be available (converts operating business to C-Corp)
+        return context.qsbsClockStarted === true;
+      
       default:
         console.warn(`Unknown eligibility criterion: ${key}`);
         return false;
