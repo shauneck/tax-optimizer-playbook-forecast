@@ -21,16 +21,21 @@ export class StrategyMatcher {
   // Evaluate all strategies and return those that match eligibility criteria
   evaluateStrategies(formData, forecastingData) {
     const matchedStrategies = [];
+    
+    // First pass: determine if QSBS clock has started (F-Reorg eligible)
+    const qsbsClockStarted = this.checkQsbsClockStarted(formData, forecastingData);
 
     for (const strategy of this.strategies) {
-      const eligibilityResult = this.checkEligibility(strategy, formData, forecastingData);
+      // Add qsbsClockStarted to the evaluation context
+      const eligibilityResult = this.checkEligibility(strategy, formData, forecastingData, { qsbsClockStarted });
       
       if (eligibilityResult.isEligible) {
         // Create strategy object with additional computed fields
         const strategyCard = {
           ...strategy,
           id: strategy.strategyId, // For backward compatibility with existing UI
-          // Add any dynamic calculations here if needed
+          // Add conditional CTA for MSO users who could benefit from F-Reorg
+          conditionalCta: this.getConditionalCta(strategy, formData, forecastingData, qsbsClockStarted),
         };
         
         matchedStrategies.push(strategyCard);
@@ -48,6 +53,27 @@ export class StrategyMatcher {
     }
 
     return matchedStrategies;
+  }
+
+  // Check if QSBS clock has started (F-Reorg is available)
+  checkQsbsClockStarted(formData, forecastingData) {
+    const isBusinessOwner = this.checkUserType('business_owner', formData);
+    const hasNoPartners = formData.hasBusinessPartners === false;
+    const hasMinProfit = this.getBusinessProfit(formData, forecastingData) >= 500000;
+    
+    return isBusinessOwner && hasNoPartners && hasMinProfit; // F-Reorg eligible = QSBS clock can start
+  }
+
+  // Get conditional CTA for MSO users who could benefit from F-Reorg
+  getConditionalCta(strategy, formData, forecastingData, qsbsClockStarted) {
+    // Only show for MSO strategy when user has partners but no QSBS access
+    if (strategy.strategyId === 'mso_structure' && !qsbsClockStarted && formData.hasBusinessPartners === true) {
+      return {
+        text: "Your MSO creates C-Corp efficiency for income shifting. To unlock QSBS and a tax-free exit, your core operating business must be converted to a C-Corp.",
+        action: "Explore F-Reorg Options"
+      };
+    }
+    return null;
   }
 
   // Check if a strategy meets eligibility criteria
