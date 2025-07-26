@@ -70,6 +70,7 @@
       "title": "Multi-Entity Structures for Partnerships"
     },
     "glossaryTerms": ["MSO", "Management Services Organization", "Multi-Entity", "Profit Shifting"],
+    "note": "This strategy improves business income tax efficiency via a separate C-Corp (MSO). However, to qualify for QSBS treatment, the core operating entity must be a C-Corp. The MSO itself is not QSBS-eligible unless it becomes the primary business being sold.",
     "cta": {
       "text": "See how an MSO structure could reduce taxes while maintaining your partnership.",
       "action": "Launch MSO Strategy Analysis"
