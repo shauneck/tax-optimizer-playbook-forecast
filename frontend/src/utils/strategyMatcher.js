@@ -81,7 +81,7 @@ export class StrategyMatcher {
     const criteria = strategy.eligibilityCriteria;
     
     // First check suppression rules
-    if (strategy.suppressionRule && this.checkSuppressionRule(strategy.suppressionRule, formData, forecastingData)) {
+    if (strategy.suppressionRule && this.checkSuppressionRule(strategy.suppressionRule, formData, forecastingData, context)) {
       return {
         isEligible: false,
         suppressionMessage: strategy.suppressionRule.message
@@ -90,7 +90,7 @@ export class StrategyMatcher {
 
     // Check each eligibility criterion
     for (const [key, value] of Object.entries(criteria)) {
-      if (!this.evaluateCriterion(key, value, formData, forecastingData)) {
+      if (!this.evaluateCriterion(key, value, formData, forecastingData, context)) {
         return { isEligible: false };
       }
     }
