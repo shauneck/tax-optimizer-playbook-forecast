@@ -325,5 +325,40 @@
     },
     "implementationStatus": "Not Started",
     "complexity": "Intermediate"
+  },
+  {
+    "strategyId": "qsbs_exit_strategy",
+    "title": "QSBS Exit Planning (Qualified Small Business Stock)",
+    "category": "Exit Planning",
+    "eligibilityCriteria": {
+      "qsbsClockStarted": true
+    },
+    "summary": "Eliminate up to $15M in capital gains by holding C-Corp stock for at least 5 years under IRC §1202.",
+    "description": "Qualified Small Business Stock (QSBS) treatment allows owners of certain C-Corps to exclude up to $15M in capital gains from federal tax if they hold the stock for 5 years. This strategy is only available if the operating business is a C-Corp and the shares were acquired at original issuance after July 4, 2025.",
+    "howItWorks": [
+      "Restructure your business into a C-Corp via F-Reorg (if sole owner)",
+      "Hold stock for 5 years to qualify for 100% exclusion under new QSBS rules",
+      "Exclude up to $15M per entity (including trusts or children's ownership)",
+      "Sell business and eliminate capital gains taxes under IRC §1202"
+    ],
+    "quantifiedExample": {
+      "saleValue": "$20,000,000",
+      "qsbsExclusion": "$15,000,000 tax-free",
+      "savings": "$3,570,000 capital gains tax avoided (at 23.8%)",
+      "annualSavings": 3570000,
+      "timeline": "5-year hold post-F-Reorg"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 10",
+      "title": "The Exit Plan"
+    },
+    "glossaryTerms": ["QSBS", "C-Corp", "IRC §1202"],
+    "cta": {
+      "text": "See if you qualify for a $15M tax-free business exit through QSBS planning.",
+      "action": "Launch Exit Planning Model"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced"
   }
 ]
