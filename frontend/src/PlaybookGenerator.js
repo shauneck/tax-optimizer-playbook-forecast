@@ -832,6 +832,17 @@ function PlaybookGenerator() {
     }));
   };
 
+  // Modal management functions
+  const openStrategyModal = (strategy) => {
+    setSelectedStrategy(strategy);
+    setIsModalOpen(true);
+  };
+
+  const closeStrategyModal = () => {
+    setSelectedStrategy(null);
+    setIsModalOpen(false);
+  };
+
   const getStrategyProgress = () => {
     const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
     const implementedCount = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.IMPLEMENTED).length;
