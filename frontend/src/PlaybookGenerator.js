@@ -907,7 +907,6 @@ function PlaybookGenerator() {
 
   // ✅ SEPARATE COMPONENT: Handles its own state safely
   const StrategyCard = ({ strategy }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
     const status = strategyStatuses[strategy.id] || STRATEGY_STATUS.NOT_STARTED;
     
     const getStatusIcon = () => {
@@ -982,106 +981,15 @@ function PlaybookGenerator() {
             </div>
           )}
           
-          {/* Expand/Collapse Button */}
+          {/* Show Details Button */}
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full text-left text-xs text-emerald-600 hover:text-emerald-700 font-medium mb-3 flex items-center"
+            onClick={() => openStrategyModal(strategy)}
+            className="w-full text-left text-xs text-emerald-600 hover:text-emerald-700 font-medium mb-3 flex items-center justify-center py-2 px-3 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
           >
-            {isExpanded ? 'Show less' : 'Show details'}
-            <ChevronDown className={`w-3 h-3 ml-1 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+            View Full Strategy Details
+            <ExternalLink className="w-3 h-3 ml-2" />
           </button>
         </div>
-        
-        {/* Expanded Content */}
-        {isExpanded && (
-          <div className="border-t border-gray-100 p-4 bg-gray-50">
-            {/* Full Description */}
-            <div className="mb-4">
-              <h5 className="font-semibold text-gray-800 mb-2 text-sm">How it Works</h5>
-              <p className="text-sm text-gray-600 leading-relaxed">{strategy.description}</p>
-            </div>
-            
-            {/* How It Works Steps */}
-            {strategy.howItWorks && strategy.howItWorks.length > 0 && (
-              <div className="mb-4">
-                <h5 className="font-semibold text-gray-800 mb-2 text-sm">Implementation Steps</h5>
-                <ol className="text-sm text-gray-600 space-y-1">
-                  {strategy.howItWorks.map((step, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="bg-emerald-100 text-emerald-700 rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold mr-2 mt-0.5 flex-shrink-0">
-                        {index + 1}
-                      </span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
-            
-            {/* Quantified Examples Detail */}
-            {strategy.quantifiedExample && (
-              <div className="mb-4">
-                <h5 className="font-semibold text-gray-800 mb-2 text-sm">Financial Impact</h5>
-                <div className="bg-white border border-gray-200 rounded-lg p-3">
-                  {Object.entries(strategy.quantifiedExample).map(([key, value]) => {
-                    if (key === 'annualSavings') return null; // Already shown above
-                    return (
-                      <div key={key} className="flex justify-between items-center py-1 text-sm">
-                        <span className="text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1').toLowerCase()}:</span>
-                        <span className="font-semibold text-gray-800">{value}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            
-            {/* Glossary Terms */}
-            {strategy.glossaryTerms && strategy.glossaryTerms.length > 0 && (
-              <div className="mb-4">
-                <h5 className="font-semibold text-gray-800 mb-2 text-sm">Key Terms</h5>
-                <div className="flex flex-wrap gap-1">
-                  {strategy.glossaryTerms.map((term, index) => (
-                    <span key={index} className="inline-flex items-center px-2 py-1 rounded-md text-xs bg-blue-100 text-blue-700">
-                      {term}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {/* Strategy Note */}
-            {strategy.note && (
-              <div className="mb-4">
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-sm text-blue-800">{strategy.note}</p>
-                </div>
-              </div>
-            )}
-            
-            {/* CTA */}
-            {strategy.cta && (
-              <div className="mb-4">
-                <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors">
-                  {strategy.cta.action}
-                </button>
-                <p className="text-xs text-gray-500 mt-2 text-center">{strategy.cta.text}</p>
-              </div>
-            )}
-            
-            {/* Conditional CTA for MSO users who could benefit from F-Reorg */}
-            {strategy.conditionalCta && (
-              <div className="mb-4">
-                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-                  <p className="text-sm text-amber-800 mb-2">{strategy.conditionalCta.text}</p>
-                  <button className="w-full bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium py-2 px-3 rounded-lg transition-colors">
-                    {strategy.conditionalCta.action}
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
         
         {/* Implementation Status Dropdown */}
         <div className="p-4 border-t border-gray-100">
