@@ -420,6 +420,8 @@ function PlaybookGenerator() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [showQuarterlyReview, setShowQuarterlyReview] = useState(false);
   const [hasExistingData, setHasExistingData] = useState(false);
+  const [selectedStrategy, setSelectedStrategy] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Update forecast data whenever forecasting parameters change
   useEffect(() => {
