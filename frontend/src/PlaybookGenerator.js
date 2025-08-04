@@ -1003,7 +1003,22 @@ function PlaybookGenerator() {
     }
     
     return (
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+      <div className={`bg-white border rounded-xl shadow-sm hover:shadow-md transition-shadow ${selectedStrategies.has(strategy.id) ? 'border-emerald-500 bg-emerald-50' : 'border-gray-200'}`}>
+        {/* Selection Checkbox */}
+        <div className="p-2 border-b border-gray-100">
+          <label className="flex items-center cursor-pointer">
+            <input
+              type="checkbox"
+              checked={selectedStrategies.has(strategy.id)}
+              onChange={() => toggleStrategySelection(strategy.id)}
+              className="w-4 h-4 text-emerald-600 bg-gray-100 border-gray-300 rounded focus:ring-emerald-500 focus:ring-2"
+            />
+            <span className="ml-2 text-xs text-gray-600">
+              Include in forecast calculation
+            </span>
+          </label>
+        </div>
+        
         {/* Card Header */}
         <div className="p-4">
           <div className="flex items-start justify-between mb-2">
