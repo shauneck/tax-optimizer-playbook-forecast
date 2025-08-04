@@ -189,13 +189,13 @@
   },
   {
     "strategyId": "tax_alpha_fund",
-    "title": "Tax Alpha Fund",
+    "title": "Tax-Aware Hedge Fund",
     "category": "Deduction Strategies",
     "eligibilityCriteria": {
       "isQP": true
     },
     "summary": "Offset active income using advanced fund structures that generate ordinary losses while maintaining net positive returns.",
-    "description": "Tax Alpha Funds are sophisticated investment vehicles designed to generate paper losses for tax purposes while producing actual economic gains. They're only available to Qualified Purchasers.",
+    "description": "Tax-Aware Hedge Funds are sophisticated investment vehicles designed to generate paper losses for tax purposes while producing actual economic gains. They're only available to Qualified Purchasers.",
     "howItWorks": [
       "Invest in a Qualified Purchaser-only fund",
       "Fund generates ordinary losses and strategic gains",
@@ -214,10 +214,10 @@
       "module": "W2 Module 3, 7; BO Module 3–4",
       "title": "RSU Restructuring and Strategic Deductions"
     },
-    "glossaryTerms": ["Tax Alpha Fund", "Ordinary Loss", "Qualified Purchaser"],
+    "glossaryTerms": ["Tax-Aware Hedge Fund", "Ordinary Loss", "Qualified Purchaser"],
     "cta": {
-      "text": "See if you qualify to access tax-alpha investment structures.",
-      "action": "Launch Tax Alpha Strategy"
+      "text": "See if you qualify to access tax-aware investment structures.",
+      "action": "Launch Tax-Aware Fund Strategy"
     },
     "implementationStatus": "Not Started",
     "complexity": "Advanced"
