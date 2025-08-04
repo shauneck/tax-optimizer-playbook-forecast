@@ -833,6 +833,31 @@ function PlaybookGenerator() {
     }));
   };
 
+  // Strategy selection functions
+  const toggleStrategySelection = (strategyId) => {
+    setSelectedStrategies(prev => {
+      const newSelection = new Set(prev);
+      if (newSelection.has(strategyId)) {
+        newSelection.delete(strategyId);
+      } else {
+        newSelection.add(strategyId);
+      }
+      return newSelection;
+    });
+  };
+
+  const clearAllSelections = () => {
+    setSelectedStrategies(new Set());
+  };
+
+  const selectAllStrategies = () => {
+    if (results.strategyStack) {
+      const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+      const allIds = allStrategies.map(strategy => strategy.id);
+      setSelectedStrategies(new Set(allIds));
+    }
+  };
+
   // Modal management functions
   const openStrategyModal = (strategy) => {
     setSelectedStrategy(strategy);
