@@ -193,6 +193,26 @@ export class StrategyMatcher {
         // QSBS eligibility - requires F-Reorg to be available (converts operating business to C-Corp)
         return context.qsbsClockStarted === true;
       
+      case 'capitalAvailableMin':
+        // Check if user has minimum capital available for investment
+        const capitalAvailable = parseInt(forecastingData.capitalAvailable) || 0;
+        return capitalAvailable >= value;
+      
+      case 'restructurePercentMin':
+        // Check if user wants to restructure minimum percentage of income
+        const restructurePercent = parseInt(forecastingData.restructurePercent) || 0;
+        return restructurePercent >= value;
+      
+      case 'entityStructure':
+        // Check specific entity structure
+        return formData.entityStructure === value;
+      
+      case 'and':
+        // Handle AND logic within criteria
+        return value.every(criterion => 
+          this.evaluateComplexCriteria(criterion, formData, forecastingData, context).isEligible
+        );
+      
       default:
         console.warn(`Unknown eligibility criterion: ${key}`);
         return false;
