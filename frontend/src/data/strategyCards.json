@@ -223,6 +223,69 @@
     "complexity": "Advanced"
   },
   {
+    "strategyId": "roth_overhaul_protocol",
+    "title": "Roth Overhaul Protocol",
+    "category": "Deduction Strategies",
+    "eligibilityCriteria": {
+      "or": [
+        {"isQP": true},
+        {"isAccredited": true}
+      ],
+      "capitalAvailableMin": 50000,
+      "restructurePercentMin": 15,
+      "excludeCondition": {
+        "and": [
+          {"entityStructure": "S-Corp"},
+          {"hasPartners": true}
+        ]
+      }
+    },
+    "summary": "Advanced Roth conversion strategy that leverages sophisticated tax planning to maximize retirement account benefits while minimizing current tax impact.",
+    "description": "The Roth Overhaul Protocol is a comprehensive strategy that restructures traditional retirement accounts and implements advanced tax planning techniques to maximize long-term wealth accumulation. This strategy is available to both Qualified Purchasers and Accredited Investors, with different optimization paths based on investor status. For S-Corp entities with partners, an MSO structure should be implemented first to access this strategy.",
+    "howItWorks": [
+      "Analyze current retirement account structure and tax situation",
+      "Implement strategic Roth conversions during optimal tax windows",
+      "Deploy tax-offset strategies to minimize conversion tax impact",
+      "Coordinate with other tax strategies for maximum efficiency"
+    ],
+    "quantifiedExample": {
+      "qualifiedPurchaser": {
+        "irr": "10%",
+        "taxOffset": "100%",
+        "annualSavings": 75000,
+        "description": "QP path: 10% IRR with full tax offset"
+      },
+      "accreditedInvestor": {
+        "irr": "15%",
+        "taxOffset": "35%",
+        "annualSavings": 45000,
+        "description": "Accredited path: 15% IRR with 35% tax offset"
+      }
+    },
+    "moduleReference": {
+      "course": "W-2 Escape Plan",
+      "module": "Module 7",
+      "title": "Roth Overhaul Protocol (Olivia)",
+      "instructor": "Olivia"
+    },
+    "glossaryTerms": ["Roth Overhaul", "Roth Conversion", "Tax Offset", "Retirement Restructuring"],
+    "cta": {
+      "text": "Discover how the Roth Overhaul Protocol can revolutionize your retirement strategy.",
+      "action": "Launch Roth Protocol Analysis"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced",
+    "suppressionRule": {
+      "condition": {
+        "and": [
+          {"entityStructure": "S-Corp"},
+          {"hasPartners": true}
+        ]
+      },
+      "message": "S-Corp entities with partners should implement an MSO structure first to access the Roth Overhaul Protocol. The MSO will provide the necessary entity flexibility for advanced Roth conversion strategies."
+    }
+  },
+  {
     "strategyId": "cost_segregation",
     "title": "Cost Segregation + Bonus Depreciation",
     "category": "Deduction Strategies",
