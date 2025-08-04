@@ -595,7 +595,7 @@ function PlaybookGenerator() {
   const calculateForecastData = () => {
     const income = INCOME_BRACKETS[formData.incomeRange]?.default || 350000;
     const taxLiability = calculateFederalTax(income);
-    const savings = calculateEstimatedSavings();
+    const savings = getCalculatedSavings(); // Use selected strategies calculation
     const avgSavingsPercent = (savings.percent.min + savings.percent.max) / 2;
     
     const annualTaxSavings = taxLiability * (avgSavingsPercent / 100);
