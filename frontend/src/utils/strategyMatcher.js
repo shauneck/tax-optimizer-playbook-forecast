@@ -125,6 +125,12 @@ export class StrategyMatcher {
 
   // Check if suppression rule applies
   checkSuppressionRule(suppressionRule, formData, forecastingData, context = {}) {
+    // Handle condition-based suppression rules
+    if (suppressionRule.condition) {
+      return this.evaluateComplexCriteria(suppressionRule.condition, formData, forecastingData, context).isEligible;
+    }
+
+    // Handle simple suppression rules (legacy format)
     for (const [key, value] of Object.entries(suppressionRule)) {
       if (key === 'message') continue; // Skip the message field
       
