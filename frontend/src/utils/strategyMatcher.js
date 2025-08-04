@@ -296,8 +296,19 @@ export class StrategyMatcher {
     let totalSavings = 0;
     
     for (const strategy of matchedStrategies) {
-      if (strategy.quantifiedExample && strategy.quantifiedExample.annualSavings) {
-        totalSavings += strategy.quantifiedExample.annualSavings;
+      if (strategy.quantifiedExample) {
+        // Handle regular strategies
+        if (strategy.quantifiedExample.annualSavings) {
+          totalSavings += strategy.quantifiedExample.annualSavings;
+        }
+        // Handle Roth Overhaul Protocol with QP/Accredited investor paths
+        else if (strategy.strategyId === 'roth_overhaul_protocol') {
+          // For now, use QP savings as default - could be enhanced to check user status
+          const rothSavings = strategy.quantifiedExample.qualifiedPurchaser?.annualSavings || 
+                            strategy.quantifiedExample.accreditedInvestor?.annualSavings || 
+                            0;
+          totalSavings += rothSavings;
+        }
       }
     }
     
