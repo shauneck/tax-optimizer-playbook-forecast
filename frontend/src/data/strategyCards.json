@@ -125,7 +125,7 @@
       "hasCapGains": true
     },
     "summary": "Defer and potentially eliminate capital gains taxes by reinvesting into a Qualified Opportunity Fund.",
-    "description": "The Qualified Opportunity Fund strategy allows investors with capital gains to defer taxation until December 31, 2026, and potentially eliminate taxes on new growth after a 10-year hold.",
+    "description": "The Qualified Opportunity Fund strategy allows investors with capital gains to defer taxation until December 31, 2026, and potentially eliminate taxes on new growth after a 10-year hold. Under current law, capital gains realized before December 31, 2026 can be deferred until the earlier of the QOF sale date or December 31, 2026. Gains on the QOF investment itself may be excluded if held for 10+ years. Under proposed changes in the Big Beautiful Bill, gains realized after the 2026 cutoff date will no longer be eligible for deferral — only exclusion on QOF appreciation may apply. This makes pre-2026 gains more valuable for full deferral + exclusion treatment.",
     "howItWorks": [
       "Sell an appreciated asset",
       "Reinvest the gain into a QOF within 180 days",
