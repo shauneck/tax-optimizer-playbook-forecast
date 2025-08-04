@@ -416,6 +416,7 @@ function PlaybookGenerator() {
 
   // Dashboard state
   const [strategyStatuses, setStrategyStatuses] = useState({});
+  const [selectedStrategies, setSelectedStrategies] = useState(new Set()); // Track selected strategies for calculations
   const [dashboardMode, setDashboardMode] = useState('input'); // 'input', 'dashboard'
   const [isGenerating, setIsGenerating] = useState(false);
   const [showQuarterlyReview, setShowQuarterlyReview] = useState(false);
