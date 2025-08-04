@@ -188,42 +188,6 @@
     "complexity": "Advanced"
   },
   {
-    "strategyId": "reps_lite",
-    "title": "REPS Lite (Real Estate Benefits Without Time Commitment)",
-    "category": "Deduction Strategies",
-    "eligibilityCriteria": {
-      "isAccredited": true,
-      "hasRental": false
-    },
-    "summary": "Generate REPS-level deductions without qualifying as a Real Estate Professional or managing a rental property.",
-    "description": "REPS Lite pairs Tax Alpha Funds (which generate ordinary losses and capital gains) with passive real estate syndications (which generate depreciation and income).",
-    "howItWorks": [
-      "Invest in a Tax Alpha Fund designed for REPS Lite",
-      "Invest in passive real estate syndications",
-      "Use ordinary losses to offset W-2 or business income",
-      "Use real estate depreciation to offset capital gains"
-    ],
-    "quantifiedExample": {
-      "capitalDeployed": "$1,000,000",
-      "deductionsGenerated": "$150,000 ordinary loss + $180,000 depreciation",
-      "totalTaxSavings": "$102,300 in Year 1",
-      "annualSavings": 102300,
-      "ongoingIncome": "$87,500 tax-advantaged annual cash flow"
-    },
-    "moduleReference": {
-      "course": "W-2 & Business Owner Escape Plan",
-      "module": "W2 Module 7, BO Module 4",
-      "title": "REPS Lite: Real Estate Benefits Without the Hassle"
-    },
-    "glossaryTerms": ["REPS Lite", "Depreciation", "Passive Real Estate Syndication"],
-    "cta": {
-      "text": "See how REPS Lite creates real estate benefits without time requirements.",
-      "action": "Launch REPS Lite Strategy"
-    },
-    "implementationStatus": "Not Started",
-    "complexity": "Intermediate"
-  },
-  {
     "strategyId": "tax_alpha_fund",
     "title": "Tax Alpha Fund",
     "category": "Deduction Strategies",
