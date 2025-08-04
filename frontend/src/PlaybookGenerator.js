@@ -879,12 +879,35 @@ function PlaybookGenerator() {
 
   const getStrategyProgress = () => {
     const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
-    const implementedCount = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.IMPLEMENTED).length;
+    
+    // If strategies are selected, calculate progress based only on selected strategies
+    let strategiesForProgress = allStrategies;
+    if (selectedStrategies.size > 0) {
+      strategiesForProgress = allStrategies.filter(strategy => selectedStrategies.has(strategy.id));
+    }
+    
+    const implementedCount = strategiesForProgress.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.IMPLEMENTED).length;
     return {
       implemented: implementedCount,
-      total: allStrategies.length,
-      percentage: allStrategies.length > 0 ? Math.round((implementedCount / allStrategies.length) * 100) : 0
+      total: strategiesForProgress.length,
+      percentage: strategiesForProgress.length > 0 ? Math.round((implementedCount / strategiesForProgress.length) * 100) : 0
     };
+  };
+
+  // Get selected strategies for calculations
+  const getSelectedStrategiesForCalculation = () => {
+    if (selectedStrategies.size === 0) {
+      return null; // Return null to use all strategies (default behavior)
+    }
+    
+    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+    return allStrategies.filter(strategy => selectedStrategies.has(strategy.id));
+  };
+
+  // Calculate savings based on selected strategies
+  const getCalculatedSavings = () => {
+    const selectedStrategiesForCalc = getSelectedStrategiesForCalculation();
+    return calculateEstimatedSavings(selectedStrategiesForCalc);
   };
 
   const generateQuarterlyReview = () => {
