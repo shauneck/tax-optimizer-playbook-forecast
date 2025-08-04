@@ -388,5 +388,45 @@
     },
     "implementationStatus": "Not Started",
     "complexity": "Advanced"
+  },
+  {
+    "strategyId": "tax_aware_hedge_fund_exit",
+    "title": "Tax-Aware Hedge Fund (Exit Strategy)",
+    "category": "Exit Planning",
+    "eligibilityCriteria": {
+      "isAccredited": true,
+      "hasCapGains": true
+    },
+    "summary": "Offset capital gains at the time of business exit using a tax-aware hedge fund that generates capital losses.",
+    "description": "This strategy uses a tax-aware hedge fund that generates capital losses to offset realized gains at exit. Only 30% of the fund allocation is treated as an immediate loss. This approach works best when the investment is made before or at the time of the sale. Losses must be realized in the same tax year as the gain to apply against exit proceeds. Investment should be made prior to or at the time of exit for current-year loss eligibility. Gains realized in future years can only be offset by carryforward losses.",
+    "howItWorks": [
+      "Invest in a tax-aware hedge fund before or at the time of exit",
+      "Fund generates capital losses in the year of investment",
+      "30% of invested capital becomes an immediate capital loss",
+      "Apply losses directly against capital gains from business exit",
+      "Remaining losses may carry forward to future years"
+    ],
+    "quantifiedExample": {
+      "investment": "$1,500,000 hedge fund investment",
+      "immediateCapitalLoss": "$450,000 (30% of investment)",
+      "capitalGainsTaxRate": "23.8%",
+      "taxSavings": "$107,100 (23.8% × $450,000)",
+      "annualSavings": 107100,
+      "carryforwardLosses": "$1,050,000 remaining losses for future gains"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 10",
+      "title": "Tax-Aware Exit Strategies"
+    },
+    "glossaryTerms": ["Tax-Aware Hedge Fund", "Capital Loss", "Exit Strategy", "Loss Carryforward"],
+    "tooltip": "This strategy uses a tax-aware hedge fund that generates capital losses to offset realized gains at exit. Only 30% of the fund allocation is treated as an immediate loss. This approach works best when the investment is made before or at the time of the sale.",
+    "cta": {
+      "text": "See how tax-aware hedge funds can reduce your exit tax liability.",
+      "action": "Launch Exit Tax Reduction Analysis"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced",
+    "eliminationStrategy": true
   }
 ]
