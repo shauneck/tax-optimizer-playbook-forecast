@@ -1062,14 +1062,25 @@ function PlaybookGenerator() {
           <p className="text-sm text-gray-600 mb-3 leading-snug line-clamp-3">{strategy.summary}</p>
           
           {/* Quantified Example Preview */}
-          {strategy.quantifiedExample && strategy.quantifiedExample.annualSavings && (
+          {strategy.quantifiedExample && (
             <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-2 mb-3">
               <div className="text-xs font-semibold text-emerald-700 uppercase tracking-wide mb-1">Potential Savings</div>
-              <div className="text-sm font-bold text-emerald-800">
-                {typeof strategy.quantifiedExample.annualSavings === 'number' 
-                  ? formatCurrency(strategy.quantifiedExample.annualSavings) 
-                  : strategy.quantifiedExample.annualSavings} annually
-              </div>
+              {strategy.strategyId === 'roth_overhaul_protocol' ? (
+                <div className="space-y-1">
+                  <div className="text-xs font-bold text-emerald-800">
+                    QP: {formatCurrency(strategy.quantifiedExample.qualifiedPurchaser.annualSavings)} annually
+                  </div>
+                  <div className="text-xs font-bold text-emerald-800">
+                    Accredited: {formatCurrency(strategy.quantifiedExample.accreditedInvestor.annualSavings)} annually
+                  </div>
+                </div>
+              ) : strategy.quantifiedExample.annualSavings ? (
+                <div className="text-sm font-bold text-emerald-800">
+                  {typeof strategy.quantifiedExample.annualSavings === 'number' 
+                    ? formatCurrency(strategy.quantifiedExample.annualSavings) 
+                    : strategy.quantifiedExample.annualSavings} annually
+                </div>
+              ) : null}
             </div>
           )}
           
