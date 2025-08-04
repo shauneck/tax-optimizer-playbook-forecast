@@ -925,10 +925,17 @@ function PlaybookGenerator() {
 
   const generateQuarterlyReview = () => {
     const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
-    const notStartedStrategies = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.NOT_STARTED);
-    const inProgressStrategies = allStrategies.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.IN_PROGRESS);
     
-    const estimatedMissedSavings = results.estimatedSavingsDollar.min * (notStartedStrategies.length / allStrategies.length);
+    // Use selected strategies if any are selected, otherwise use all strategies
+    const strategiesForReview = selectedStrategies.size > 0 ? 
+      allStrategies.filter(strategy => selectedStrategies.has(strategy.id)) : 
+      allStrategies;
+    
+    const notStartedStrategies = strategiesForReview.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.NOT_STARTED);
+    const inProgressStrategies = strategiesForReview.filter(strategy => strategyStatuses[strategy.id] === STRATEGY_STATUS.IN_PROGRESS);
+    
+    const calculatedSavings = getCalculatedSavings();
+    const estimatedMissedSavings = calculatedSavings.dollar.min * (notStartedStrategies.length / strategiesForReview.length);
     
     return {
       notStartedStrategies,
