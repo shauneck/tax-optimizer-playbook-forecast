@@ -1890,10 +1890,10 @@ function PlaybookGenerator() {
                     <div className="text-sm uppercase text-gray-600 tracking-wide mb-4">Estimated Annual Tax Savings</div>
                     <div className="mb-6">
                       <div className="text-5xl font-bold text-emerald-600 mb-3">
-                        {results.estimatedSavingsPercent.min}% – {results.estimatedSavingsPercent.max}%
+                        {getCalculatedSavings().percent.min}% – {getCalculatedSavings().percent.max}%
                       </div>
                       <div className="text-2xl font-semibold text-gray-800 mb-4">
-                        {formatCurrency(results.estimatedSavingsDollar.min)} – {formatCurrency(results.estimatedSavingsDollar.max)} annually
+                        {formatCurrency(getCalculatedSavings().dollar.min)} – {formatCurrency(getCalculatedSavings().dollar.max)} annually
                       </div>
                       <p className="text-base text-gray-600 max-w-2xl mx-auto">
                         These savings are the foundation for building long-term wealth through strategic reinvestment.
