@@ -172,19 +172,58 @@ const StrategyModal = ({ strategy, isOpen, onClose, strategyStatus, onStatusChan
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Financial Impact</h3>
               <div className="bg-white border border-gray-200 rounded-xl p-4">
-                <div className="grid gap-3">
-                  {Object.entries(strategy.quantifiedExample).map(([key, value]) => {
-                    if (key === 'annualSavings') return null; // Already shown above
-                    return (
-                      <div key={key} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
-                        <span className="text-gray-600 font-medium capitalize">
-                          {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
-                        </span>
-                        <span className="font-semibold text-gray-900 text-right">{value}</span>
+                {strategy.strategyId === 'roth_overhaul_protocol' ? (
+                  <div className="space-y-4">
+                    <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
+                      <h4 className="font-semibold text-emerald-800 mb-2">Qualified Purchaser Path</h4>
+                      <div className="grid gap-2">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">IRR:</span>
+                          <span className="font-semibold">{strategy.quantifiedExample.qualifiedPurchaser.irr}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Tax Offset:</span>
+                          <span className="font-semibold">{strategy.quantifiedExample.qualifiedPurchaser.taxOffset}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Annual Savings:</span>
+                          <span className="font-semibold">{formatCurrency(strategy.quantifiedExample.qualifiedPurchaser.annualSavings)}</span>
+                        </div>
                       </div>
-                    );
-                  })}
-                </div>
+                    </div>
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                      <h4 className="font-semibold text-blue-800 mb-2">Accredited Investor Path</h4>
+                      <div className="grid gap-2">
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">IRR:</span>
+                          <span className="font-semibold">{strategy.quantifiedExample.accreditedInvestor.irr}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Tax Offset:</span>
+                          <span className="font-semibold">{strategy.quantifiedExample.accreditedInvestor.taxOffset}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Annual Savings:</span>
+                          <span className="font-semibold">{formatCurrency(strategy.quantifiedExample.accreditedInvestor.annualSavings)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid gap-3">
+                    {Object.entries(strategy.quantifiedExample).map(([key, value]) => {
+                      if (key === 'annualSavings') return null; // Already shown above
+                      return (
+                        <div key={key} className="flex justify-between items-center py-2 border-b border-gray-100 last:border-b-0">
+                          <span className="text-gray-600 font-medium capitalize">
+                            {key.replace(/([A-Z])/g, ' $1').toLowerCase()}:
+                          </span>
+                          <span className="font-semibold text-gray-900 text-right">{value}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           )}
