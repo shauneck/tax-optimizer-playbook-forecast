@@ -499,7 +499,7 @@ function PlaybookGenerator() {
     return strategyMatcher.generateStrategyStack(data, forecastData);
   };
 
-  const calculateEstimatedSavings = () => {
+  const calculateEstimatedSavings = (strategiesToUse = null) => {
     const income = INCOME_BRACKETS[formData.incomeRange]?.default || 350000;
     const taxLiability = calculateFederalTax(income);
     
@@ -557,7 +557,15 @@ function PlaybookGenerator() {
     const baseSavingsMaxDollar = taxLiability * (baseSavingsMax / 100);
     
     // Get strategy-specific savings from JSON cards
-    const applicableStrategies = strategyMatcher.getApplicableStrategies(formData, forecastingData);
+    let applicableStrategies;
+    if (strategiesToUse) {
+      // Use only selected strategies for calculation
+      applicableStrategies = strategiesToUse;
+    } else {
+      // Use all applicable strategies (default behavior)
+      applicableStrategies = strategyMatcher.getApplicableStrategies(formData, forecastingData);
+    }
+    
     const strategySavings = strategyMatcher.calculateStrategySavings(applicableStrategies);
     
     // Combine base savings with strategy-specific savings
