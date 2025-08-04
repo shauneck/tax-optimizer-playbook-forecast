@@ -430,7 +430,20 @@ function PlaybookGenerator() {
       const newForecastData = calculateForecastData();
       setResults(prev => ({ ...prev, forecastData: newForecastData }));
     }
-  }, [forecastingData.forecastYears, forecastingData.returnRate, forecastingData.enableWealthLoop, forecastingData.reinvestSavings]);
+  }, [forecastingData.forecastYears, forecastingData.returnRate, forecastingData.enableWealthLoop, forecastingData.reinvestSavings, selectedStrategies]);
+
+  // Recalculate savings when strategy selections change
+  useEffect(() => {
+    if (hasExistingData && results.strategyStack) {
+      const calculatedSavings = getCalculatedSavings();
+      setResults(prev => ({ 
+        ...prev, 
+        estimatedSavingsPercent: calculatedSavings.percent,
+        estimatedSavingsDollar: calculatedSavings.dollar,
+        forecastData: calculateForecastData()
+      }));
+    }
+  }, [selectedStrategies]);
 
   // Load saved data from localStorage on component mount
   useEffect(() => {
