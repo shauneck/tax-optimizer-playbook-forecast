@@ -88,10 +88,35 @@ export class StrategyMatcher {
       };
     }
 
-    // Check each eligibility criterion
+    // Handle complex eligibility logic
+    return this.evaluateComplexCriteria(criteria, formData, forecastingData, context);
+  }
+
+  // Evaluate complex eligibility criteria (handles OR, AND, excludeCondition)
+  evaluateComplexCriteria(criteria, formData, forecastingData, context = {}) {
+    // Handle OR conditions
+    if (criteria.or) {
+      const orResult = criteria.or.some(orCriterion => 
+        this.evaluateComplexCriteria(orCriterion, formData, forecastingData, context).isEligible
+      );
+      if (!orResult) {
+        return { isEligible: false };
+      }
+    }
+
+    // Handle AND conditions (implicit for regular criteria)
     for (const [key, value] of Object.entries(criteria)) {
+      if (key === 'or' || key === 'excludeCondition') continue; // Skip special keys
+      
       if (!this.evaluateCriterion(key, value, formData, forecastingData, context)) {
         return { isEligible: false };
+      }
+    }
+
+    // Handle exclude conditions
+    if (criteria.excludeCondition) {
+      if (this.evaluateComplexCriteria(criteria.excludeCondition, formData, forecastingData, context).isEligible) {
+        return { isEligible: false }; // Excluded
       }
     }
 
