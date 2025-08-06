@@ -385,6 +385,9 @@
     "eligibilityCriteria": {
       "qsbsClockStarted": true
     },
+    "displayCondition": {
+      "qsbsEligible": true
+    },
     "summary": "Eliminate up to $10M in capital gains by holding C-Corp stock for at least 5 years under IRC §1202.",
     "description": "Qualified Small Business Stock (QSBS) allows exclusion of up to $10M or 10x basis in gain if the stock is held for 5+ years and issued by a qualifying C-corp operating business. The Big Beautiful Bill proposes reducing the 75% and 100% exclusions to 50% for taxpayers with AGI over $400K, retroactive to September 13, 2021. This strategy is only available for operating C-corps — it does not apply to MSO C-corps or holding companies. QSBS treatment allows owners of certain C-Corps to exclude up to $15M in capital gains from federal tax if they hold the stock for 5 years. This strategy is only available if the operating business is a C-Corp and the shares were acquired at original issuance after July 4, 2025.",
     "howItWorks": [
