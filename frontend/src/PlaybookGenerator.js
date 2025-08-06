@@ -1774,6 +1774,15 @@ function PlaybookGenerator() {
                       <span className="text-sm text-gray-600">Income Type:</span>
                       <span className="font-semibold text-gray-900">{formData.incomeType.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
                     </div>
+                    {/* Show income split for blended income types */}
+                    {formData.incomeType === 'blended' && formData.w2IncomePercent && formData.businessIncomePercent && (
+                      <div className="flex items-center gap-x-2">
+                        <span className="text-sm text-gray-600">Income Split:</span>
+                        <span className="font-semibold text-gray-900">
+                          {formData.w2IncomePercent}% W-2 / {formData.businessIncomePercent}% Business
+                        </span>
+                      </div>
+                    )}
                     <div className="flex items-center gap-x-2">
                       <span className="text-sm text-gray-600">Income Range:</span>
                       <span className="font-semibold text-gray-900">{formData.incomeRange}</span>
