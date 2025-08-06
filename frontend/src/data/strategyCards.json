@@ -450,7 +450,6 @@
       "title": "Tax-Aware Exit Strategies"
     },
     "glossaryTerms": ["Tax-Aware Hedge Fund", "Capital Loss", "Exit Strategy", "Loss Carryforward"],
-    "tooltip": "This strategy uses a tax-aware hedge fund that generates capital losses to offset realized gains at exit. Only 30% of the fund allocation is treated as an immediate loss. This approach works best when the investment is made before or at the time of the sale.",
     "cta": {
       "text": "See how tax-aware hedge funds can reduce your exit tax liability.",
       "action": "Launch Exit Tax Reduction Analysis"
