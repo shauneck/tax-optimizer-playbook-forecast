@@ -976,7 +976,7 @@ function PlaybookGenerator() {
   };
 
   const getStrategyProgress = () => {
-    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning, ...(results.strategyStack.retirementPlanning || [])];
     
     // If strategies are selected, calculate progress based only on selected strategies
     let strategiesForProgress = allStrategies;
