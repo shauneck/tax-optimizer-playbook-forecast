@@ -1709,7 +1709,7 @@ function PlaybookGenerator() {
                   onClick={nextStep}
                   disabled={!isStepComplete()}
                   className={`px-6 py-3 text-white rounded-md disabled:opacity-50 disabled:cursor-not-allowed font-semibold transition-all ${
-                    currentStep === 8
+                    currentStep === 9
                       ? 'bg-emerald-500 hover:bg-emerald-600'
                       : 'bg-emerald-500 hover:bg-emerald-600'
                   }`}
