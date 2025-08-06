@@ -265,9 +265,15 @@ export class StrategyMatcher {
       return parseInt(forecastingData.businessProfit) || 0;
     }
     
-    // Fallback to income range if business owner
-    if (formData.incomeType === 'business-owner' || formData.incomeType === 'blended') {
-      return this.getIncomeFromRange(formData.incomeRange);
+    // Calculate weighted business profit for different income types
+    const totalIncome = this.getIncomeFromRange(formData.incomeRange);
+    
+    if (formData.incomeType === 'business-owner') {
+      return totalIncome;
+    } else if (formData.incomeType === 'blended') {
+      // For blended income, calculate based on business income percentage
+      const businessPercent = parseInt(formData.businessIncomePercent || '0') / 100;
+      return Math.round(totalIncome * businessPercent);
     }
     
     return 0;
