@@ -779,30 +779,37 @@ function PlaybookGenerator() {
   const isStepComplete = () => {
     switch (currentStep) {
       case 1: return formData.incomeType !== '';
-      case 2: return formData.incomeRange !== '';
-      case 3: return formData.entityStructure !== '';
-      case 4: 
+      case 2: 
+        // Income split only for blended income type
+        if (formData.incomeType === 'blended') {
+          const w2Percent = parseInt(formData.w2IncomePercent || '0');
+          const businessPercent = parseInt(formData.businessIncomePercent || '0');
+          return (w2Percent + businessPercent === 100) && w2Percent >= 0 && businessPercent >= 0;
+        }
+        return true; // Skip this step for non-blended income types
+      case 3: return formData.incomeRange !== '';
+      case 4: return formData.entityStructure !== '';
+      case 5: 
         // Business partners question only required for business owners
         if (formData.incomeType === 'business-owner' || formData.incomeType === 'blended') {
           return formData.hasBusinessPartners !== null;
         }
         return true; // Skip this step for W-2 employees
-      case 5: return formData.strategyGoals.length > 0;
-      case 6: 
+      case 6: return formData.strategyGoals.length > 0;
+      case 7: 
         // Stock compensation question only for W-2 and blended
         if (formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') {
           return formData.receivesStockComp !== null;
         }
         return true; // Skip for business owners
-      case 7:
+      case 8:
         return formData.rsuIncomePercent !== '' && 
                parseInt(formData.rsuIncomePercent) >= 0 && 
                parseInt(formData.rsuIncomePercent) <= 100;
-      case 8: 
+      case 9: 
         return forecastingData.businessProfit !== '' && 
                forecastingData.capitalAvailable !== '' && 
                forecastingData.restructurePercent !== '';
-      case 9: return forecastingData.forecastYears > 0;
       default: return false;
     }
   };
