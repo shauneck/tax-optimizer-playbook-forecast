@@ -1107,6 +1107,35 @@ function PlaybookGenerator() {
       );
     }
     
+    // Handle strategies with conditional messages (e.g., Split-Dollar for LLCs)
+    if (strategy.conditionalMessage) {
+      return (
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 shadow-sm">
+          <div className="flex items-start justify-between mb-2">
+            <div className="flex-1 min-w-0">
+              <h4 className="text-sm font-semibold text-gray-900 leading-tight mb-2 pr-2">{strategy.title}</h4>
+            </div>
+            <div className="text-lg ml-2 flex-shrink-0">💡</div>
+          </div>
+          
+          <div className="mb-3">
+            <p className="text-sm text-gray-600 leading-relaxed">{strategy.summary}</p>
+          </div>
+          
+          <div className="bg-blue-100 border border-blue-200 rounded-lg p-3 mb-3">
+            <p className="text-sm text-blue-800 font-medium">{strategy.conditionalMessage}</p>
+          </div>
+          
+          {/* Show projected savings if available */}
+          {strategy.projectedSavings && (
+            <div className="text-xs text-gray-500">
+              Potential Annual Savings: {formatCurrency(strategy.projectedSavings.annualSavings)}
+            </div>
+          )}
+        </div>
+      );
+    }
+    
     return (
       <div className={`bg-white border rounded-xl shadow-sm hover:shadow-md transition-shadow ${selectedStrategies.has(strategy.id) ? 'border-emerald-500 bg-emerald-50' : 'border-gray-200'}`}>
         {/* Selection Checkbox */}
