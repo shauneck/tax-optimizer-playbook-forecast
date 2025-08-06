@@ -1542,10 +1542,10 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 6: Stock Compensation (Only for W-2 and blended) */}
-              {currentStep === 6 && (formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') && (
+              {/* STEP 7: Stock Compensation (Only for W-2 and blended) */}
+              {currentStep === 7 && (formData.incomeType === 'w2-employee' || formData.incomeType === 'blended') && (
                 <div>
-                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 6 of 9</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 7 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Stock Compensation</h2>
                   <p className="text-base text-gray-600 mb-8">Do you receive stock compensation (RSUs, options, ESPP)?</p>
                   <div className="grid md:grid-cols-2 gap-4">
