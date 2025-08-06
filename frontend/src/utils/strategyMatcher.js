@@ -308,8 +308,42 @@ export class StrategyMatcher {
     return 'default';
   }
 
-  // Helper method: Check if LLC has elected C-corp status (placeholder for future enhancement)
+  // Fix 1: Handle dynamic user profile updates based on strategy selections
+  applyStrategyEffects(selectedStrategyId, formData, forecastingData) {
+    // Create a copy of formData to avoid mutations
+    const updatedFormData = { ...formData };
+    
+    // Update tax status when LLC C-Corp election is selected
+    if (selectedStrategyId === 'llc_c_corp_election') {
+      // Mark that the user has elected C-corp status
+      updatedFormData.taxStatus = 'c_corp';
+      updatedFormData.hasElectedCcorpStatus = true;
+      
+      // Re-match strategies with updated profile to unlock new strategies
+      return this.generateStrategyStack(updatedFormData, forecastingData);
+    }
+    
+    return null; // No profile changes needed
+  }
+
+  // Update tax status determination to consider dynamic elections
+  getUserTaxStatus(formData) {
+    // Check for explicit tax status changes
+    if (formData.taxStatus === 'c_corp') return 'c_corp';
+    if (formData.hasElectedCcorpStatus) return 'c_corp';
+    
+    // Default tax status based on entity structure
+    if (formData.entityStructure === 'C-corp') return 'c_corp';
+    if (this.hasElectedCcorpStatus(formData)) return 'c_corp';
+    return 'default';
+  }
+
+  // Enhanced check for C-corp status including dynamic elections
   hasElectedCcorpStatus(formData) {
+    // Check for dynamic election flag
+    if (formData.hasElectedCcorpStatus) return true;
+    if (formData.taxStatus === 'c_corp') return true;
+    
     // For now, we'll assume no election unless explicitly set
     // In future versions, this could track user's election status
     return false;
