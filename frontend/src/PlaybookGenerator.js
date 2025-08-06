@@ -1218,7 +1218,7 @@ function PlaybookGenerator() {
             <input
               type="checkbox"
               checked={selectedStrategies.has(strategy.id)}
-              onChange={() => toggleStrategySelection(strategy.id)}
+              onChange={(e) => handleStrategySelection(strategy.id, e.target.checked)}
               className="w-4 h-4 text-emerald-600 bg-gray-100 border-gray-300 rounded focus:ring-emerald-500 focus:ring-2"
             />
             <span className="ml-2 text-xs text-gray-600">
