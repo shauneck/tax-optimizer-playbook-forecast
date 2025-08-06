@@ -413,6 +413,7 @@ export class StrategyMatcher {
       if (this.isStrategyEligible(strategy, formData, forecastingData)) {
         const enhancedStrategy = {
           ...strategy,
+          id: strategy.strategyId, // For backward compatibility with existing UI
           projectedSavings: this.calculateSavings(strategy, formData, forecastingData),
           matchingCriteria: this.getMatchingCriteria(strategy, formData, forecastingData)
         };
@@ -423,6 +424,7 @@ export class StrategyMatcher {
         if (conditionalMessage) {
           const enhancedStrategy = {
             ...strategy,
+            id: strategy.strategyId, // For backward compatibility with existing UI
             conditionalMessage,
             projectedSavings: this.calculateSavings(strategy, formData, forecastingData),
             matchingCriteria: this.getMatchingCriteria(strategy, formData, forecastingData)
