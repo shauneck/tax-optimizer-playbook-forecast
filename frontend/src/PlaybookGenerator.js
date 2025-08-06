@@ -809,7 +809,12 @@ function PlaybookGenerator() {
         if (formData.incomeType === 'blended') {
           const w2Percent = parseInt(formData.w2IncomePercent || '0');
           const businessPercent = parseInt(formData.businessIncomePercent || '0');
-          return (w2Percent + businessPercent === 100) && w2Percent >= 0 && businessPercent >= 0;
+          // Ensure both fields have values and total exactly 100%
+          return formData.w2IncomePercent !== '' && 
+                 formData.businessIncomePercent !== '' && 
+                 (w2Percent + businessPercent === 100) && 
+                 w2Percent >= 0 && 
+                 businessPercent >= 0;
         }
         return true; // Skip this step for non-blended income types
       case 3: return formData.incomeRange !== '';
