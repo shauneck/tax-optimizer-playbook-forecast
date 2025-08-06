@@ -228,6 +228,15 @@ export class StrategyMatcher {
       return false; // Must be business owner with sufficient profit
     }
     
+    // For blended income types, require higher business income percentage for MSO eligibility
+    if (formData.incomeType === 'blended') {
+      const businessPercent = parseInt(formData.businessIncomePercent || '0');
+      // Require at least 60% business income for MSO strategies
+      if (businessPercent < 60) {
+        return false;
+      }
+    }
+    
     // Can create C-Corp via F-Reorg (no partners) or MSO (with partners)
     const canDoFReorg = formData.hasBusinessPartners === false;
     const canDoMSO = formData.hasBusinessPartners === true;
