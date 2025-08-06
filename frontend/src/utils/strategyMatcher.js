@@ -562,6 +562,20 @@ export class StrategyMatcher {
             matchingCriteria: this.getMatchingCriteria(strategy, formData, forecastingData)
           };
           matchedStrategies.push(enhancedStrategy);
+        } else {
+          // Check if strategy should show as locked due to investor status
+          const lockReason = this.getInvestorStatusLockReason(strategy, formData);
+          if (lockReason) {
+            const enhancedStrategy = {
+              ...strategy,
+              id: strategy.strategyId,
+              isLocked: true,
+              lockReason,
+              projectedSavings: this.calculateSavings(strategy, formData, forecastingData),
+              matchingCriteria: this.getMatchingCriteria(strategy, formData, forecastingData)
+            };
+            matchedStrategies.push(enhancedStrategy);
+          }
         }
       }
     }
