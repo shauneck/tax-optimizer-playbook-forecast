@@ -1009,7 +1009,7 @@ function PlaybookGenerator() {
   };
 
   const generateQuarterlyReview = () => {
-    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning, ...(results.strategyStack.retirementPlanning || [])];
     
     // Use selected strategies if any are selected, otherwise use all strategies
     const strategiesForReview = selectedStrategies.size > 0 ? 
