@@ -85,18 +85,21 @@
     "eligibilityCriteria": {
       "userType": "business_owner",
       "businessProfitMin": 500000,
-      "retainedEarningsMin": 250000
+      "retainedEarningsMin": 250000,
+      "requiresCcorpStatus": true
     },
     "summary": "Use your C-Corp's retained earnings to fund a tax-free life insurance structure without triggering dividend or gift tax.",
     "description": "This strategy uses a loan from your C-Corp to a living trust, which then funds a permanent life insurance policy (typically an Indexed or Variable Universal Life policy). The policy grows tax-deferred and allows you to access cash value via policy loans, which are not considered taxable income by the IRS. This works with existing C-Corps or C-Corps created through F-Reorg or MSO structures.",
+    "uiMessageIfHidden": "To unlock this strategy, first elect C-corp tax treatment for your LLC.",
     "howItWorks": [
-      "C-Corp loans funds to a grantor living trust",
-      "Trust uses funds to purchase a life insurance policy",
-      "Policy accumulates tax-deferred cash value",
-      "You access capital via tax-free policy loans",
-      "No dividend tax, no gift tax, full capital control"
+      "Establish a split-dollar agreement between your C-corp and a trust (or individual)",
+      "Use retained earnings to fund a high-cash-value life insurance policy", 
+      "Access cash value tax-free via policy loans",
+      "Recover basis or unwind structure based on rollout plan"
     ],
     "quantifiedExample": {
+      "description": "C-corp with $1.5M in retained earnings funds $500K split-dollar policy each year for 5 years",
+      "result": "In year 6, owner accesses $2.2M tax-free for liquidity without dividend treatment",
       "inputCapital": "$1,000,000 loan from C-Corp",
       "policyGrowth": "6–7% projected tax-free growth",
       "capitalAccess": "Tax-free policy loans starting Year 2",
@@ -115,7 +118,19 @@
       "action": "Learn more or speak with a strategist"
     },
     "implementationStatus": "Not Started",
-    "complexity": "Advanced"
+    "complexity": "Advanced",
+    "benefits": [
+      "Access tax-free capital via policy loans",
+      "No dividend or compensation tax",
+      "Build long-term, tax-deferred wealth", 
+      "Transfer wealth efficiently using trust design"
+    ],
+    "requirements": [
+      "Entity must be taxed as a C-corp",
+      "Substantial retained earnings (typically $1M+)",
+      "Trust ownership often required for estate protection",
+      "Requires compliant legal structure and funding cadence"
+    ]
   },
   {
     "strategyId": "qualified_opportunity_fund",
