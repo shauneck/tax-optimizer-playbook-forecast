@@ -338,13 +338,18 @@ export class StrategyMatcher {
 
   // Update tax status determination to consider dynamic elections
   getUserTaxStatus(formData) {
-    // Check for explicit tax status changes
+    // Check for explicit tax status changes from strategy selections
     if (formData.taxStatus === 'c_corp') return 'c_corp';
     if (formData.hasElectedCcorpStatus) return 'c_corp';
     
-    // Default tax status based on entity structure
+    // Check entity structure based tax status
     if (formData.entityStructure === 'C-corp') return 'c_corp';
-    if (this.hasElectedCcorpStatus(formData)) return 'c_corp';
+    
+    // For LLCs that might have elected C-corp status
+    if (formData.entityStructure === 'LLC' && this.hasElectedCcorpStatus(formData)) {
+      return 'c_corp';
+    }
+    
     return 'default';
   }
 
