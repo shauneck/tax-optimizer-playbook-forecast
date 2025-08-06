@@ -1411,6 +1411,7 @@ function PlaybookGenerator() {
                           const clampedW2 = Math.min(100, Math.max(0, numericValue));
                           const businessPercent = 100 - clampedW2;
                           
+                          // Update both fields
                           handleInputChange('w2IncomePercent', clampedW2.toString());
                           handleInputChange('businessIncomePercent', businessPercent.toString());
                         }}
