@@ -764,23 +764,42 @@ function PlaybookGenerator() {
 
   const prevStep = () => {
     // Handle reverse navigation with conditional steps
-    if (currentStep === 8) {
+    if (currentStep === 9) {
       if (formData.incomeType === 'business-owner') {
-        setCurrentStep(5); // Skip stock comp steps for business owners
+        setCurrentStep(6); // Skip stock comp steps for business owners
       } else if (!formData.receivesStockComp) {
-        setCurrentStep(6); // Go back to stock comp question
+        setCurrentStep(7); // Go back to stock comp question
       } else {
-        setCurrentStep(7); // Go back to RSU percentage
+        setCurrentStep(8); // Go back to RSU percentage
+      }
+    } else if (currentStep === 7) {
+      if (formData.incomeType === 'w2-employee') {
+        setCurrentStep(6); // Skip business partners for W-2
+      } else {
+        setCurrentStep(6); // Go back to strategy goals
       }
     } else if (currentStep === 6) {
       if (formData.incomeType === 'w2-employee') {
-        setCurrentStep(5); // Skip business partners for W-2
+        setCurrentStep(5); // Skip business partners for W-2, go to entity structure  
       } else {
-        setCurrentStep(5); // Go back to strategy goals
+        setCurrentStep(5); // Go back to business partners
       }
     } else if (currentStep === 5) {
-      if (formData.incomeType === 'w2-employee') {
-        setCurrentStep(3); // Skip business partners for W-2
+      setCurrentStep(4); // Go back to entity structure
+    } else if (currentStep === 4) {
+      setCurrentStep(3); // Go back to income range
+    } else if (currentStep === 3) {
+      if (formData.incomeType === 'blended') {
+        setCurrentStep(2); // Go back to income split
+      } else {
+        setCurrentStep(1); // Skip income split, go back to income type
+      }
+    } else if (currentStep === 2) {
+      setCurrentStep(1); // Go back to income type
+    } else if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
       } else {
         setCurrentStep(4); // Go back to business partners
       }
