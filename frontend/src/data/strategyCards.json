@@ -524,5 +524,100 @@
       "Requires proper split-dollar design and rollout planning",
       "Trust ownership often recommended for estate planning"
     ]
+  },
+  {
+    "strategyId": "llc_c_corp_election",
+    "title": "Elect C-Corp Tax Status for Your LLC",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "entityStructure": "LLC",
+      "businessProfitMin": 1000000
+    },
+    "summary": "Convert your LLC to a C-corp for tax purposes to enable retained earnings planning, corporate benefits, and advanced wealth strategies.",
+    "description": "High-profit LLC owners can elect C-corporation tax treatment via Form 8832 without changing their legal entity structure. This unlocks access to sophisticated strategies like loan-based split-dollar, retained earnings at lower corporate rates, and preparation for future F-reorganizations. The election enables corporate tax planning while maintaining the operational flexibility of an LLC structure.",
+    "howItWorks": [
+      "File IRS Form 8832 to elect C-corp tax treatment for your LLC",
+      "Continue operating through the same legal entity",
+      "Start using retained earnings and corporate planning structures", 
+      "Layer in strategies like split-dollar or executive comp as needed"
+    ],
+    "quantifiedExample": {
+      "description": "LLC with $1.2M profit elects C-corp status and uses retained earnings to fund split-dollar policy",
+      "result": "Invests in alternative assets without triggering dividend tax",
+      "annualSavings": 180000,
+      "longTermBenefit": "Access to advanced corporate strategies"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 2",
+      "title": "Advanced Entity Elections & Corporate Planning"
+    },
+    "glossaryTerms": ["C-Corp Election", "Form 8832", "LLC", "Retained Earnings"],
+    "cta": {
+      "text": "Unlock advanced tax planning opportunities with C-corp election for your LLC.",
+      "action": "Explore C-Corp Election Benefits"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced",
+    "benefits": [
+      "Retain and reinvest earnings at flat 21% federal rate",
+      "Enable strategies like loan-based split-dollar",
+      "Build toward QSBS or F-reorg opportunities", 
+      "Use retained capital for tax-advantaged investments"
+    ],
+    "requirements": [
+      "LLC must elect C-corp status using Form 8832",
+      "Generally most effective with $1M+ annual profit",
+      "Must maintain corporate formalities post-election"
+    ]
+  },
+  {
+    "strategyId": "f_reorg_from_llc",
+    "title": "F-Reorg from LLC to Corporation",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "entityStructure": "LLC",
+      "businessProfitMin": 1000000,
+      "taxStatus": "c_corp"
+    },
+    "summary": "Convert your LLC taxed as a C-corp into a formal C-corp structure via an F-reorg to preserve tax attributes, unlock QSBS, and prepare for investment or sale.",
+    "description": "For LLC owners who have already elected C-corporation tax treatment, an F-reorganization allows conversion to a formal C-corp structure while preserving all tax history and attributes. This is particularly valuable for QSBS qualification, fundraising preparation, and exit planning. The F-reorg maintains continuity of ownership and tax characteristics while creating a cleaner corporate structure.",
+    "howItWorks": [
+      "Elect C-corp tax treatment for your LLC (if not already done)",
+      "Form a new C-corp in your desired jurisdiction (e.g. Delaware)",
+      "Execute an F-reorg to make the new entity the successor",
+      "Preserve all tax history and ownership continuity"
+    ],
+    "quantifiedExample": {
+      "description": "Professional services LLC elects C-corp status, then executes F-reorg into Delaware C-corp",
+      "result": "Qualifies for QSBS treatment and prepares for $15M private equity exit",
+      "annualSavings": 0,
+      "longTermBenefit": "Up to $15M+ tax-free QSBS exit potential"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 3", 
+      "title": "Entity Restructuring & Exit Preparation"
+    },
+    "glossaryTerms": ["F-Reorganization", "LLC to C-Corp", "QSBS", "Entity Restructure"],
+    "cta": {
+      "text": "Preserve tax attributes while unlocking QSBS and exit opportunities.",
+      "action": "Explore F-Reorg Benefits"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced",
+    "benefits": [
+      "Preserve QSBS eligibility under new C-corp structure",
+      "Enable stock issuance and fundraising",
+      "Simplify cap table and legal structure",
+      "Maintain historical EIN and tax attributes"
+    ],
+    "requirements": [
+      "LLC must already be taxed as a C-corp",
+      "New C-corp must be properly formed and documented", 
+      "F-reorg must meet IRS continuity and control rules"
+    ]
   }
 ]
