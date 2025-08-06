@@ -305,8 +305,20 @@ export class StrategyMatcher {
   }
 
   isAccreditedInvestor(formData) {
-    const income = this.getIncomeFromRange(formData.incomeRange);
-    return income >= 200000; // Simplified - actual accredited investor rules are more complex
+    const totalIncome = this.getIncomeFromRange(formData.incomeRange);
+    
+    // For blended income, use weighted calculation based on higher accreditation requirements
+    if (formData.incomeType === 'blended') {
+      const w2Income = this.getW2Income(formData, {});
+      const businessIncome = this.getBusinessProfit(formData, {});
+      
+      // Either W-2 income alone >= $200K or business income alone >= $200K qualifies
+      // Or combined income >= $300K with significant portion from qualifying sources
+      return totalIncome >= 200000 && (w2Income >= 150000 || businessIncome >= 150000 || totalIncome >= 300000);
+    }
+    
+    // Standard accredited investor threshold
+    return totalIncome >= 200000;
   }
 
   isQualifiedPurchaser(formData, forecastingData) {
