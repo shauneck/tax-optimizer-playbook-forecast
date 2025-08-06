@@ -830,14 +830,22 @@ function PlaybookGenerator() {
       case 2: 
         // Income split only for blended income type
         if (formData.incomeType === 'blended') {
-          const w2Percent = parseInt(formData.w2IncomePercent || '0');
-          const businessPercent = parseInt(formData.businessIncomePercent || '0');
-          // Ensure both fields have values and total exactly 100%
-          return formData.w2IncomePercent !== '' && 
-                 formData.businessIncomePercent !== '' && 
-                 (w2Percent + businessPercent === 100) && 
+          // Check both formData and draft state for current values
+          const w2Value = w2Draft || formData.w2IncomePercent || '';
+          const businessValue = businessDraft || formData.businessIncomePercent || '';
+          
+          // Parse and validate
+          const w2Percent = parseInt(w2Value);
+          const businessPercent = parseInt(businessValue);
+          
+          // Ensure both fields have values, are valid numbers, and total exactly 100%
+          return w2Value !== '' && 
+                 businessValue !== '' && 
+                 !isNaN(w2Percent) && 
+                 !isNaN(businessPercent) &&
                  w2Percent >= 0 && 
-                 businessPercent >= 0;
+                 businessPercent >= 0 &&
+                 (w2Percent + businessPercent === 100);
         }
         return true; // Skip this step for non-blended income types
       case 3: return formData.incomeRange !== '';
