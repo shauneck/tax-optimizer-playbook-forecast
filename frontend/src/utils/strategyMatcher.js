@@ -399,6 +399,67 @@ export class StrategyMatcher {
       ...strategyStack.exitPlanning
     ];
   }
+
+  matchStrategies(formData, forecastingData) {
+    let matchedStrategies = [];
+    
+    for (const strategy of this.strategies) {
+      // Check if strategy should be hidden based on entity type
+      if (this.shouldHideStrategy(strategy, formData)) {
+        continue; // Skip this strategy
+      }
+      
+      if (this.isStrategyEligible(strategy, formData, forecastingData)) {
+        const enhancedStrategy = {
+          ...strategy,
+          projectedSavings: this.calculateSavings(strategy, formData, forecastingData),
+          matchingCriteria: this.getMatchingCriteria(strategy, formData, forecastingData)
+        };
+        matchedStrategies.push(enhancedStrategy);
+      } else {
+        // Check if strategy should show conditional UI message
+        const conditionalMessage = this.getConditionalMessage(strategy, formData, forecastingData);
+        if (conditionalMessage) {
+          const enhancedStrategy = {
+            ...strategy,
+            conditionalMessage,
+            projectedSavings: this.calculateSavings(strategy, formData, forecastingData),
+            matchingCriteria: this.getMatchingCriteria(strategy, formData, forecastingData)
+          };
+          matchedStrategies.push(enhancedStrategy);
+        }
+      }
+    }
+    
+    return this.calculateStrategySavings(matchedStrategies);
+  }
+
+  // Check if strategy should be hidden based on hiding rules
+  shouldHideStrategy(strategy, formData) {
+    // Hide F-Reorg S-Corp to C-Corp strategy for LLC owners
+    if (strategy.strategyId === 'f_reorg_c_corp' && formData.entityStructure === 'LLC') {
+      return true;
+    }
+    
+    return false;
+  }
+
+  // Get conditional UI message for strategies that don't fully qualify
+  getConditionalMessage(strategy, formData, forecastingData) {
+    // Show message for Split-Dollar if LLC needs C-corp election
+    if (strategy.strategyId === 'loan_based_split_dollar' && 
+        strategy.uiMessageIfHidden && 
+        formData.entityStructure === 'LLC' && 
+        !this.hasElectedCcorpStatus(formData)) {
+      return strategy.uiMessageIfHidden;
+    }
+    
+    return null;
+  }
+
+  // Match and rank all strategies based on user's profile
+  _originalMatchStrategies(formData, forecastingData) {
+  }
 }
 
 // Export singleton instance
