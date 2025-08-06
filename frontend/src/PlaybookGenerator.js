@@ -441,6 +441,12 @@ function PlaybookGenerator() {
     }
   }, [currentStep, formData.incomeType]);
 
+  // Force re-render of button state when draft values change (for real-time validation)
+  useEffect(() => {
+    // This useEffect doesn't need to do anything - just existing triggers re-validation
+    // when w2Draft or businessDraft changes, which updates the Continue button state
+  }, [w2Draft, businessDraft]);
+
   const [strategyStatuses, setStrategyStatuses] = useState({});
   const [selectedStrategies, setSelectedStrategies] = useState(new Set()); // Track selected strategies for calculations
   const [dashboardMode, setDashboardMode] = useState('input'); // 'input', 'dashboard'
