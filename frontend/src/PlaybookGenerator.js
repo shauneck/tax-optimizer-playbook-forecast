@@ -1839,6 +1839,66 @@ function PlaybookGenerator() {
                 </div>
               )}
 
+              {/* NEW STEP: Investor Status */}
+              {currentStep === 10 && (
+                <div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 10 of 10</div>
+                  <h2 className="text-3xl font-semibold text-gray-900 mb-2">Investor Status</h2>
+                  <p className="text-base text-muted-foreground mb-8">Your investor classification helps us recommend appropriate strategies.</p>
+                  
+                  <div className="space-y-6">
+                    <div>
+                      <label className="flex items-center gap-2 text-sm font-medium text-gray-700 mb-4">
+                        Select Your Investor Status
+                        <InvestorStatusTooltip />
+                      </label>
+                      
+                      <div className="space-y-3 max-w-lg mx-auto">
+                        {[
+                          { 
+                            value: 'none', 
+                            label: 'Not Accredited', 
+                            desc: 'Standard investor (most people fall into this category)'
+                          },
+                          { 
+                            value: 'accredited', 
+                            label: 'Accredited Investor', 
+                            desc: '$200K+ income or $1M+ net worth'
+                          },
+                          { 
+                            value: 'qp', 
+                            label: 'Qualified Purchaser (QP)', 
+                            desc: '$5M+ in investments'
+                          }
+                        ].map((option) => (
+                          <label
+                            key={option.value}
+                            className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all hover:border-emerald-300 ${
+                              formData.investorStatus === option.value
+                                ? 'border-emerald-500 bg-emerald-50'
+                                : 'border-gray-200 bg-white'
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="investorStatus"
+                              value={option.value}
+                              checked={formData.investorStatus === option.value}
+                              onChange={(e) => handleInputChange('investorStatus', e.target.value)}
+                              className="mt-1 text-emerald-500 focus:ring-emerald-500"
+                            />
+                            <div className="flex-1 min-w-0">
+                              <div className="font-semibold text-gray-900">{option.label}</div>
+                              <div className="text-sm text-gray-600 mt-1">{option.desc}</div>
+                            </div>
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Navigation */}
               <div className="flex justify-between mt-8 pt-6 border-t">
                 <button
