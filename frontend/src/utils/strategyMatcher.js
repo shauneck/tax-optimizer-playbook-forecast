@@ -239,9 +239,21 @@ export class StrategyMatcher {
   checkUserType(requiredType, formData) {
     switch (requiredType) {
       case 'business_owner':
-        return formData.incomeType === 'business-owner' || formData.incomeType === 'blended';
+        if (formData.incomeType === 'business-owner') return true;
+        if (formData.incomeType === 'blended') {
+          // For blended income, check if business income percentage is significant (>= 25%)
+          const businessPercent = parseInt(formData.businessIncomePercent || '0');
+          return businessPercent >= 25;
+        }
+        return false;
       case 'w2_employee':
-        return formData.incomeType === 'w2-employee' || formData.incomeType === 'blended';
+        if (formData.incomeType === 'w2-employee') return true;
+        if (formData.incomeType === 'blended') {
+          // For blended income, check if W-2 income percentage is significant (>= 25%)
+          const w2Percent = parseInt(formData.w2IncomePercent || '0');
+          return w2Percent >= 25;
+        }
+        return false;
       default:
         return false;
     }
