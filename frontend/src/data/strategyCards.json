@@ -428,10 +428,10 @@
       "investorStatus": ["accredited", "qp"]
     },
     "summary": "Offset capital gains at the time of business exit using a tax-aware hedge fund that generates capital losses.",
-    "description": "This strategy uses a tax-aware hedge fund that generates capital losses to offset realized gains at exit. Only 30% of the fund allocation is treated as an immediate loss. This approach works best when the investment is made before or at the time of the sale. Losses must be realized in the same tax year as the gain to apply against exit proceeds. Investment should be made prior to or at the time of exit for current-year loss eligibility. Gains realized in future years can only be offset by carryforward losses.",
+    "description": "This strategy uses a tax-aware hedge fund that generates capital losses to offset realized gains at exit. Only 30% of the fund allocation is treated as an immediate loss. This approach works best when the investment is made **before** or **at the time of sale**. Losses must be realized in the **same tax year** as the gain to apply against exit proceeds.",
     "howItWorks": [
       "Invest in a tax-aware hedge fund before or at the time of exit",
-      "Fund generates capital losses in the year of investment",
+      "Fund generates capital losses in the year of investment", 
       "30% of invested capital becomes an immediate capital loss",
       "Apply losses directly against capital gains from business exit",
       "Remaining losses may carry forward to future years"
