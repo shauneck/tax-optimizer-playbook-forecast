@@ -233,6 +233,13 @@ export class StrategyMatcher {
     }
   }
 
+  // Helper method: Check if LLC has elected C-corp status (placeholder for future enhancement)
+  hasElectedCcorpStatus(formData) {
+    // For now, we'll assume no election unless explicitly set
+    // In future versions, this could track user's election status
+    return false;
+  }
+
   // Helper method: Check if user can create a C-Corp (via F-Reorg or MSO)
   canCreateCcorp(formData, forecastingData) {
     const businessProfit = this.getBusinessProfit(formData, forecastingData);
