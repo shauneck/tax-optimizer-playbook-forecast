@@ -887,6 +887,7 @@ function PlaybookGenerator() {
         return forecastingData.businessProfit !== '' && 
                forecastingData.capitalAvailable !== '' && 
                forecastingData.restructurePercent !== '';
+      case 10: return formData.investorStatus !== '';
       default: return false;
     }
   };
