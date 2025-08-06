@@ -800,13 +800,6 @@ function PlaybookGenerator() {
       setCurrentStep(currentStep - 1);
     }
   };
-      } else {
-        setCurrentStep(4); // Go back to business partners
-      }
-    } else if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
 
   const isStepComplete = () => {
     switch (currentStep) {
