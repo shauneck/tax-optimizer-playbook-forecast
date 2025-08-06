@@ -464,6 +464,12 @@ export class StrategyMatcher {
   matchStrategies(formData, forecastingData) {
     let matchedStrategies = [];
     
+    // Defensive programming - ensure we have strategies to work with
+    if (!Array.isArray(this.strategies)) {
+      console.error("Expected array of strategies, received:", typeof this.strategies);
+      return [];
+    }
+    
     for (const strategy of this.strategies) {
       // Check if strategy should be hidden based on entity type
       if (this.shouldHideStrategy(strategy, formData)) {
@@ -494,7 +500,9 @@ export class StrategyMatcher {
       }
     }
     
-    return this.calculateStrategySavings(matchedStrategies);
+    // Return the array directly, not the calculated savings
+    // The calculateStrategySavings method should be called elsewhere if needed
+    return matchedStrategies;
   }
 
   // Check if strategy should be hidden based on hiding rules
