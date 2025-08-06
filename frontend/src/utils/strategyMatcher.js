@@ -527,6 +527,61 @@ export class StrategyMatcher {
     return null;
   }
 
+  // Calculate projected savings for a strategy
+  calculateSavings(strategy, formData, forecastingData) {
+    // Use quantifiedExample if available
+    if (strategy.quantifiedExample && strategy.quantifiedExample.annualSavings) {
+      return {
+        annualSavings: strategy.quantifiedExample.annualSavings,
+        description: strategy.quantifiedExample.description || '',
+        result: strategy.quantifiedExample.result || ''
+      };
+    }
+    
+    // Fallback to basic calculation for strategies without quantified examples
+    const businessProfit = this.getBusinessProfit(formData, forecastingData);
+    const estimatedSavings = Math.min(businessProfit * 0.15, 100000); // 15% up to $100K
+    
+    return {
+      annualSavings: estimatedSavings,
+      description: `Estimated savings based on ${formData.entityStructure} structure`,
+      result: 'Calculated estimate pending detailed analysis'
+    };
+  }
+
+  // Get matching criteria for display purposes
+  getMatchingCriteria(strategy, formData, forecastingData) {
+    const criteria = [];
+    
+    // Check displayCondition criteria
+    if (strategy.displayCondition) {
+      if (strategy.displayCondition.entityType) {
+        criteria.push(`Entity: ${strategy.displayCondition.entityType}`);
+      }
+      if (strategy.displayCondition.profitRange) {
+        const min = strategy.displayCondition.profitRange.min;
+        const max = strategy.displayCondition.profitRange.max;
+        if (min && max) {
+          criteria.push(`Income: $${min.toLocaleString()} - $${max.toLocaleString()}`);
+        } else if (min) {
+          criteria.push(`Income: $${min.toLocaleString()}+`);
+        }
+      }
+    }
+    
+    // Check eligibilityCriteria for existing strategies
+    if (strategy.eligibilityCriteria) {
+      if (strategy.eligibilityCriteria.userType) {
+        criteria.push(`Type: ${strategy.eligibilityCriteria.userType.replace('_', ' ')}`);
+      }
+      if (strategy.eligibilityCriteria.businessProfitMin) {
+        criteria.push(`Min Profit: $${strategy.eligibilityCriteria.businessProfitMin.toLocaleString()}`);
+      }
+    }
+    
+    return criteria;
+  }
+
   // Match and rank all strategies based on user's profile
   _originalMatchStrategies(formData, forecastingData) {
   }
