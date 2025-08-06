@@ -393,7 +393,9 @@ function PlaybookGenerator() {
     w2IncomePercent: '',
     businessIncomePercent: '',
     // New field for investor status
-    investorStatus: 'none'
+    investorStatus: 'none',
+    // New field for QSBS eligibility
+    qsbsEligible: false
   });
 
   // Local draft state for income split to prevent typing interference
