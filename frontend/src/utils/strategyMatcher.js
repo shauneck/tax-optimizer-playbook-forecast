@@ -296,6 +296,12 @@ export class StrategyMatcher {
       if (!requiredStatuses.includes(userInvestorStatus)) return false;
     }
 
+    // Match QSBS eligibility
+    if (displayCondition.qsbsEligible !== undefined) {
+      const userQsbsEligible = formData.qsbsEligible || false;
+      if (displayCondition.qsbsEligible !== userQsbsEligible) return false;
+    }
+
     return true;
   }
 
