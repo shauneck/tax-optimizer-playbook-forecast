@@ -240,7 +240,7 @@
   {
     "strategyId": "roth_overhaul_protocol",
     "title": "Roth Overhaul Protocol",
-    "category": "Deduction Strategies",
+    "category": "Retirement Planning",
     "eligibilityCriteria": {
       "or": [
         {"isQP": true},
