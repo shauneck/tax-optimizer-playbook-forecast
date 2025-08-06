@@ -1641,7 +1641,7 @@ function PlaybookGenerator() {
               {/* STEP 5: Business Partners (only for business owners) */}
               {currentStep === 5 && (formData.incomeType === 'business-owner' || formData.incomeType === 'blended') && (
                 <div>
-                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 5 of 9</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 5 of 10</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Business Partnership</h2>
                   <p className="text-base text-gray-600 mb-8">Do you have any partners in your business?</p>
                   <div className="grid md:grid-cols-2 gap-4">
