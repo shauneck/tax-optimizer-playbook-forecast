@@ -394,6 +394,21 @@ function PlaybookGenerator() {
     businessIncomePercent: ''
   });
 
+  // Local draft state for income split to prevent typing interference
+  const [w2Draft, setW2Draft] = useState('');
+  const [businessDraft, setBusinessDraft] = useState('');
+
+  // Helper function to update both draft and form data
+  const updateIncomeSplit = (w2Value, businessValue) => {
+    const w2Str = w2Value.toString();
+    const businessStr = businessValue.toString();
+    
+    setW2Draft(w2Str);
+    setBusinessDraft(businessStr);
+    handleInputChange('w2IncomePercent', w2Str);
+    handleInputChange('businessIncomePercent', businessStr);
+  };
+
   // Enhanced forecasting inputs
   const [forecastingData, setForecastingData] = useState({
     businessProfit: '',
