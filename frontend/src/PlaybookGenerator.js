@@ -388,7 +388,10 @@ function PlaybookGenerator() {
     strategyGoals: [],
     hasBusinessPartners: null, // New field for business partners
     receivesStockComp: false,
-    rsuIncomePercent: ''
+    rsuIncomePercent: '',
+    // New fields for blended income split
+    w2IncomePercent: '',
+    businessIncomePercent: ''
   });
 
   // Enhanced forecasting inputs
