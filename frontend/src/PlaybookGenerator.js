@@ -1931,7 +1931,7 @@ function PlaybookGenerator() {
                           { 
                             value: 'none', 
                             label: 'Not Accredited', 
-                            desc: 'Standard investor (most people fall into this category)'
+                            desc: 'Standard investor'
                           },
                           { 
                             value: 'accredited', 
