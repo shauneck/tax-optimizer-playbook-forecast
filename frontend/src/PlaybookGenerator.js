@@ -751,7 +751,7 @@ function PlaybookGenerator() {
     
     // Initialize strategy statuses
     const newStatuses = {};
-    [...strategyStack.setupStructure, ...strategyStack.deductionStrategies, ...strategyStack.exitPlanning].forEach(strategy => {
+    [...strategyStack.setupStructure, ...strategyStack.deductionStrategies, ...strategyStack.exitPlanning, ...(strategyStack.retirementPlanning || [])].forEach(strategy => {
       newStatuses[strategy.id] = STRATEGY_STATUS.NOT_STARTED;
     });
     setStrategyStatuses(newStatuses);
