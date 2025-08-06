@@ -1409,11 +1409,18 @@ function PlaybookGenerator() {
                         type="number"
                         min="0"
                         max="100"
-                        value={formData.w2IncomePercent}
+                        value={w2Draft || formData.w2IncomePercent}
                         onChange={(e) => {
                           const inputValue = e.target.value;
-                          // Allow empty input for better UX while typing
+                          setW2Draft(inputValue); // Update draft immediately for display
+                        }}
+                        onBlur={(e) => {
+                          const inputValue = e.target.value;
+                          
+                          // Handle empty input
                           if (inputValue === '') {
+                            setW2Draft('');
+                            setBusinessDraft('');
                             handleInputChange('w2IncomePercent', '');
                             handleInputChange('businessIncomePercent', '');
                             return;
@@ -1427,8 +1434,7 @@ function PlaybookGenerator() {
                           const businessPercent = 100 - clampedW2;
                           
                           // Update both fields
-                          handleInputChange('w2IncomePercent', clampedW2.toString());
-                          handleInputChange('businessIncomePercent', businessPercent.toString());
+                          updateIncomeSplit(clampedW2, businessPercent);
                         }}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"
                         placeholder="e.g., 60"
@@ -1441,13 +1447,20 @@ function PlaybookGenerator() {
                         type="number"
                         min="0"
                         max="100"
-                        value={formData.businessIncomePercent}
+                        value={businessDraft || formData.businessIncomePercent}
                         onChange={(e) => {
                           const inputValue = e.target.value;
-                          // Allow empty input for better UX while typing
+                          setBusinessDraft(inputValue); // Update draft immediately for display
+                        }}
+                        onBlur={(e) => {
+                          const inputValue = e.target.value;
+                          
+                          // Handle empty input
                           if (inputValue === '') {
-                            handleInputChange('businessIncomePercent', '');
+                            setW2Draft('');
+                            setBusinessDraft('');
                             handleInputChange('w2IncomePercent', '');
+                            handleInputChange('businessIncomePercent', '');
                             return;
                           }
                           
@@ -1459,8 +1472,7 @@ function PlaybookGenerator() {
                           const w2Percent = 100 - clampedBusiness;
                           
                           // Update both fields
-                          handleInputChange('businessIncomePercent', clampedBusiness.toString());
-                          handleInputChange('w2IncomePercent', w2Percent.toString());
+                          updateIncomeSplit(w2Percent, clampedBusiness);
                         }}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"
                         placeholder="e.g., 40"
@@ -1468,20 +1480,34 @@ function PlaybookGenerator() {
                     </div>
                     
                     <div className={`p-4 rounded-lg ${
-                      (parseInt(formData.w2IncomePercent || '0') + parseInt(formData.businessIncomePercent || '0')) === 100
-                        ? 'bg-emerald-50 border border-emerald-200'
-                        : 'bg-gray-50'
+                      (() => {
+                        const w2Val = parseInt(w2Draft || formData.w2IncomePercent || '0');
+                        const bizVal = parseInt(businessDraft || formData.businessIncomePercent || '0');
+                        const total = w2Val + bizVal;
+                        return total === 100 && w2Draft && businessDraft
+                          ? 'bg-emerald-50 border border-emerald-200'
+                          : 'bg-gray-50';
+                      })()
                     }`}>
                       <p className="text-sm text-gray-600">
-                        Total: {(parseInt(formData.w2IncomePercent || '0') + parseInt(formData.businessIncomePercent || '0'))}%
-                        {(parseInt(formData.w2IncomePercent || '0') + parseInt(formData.businessIncomePercent || '0')) === 100 && 
-                         formData.w2IncomePercent && formData.businessIncomePercent && (
-                          <span className="text-emerald-600 ml-2 font-semibold">✓ Perfect!</span>
-                        )}
-                        {(parseInt(formData.w2IncomePercent || '0') + parseInt(formData.businessIncomePercent || '0')) !== 100 && 
-                         formData.w2IncomePercent && formData.businessIncomePercent && (
-                          <span className="text-red-600 ml-2">Must equal 100%</span>
-                        )}
+                        Total: {(() => {
+                          const w2Val = parseInt(w2Draft || formData.w2IncomePercent || '0');
+                          const bizVal = parseInt(businessDraft || formData.businessIncomePercent || '0');
+                          return w2Val + bizVal;
+                        })()}%
+                        {(() => {
+                          const w2Val = parseInt(w2Draft || formData.w2IncomePercent || '0');
+                          const bizVal = parseInt(businessDraft || formData.businessIncomePercent || '0');
+                          const total = w2Val + bizVal;
+                          const hasValues = (w2Draft || formData.w2IncomePercent) && (businessDraft || formData.businessIncomePercent);
+                          
+                          if (total === 100 && hasValues) {
+                            return <span className="text-emerald-600 ml-2 font-semibold">✓ Perfect!</span>;
+                          } else if (hasValues && total !== 100) {
+                            return <span className="text-red-600 ml-2">Must equal 100%</span>;
+                          }
+                          return null;
+                        })()}
                       </p>
                     </div>
                   </div>
