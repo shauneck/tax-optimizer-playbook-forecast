@@ -507,11 +507,13 @@ export class StrategyMatcher {
     const setupStructure = Array.isArray(strategyStack.setupStructure) ? strategyStack.setupStructure : [];
     const deductionStrategies = Array.isArray(strategyStack.deductionStrategies) ? strategyStack.deductionStrategies : [];
     const exitPlanning = Array.isArray(strategyStack.exitPlanning) ? strategyStack.exitPlanning : [];
+    const retirementPlanning = Array.isArray(strategyStack.retirementPlanning) ? strategyStack.retirementPlanning : [];
     
     return [
       ...setupStructure,
       ...deductionStrategies, 
-      ...exitPlanning
+      ...exitPlanning,
+      ...retirementPlanning
     ];
   }
 
