@@ -1609,7 +1609,7 @@ function PlaybookGenerator() {
               {/* STEP 4: Entity Structure (formerly step 3) */}
               {currentStep === 4 && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 4 of 9</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 4 of 10</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Entity Structure</h2>
                   <p className="text-base text-muted-foreground mb-8">What is your current entity structure?</p>
                   <div className="grid md:grid-cols-2 gap-4">
