@@ -1579,7 +1579,7 @@ function PlaybookGenerator() {
               {/* STEP 3: Income Range (formerly step 2) */}
               {currentStep === 3 && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 3 of 9</div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 3 of 10</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Income Range</h2>
                   <p className="text-base text-muted-foreground mb-8">What is your approximate annual income?</p>
                   <div className="grid md:grid-cols-2 gap-4">
