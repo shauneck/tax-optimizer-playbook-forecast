@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import html2pdf from 'html2pdf.js';
 import { ChevronDown, ArrowLeft, Calendar, Download, ChevronUp, Info, BarChart3, Target, TrendingUp, RefreshCw, CheckCircle2, AlertCircle, Users, BookOpen, ExternalLink } from 'lucide-react';
-import { strategyMatcher } from './utils/strategyMatcher';
+import { strategyMatcher, StrategyMatcher } from './utils/strategyMatcher';
 import StrategyModal from './components/StrategyModal';
 
 // Enhanced Tooltip component for assumptions - Fixed hover flicker
