@@ -279,6 +279,21 @@ export class StrategyMatcher {
     return 0;
   }
 
+  getW2Income(formData, forecastingData) {
+    // Calculate W-2 income for blended profiles and W-2 employees
+    const totalIncome = this.getIncomeFromRange(formData.incomeRange);
+    
+    if (formData.incomeType === 'w2-employee') {
+      return totalIncome;
+    } else if (formData.incomeType === 'blended') {
+      // For blended income, calculate based on W-2 income percentage
+      const w2Percent = parseInt(formData.w2IncomePercent || '0') / 100;
+      return Math.round(totalIncome * w2Percent);
+    }
+    
+    return 0;
+  }
+
   getIncomeFromRange(incomeRange) {
     const incomeMap = {
       '$150K–$350K': 250000,
