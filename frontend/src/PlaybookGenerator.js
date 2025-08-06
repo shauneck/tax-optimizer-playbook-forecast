@@ -980,6 +980,31 @@ function PlaybookGenerator() {
         console.log('Strategy stack updated after C-Corp election', newResults);
       }, 100);
     }
+
+    // Handle F-Reorg selection to unlock QSBS eligibility
+    if (strategyId === 'f_reorg_from_llc' && isSelected) {
+      console.log('F-Reorg from LLC selected - enabling QSBS eligibility');
+      
+      // Update form data to reflect QSBS eligibility
+      const updatedFormData = {
+        ...formData,
+        qsbsEligible: true
+      };
+      
+      setFormData(updatedFormData);
+      
+      // Force re-evaluation of strategies with QSBS eligibility
+      setTimeout(() => {
+        const newResults = strategyMatcher.generateStrategyStack(updatedFormData, forecastingData);
+        
+        setResults(prevResults => ({
+          ...prevResults,
+          strategyStack: newResults
+        }));
+        
+        console.log('Strategy stack updated after F-Reorg - QSBS unlocked', newResults);
+      }, 100);
+    }
   };
 
   // Strategy selection functions
