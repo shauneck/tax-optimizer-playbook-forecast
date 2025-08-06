@@ -255,6 +255,9 @@
         ]
       }
     },
+    "displayCondition": {
+      "investorStatus": ["qp"]
+    },
     "summary": "Advanced Roth conversion strategy that leverages sophisticated tax planning to maximize retirement account benefits while minimizing current tax impact.",
     "description": "The Roth Overhaul Protocol is a comprehensive strategy that restructures traditional retirement accounts and implements advanced tax planning techniques to maximize long-term wealth accumulation. This strategy is available to both Qualified Purchasers and Accredited Investors, with different optimization paths based on investor status. For S-Corp entities with partners, an MSO structure should be implemented first to access this strategy.",
     "howItWorks": [
