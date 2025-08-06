@@ -1343,10 +1343,67 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 2: Income Range */}
-              {currentStep === 2 && (
+              {/* STEP 2: Income Split (only for blended income type) */}
+              {currentStep === 2 && formData.incomeType === 'blended' && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 2 of 8</div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 2 of 9</div>
+                  <h2 className="text-3xl font-semibold text-gray-900 mb-2">Income Split</h2>
+                  <p className="text-base text-muted-foreground mb-8">What percentage of your income is W-2 vs Business?</p>
+                  
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">W-2 Income %</label>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={formData.w2IncomePercent}
+                        onChange={(e) => {
+                          const w2Value = e.target.value;
+                          const businessValue = w2Value ? (100 - parseInt(w2Value)).toString() : '';
+                          handleInputChange('w2IncomePercent', w2Value);
+                          handleInputChange('businessIncomePercent', businessValue);
+                        }}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"
+                        placeholder="e.g., 60"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">Business Income %</label>
+                      <input
+                        type="number"
+                        min="0"
+                        max="100"
+                        value={formData.businessIncomePercent}
+                        onChange={(e) => {
+                          const businessValue = e.target.value;
+                          const w2Value = businessValue ? (100 - parseInt(businessValue)).toString() : '';
+                          handleInputChange('businessIncomePercent', businessValue);
+                          handleInputChange('w2IncomePercent', w2Value);
+                        }}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500"
+                        placeholder="e.g., 40"
+                      />
+                    </div>
+                    
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-sm text-gray-600">
+                        Total: {(parseInt(formData.w2IncomePercent || '0') + parseInt(formData.businessIncomePercent || '0'))}%
+                        {(parseInt(formData.w2IncomePercent || '0') + parseInt(formData.businessIncomePercent || '0')) !== 100 && 
+                         formData.w2IncomePercent && formData.businessIncomePercent && (
+                          <span className="text-red-600 ml-2">Must equal 100%</span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* STEP 3: Income Range (formerly step 2) */}
+              {currentStep === 3 && (
+                <div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 3 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Income Range</h2>
                   <p className="text-base text-muted-foreground mb-8">What is your approximate annual income?</p>
                   <div className="grid md:grid-cols-2 gap-4">
