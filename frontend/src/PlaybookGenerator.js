@@ -1680,7 +1680,7 @@ function PlaybookGenerator() {
                       { value: 'Asset protection', label: 'Asset protection', desc: 'Protect wealth from legal risks' },
                       { value: 'Estate planning', label: 'Estate planning', desc: 'Transfer wealth efficiently to heirs' },
                       { value: 'Business optimization', label: 'Business optimization', desc: 'Optimize business structure for tax efficiency' },
-                      { value: 'Exit planning', label: 'Exit planning', desc: 'Plan for business sale or exit' },
+                      { value: 'Exit & liquidity planning', label: 'Exit & liquidity planning', desc: 'Plan for business sale or exit' },
                       { value: 'Build long-term passive income', label: 'Build long-term passive income', desc: 'Create streams of passive income' }
                     ].map((option) => (
                       <button
