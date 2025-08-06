@@ -9,20 +9,28 @@ export class StrategyMatcher {
   // Main method to generate matched strategies based on user input
   generateStrategyStack(formData, forecastingData) {
     // Use the new matchStrategies method that handles hiding and conditional messages
-    const matchedStrategies = this.matchStrategies(formData, forecastingData);
+    let matchedStrategies = this.matchStrategies(formData, forecastingData);
     
     // Defensive programming - ensure we have an array to work with
     if (!Array.isArray(matchedStrategies)) {
       console.error("matchStrategies did not return an array:", typeof matchedStrategies);
-      return { setupStructure: [], deductionStrategies: [], exitPlanning: [] };
+      return { setupStructure: [], deductionStrategies: [], exitPlanning: [], retirementPlanning: [] };
+    }
+    
+    // Fix 3: Remove exit strategies unless user enabled exit planning
+    // Check if exit planning is enabled based on strategy goals
+    const exitPlanningEnabled = formData.strategyGoals && formData.strategyGoals.includes('Exit & liquidity planning');
+    if (!exitPlanningEnabled) {
+      matchedStrategies = matchedStrategies.filter(strategy => strategy.category !== 'Exit Planning');
     }
     
     // Group strategies by category
     const setupStructure = matchedStrategies.filter(s => s.category === 'Setup & Structure');
     const deductionStrategies = matchedStrategies.filter(s => s.category === 'Deduction Strategies');
     const exitPlanning = matchedStrategies.filter(s => s.category === 'Exit Planning');
+    const retirementPlanning = matchedStrategies.filter(s => s.category === 'Retirement Planning');
     
-    return { setupStructure, deductionStrategies, exitPlanning };
+    return { setupStructure, deductionStrategies, exitPlanning, retirementPlanning };
   }
 
   // Evaluate all strategies and return those that match eligibility criteria
