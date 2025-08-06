@@ -942,6 +942,43 @@ function PlaybookGenerator() {
     }));
   };
 
+  // Handle dynamic strategy effects (like C-corp election unlocking other strategies)
+  const handleStrategySelection = (strategyId, isSelected) => {
+    // Update the selected strategies set
+    const newSelectedStrategies = new Set(selectedStrategies);
+    if (isSelected) {
+      newSelectedStrategies.add(strategyId);
+    } else {
+      newSelectedStrategies.delete(strategyId);
+    }
+    setSelectedStrategies(newSelectedStrategies);
+
+    // Handle special strategy effects
+    if (strategyId === 'llc_c_corp_election' && isSelected) {
+      console.log('LLC C-Corp election selected - updating tax status');
+      
+      // Update form data to reflect C-corp tax status
+      const updatedFormData = {
+        ...formData,
+        taxStatus: 'c_corp',
+        hasElectedCcorpStatus: true
+      };
+      
+      setFormData(updatedFormData);
+      
+      // Force re-evaluation of strategies with new tax status
+      setTimeout(() => {
+        const strategyMatcher = new (require('./utils/strategyMatcher').StrategyMatcher)();
+        const newResults = strategyMatcher.generateStrategyStack(updatedFormData, forecastingData);
+        
+        setResults(prevResults => ({
+          ...prevResults,
+          strategyStack: newResults
+        }));
+      }, 100);
+    }
+  };
+
   // Strategy selection functions
   const toggleStrategySelection = (strategyId) => {
     setSelectedStrategies(prev => {
