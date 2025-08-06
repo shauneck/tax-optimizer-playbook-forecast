@@ -460,10 +460,16 @@ export class StrategyMatcher {
   // Get strategies that apply to user's profile for progress tracking
   getApplicableStrategies(formData, forecastingData) {
     const strategyStack = this.generateStrategyStack(formData, forecastingData);
+    
+    // Defensive programming - ensure all arrays exist
+    const setupStructure = Array.isArray(strategyStack.setupStructure) ? strategyStack.setupStructure : [];
+    const deductionStrategies = Array.isArray(strategyStack.deductionStrategies) ? strategyStack.deductionStrategies : [];
+    const exitPlanning = Array.isArray(strategyStack.exitPlanning) ? strategyStack.exitPlanning : [];
+    
     return [
-      ...strategyStack.setupStructure,
-      ...strategyStack.deductionStrategies, 
-      ...strategyStack.exitPlanning
+      ...setupStructure,
+      ...deductionStrategies, 
+      ...exitPlanning
     ];
   }
 
