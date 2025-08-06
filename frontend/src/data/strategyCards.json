@@ -493,54 +493,6 @@
     ]
   },
   {
-    "strategyId": "llc_c_corp_split_dollar",
-    "title": "C-Corp Election for LLC + Loan-Based Split Dollar",
-    "category": "Setup & Structure", 
-    "eligibilityCriteria": {
-      "userType": "business_owner",
-      "entityStructure": "LLC",
-      "businessProfitMin": 1000000
-    },
-    "summary": "Elect C-corp tax treatment for your LLC to unlock split-dollar life insurance, retained earnings planning, and advanced wealth strategies.",
-    "description": "High-profit LLC owners can elect C-corporation tax treatment via Form 8832 to access sophisticated wealth building strategies not available to pass-through entities. This includes loan-based split-dollar life insurance, retained earnings at lower corporate rates, and tax-free policy loans. The strategy converts operating profit into tax-deferred growth via insurance while providing access to capital without triggering dividend or payroll taxes.",
-    "howItWorks": [
-      "File Form 8832 to elect C-corp status for your LLC",
-      "Set up a loan-based split-dollar agreement with a trust or individual", 
-      "Fund a high cash-value life insurance policy with retained earnings",
-      "Access tax-free loans from the policy, structured for long-term use"
-    ],
-    "quantifiedExample": {
-      "description": "Consultant earning $1.6M elects C-corp status and funds $500K/year into split-dollar policy",
-      "result": "After 5 years, accesses $1.7M tax-free while keeping business equity intact",
-      "annualSavings": 200000,
-      "longTermBenefit": "Tax-free wealth accumulation and access"
-    },
-    "moduleReference": {
-      "course": "Business Owner Escape Plan",
-      "module": "Module 2", 
-      "title": "Advanced Entity Elections & Wealth Transfer"
-    },
-    "glossaryTerms": ["C-Corp Election", "Split-Dollar", "Life Insurance", "LLC"],
-    "cta": {
-      "text": "Convert profit into tax-deferred growth and access capital tax-free.",
-      "action": "Explore C-Corp Election Benefits"
-    },
-    "implementationStatus": "Not Started",
-    "complexity": "Advanced",
-    "benefits": [
-      "Convert profit into tax-deferred growth via insurance",
-      "Access capital tax-free using policy loans", 
-      "Avoid dividend and payroll taxes on retained earnings",
-      "Enable trust-based wealth transfer structures"
-    ],
-    "requirements": [
-      "LLC must elect C-corp status",
-      "Minimum $1M in profit for viable funding",
-      "Requires proper split-dollar design and rollout planning",
-      "Trust ownership often recommended for estate planning"
-    ]
-  },
-  {
     "strategyId": "llc_c_corp_election",
     "title": "Elect C-Corp Tax Status for Your LLC",
     "category": "Setup & Structure",
