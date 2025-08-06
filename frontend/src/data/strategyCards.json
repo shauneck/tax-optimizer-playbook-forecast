@@ -209,6 +209,9 @@
     "eligibilityCriteria": {
       "isQP": true
     },
+    "displayCondition": {
+      "investorStatus": ["qp"]
+    },
     "summary": "Offset active income using advanced fund structures that generate ordinary losses while maintaining net positive returns.",
     "description": "Tax-Aware Hedge Funds are sophisticated investment vehicles designed to generate paper losses for tax purposes while producing actual economic gains. They're only available to Qualified Purchasers.",
     "howItWorks": [
