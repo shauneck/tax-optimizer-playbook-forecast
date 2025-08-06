@@ -2438,4 +2438,37 @@ function PlaybookGenerator() {
   );
 }
 
+// Investor Status Tooltip Component
+const InvestorStatusTooltip = () => {
+  return (
+    <div className="relative group">
+      <div className="inline-flex items-center justify-center w-4 h-4 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded-full cursor-help transition-colors">
+        <span className="text-xs">ⓘ</span>
+      </div>
+      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-96 p-4 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-50">
+        <div className="text-left leading-relaxed">
+          <div className="mb-3">
+            <strong className="text-blue-300">Accredited Investor:</strong>
+            <div className="mt-1 pl-2 border-l-2 border-blue-300">
+              • $200,000+ annual income ($300,000+ with spouse) for past 2 years, OR<br/>
+              • $1M+ net worth (excluding primary residence)
+            </div>
+          </div>
+          <div>
+            <strong className="text-emerald-300">Qualified Purchaser (QP):</strong>
+            <div className="mt-1 pl-2 border-l-2 border-emerald-300">
+              • $5M+ in investments (individual), OR<br/>
+              • $25M+ in assets (institutional)
+            </div>
+          </div>
+          <div className="text-xs text-gray-400 mt-3 pt-2 border-t border-gray-700">
+            Higher status unlocks access to exclusive investment strategies and hedge fund structures.
+          </div>
+        </div>
+        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+      </div>
+    </div>
+  );
+};
+
 export default PlaybookGenerator;
