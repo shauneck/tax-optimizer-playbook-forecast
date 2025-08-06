@@ -1495,10 +1495,10 @@ function PlaybookGenerator() {
                 </div>
               )}
 
-              {/* STEP 5: Strategy Goals */}
-              {currentStep === 5 && (
+              {/* STEP 6: Strategy Goals */}
+              {currentStep === 6 && (
                 <div>
-                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 5 of 9</div>
+                  <div className="text-sm uppercase text-gray-600 tracking-wide mb-2">Step 6 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Strategy Goals</h2>
                   <p className="text-base text-gray-600 mb-8">What are your main tax optimization goals? (Select all that apply)</p>
                   <div className="grid md:grid-cols-2 gap-4">
