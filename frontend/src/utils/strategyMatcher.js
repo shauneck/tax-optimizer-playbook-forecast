@@ -11,6 +11,12 @@ export class StrategyMatcher {
     // Use the new matchStrategies method that handles hiding and conditional messages
     const matchedStrategies = this.matchStrategies(formData, forecastingData);
     
+    // Defensive programming - ensure we have an array to work with
+    if (!Array.isArray(matchedStrategies)) {
+      console.error("matchStrategies did not return an array:", typeof matchedStrategies);
+      return { setupStructure: [], deductionStrategies: [], exitPlanning: [] };
+    }
+    
     // Group strategies by category
     const setupStructure = matchedStrategies.filter(s => s.category === 'Setup & Structure');
     const deductionStrategies = matchedStrategies.filter(s => s.category === 'Deduction Strategies');
