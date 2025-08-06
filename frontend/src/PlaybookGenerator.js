@@ -958,7 +958,7 @@ function PlaybookGenerator() {
 
   const selectAllStrategies = () => {
     if (results.strategyStack) {
-      const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+      const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning, ...(results.strategyStack.retirementPlanning || [])];
       const allIds = allStrategies.map(strategy => strategy.id);
       setSelectedStrategies(new Set(allIds));
     }
