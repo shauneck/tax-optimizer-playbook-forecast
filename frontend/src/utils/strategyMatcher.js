@@ -615,6 +615,35 @@ export class StrategyMatcher {
     return null;
   }
 
+  // Get investor status lock reason for strategies that don't qualify
+  getInvestorStatusLockReason(strategy, formData) {
+    if (!strategy.displayCondition || !strategy.displayCondition.investorStatus) {
+      return null; // No investor status requirements
+    }
+    
+    const requiredStatuses = Array.isArray(strategy.displayCondition.investorStatus) 
+      ? strategy.displayCondition.investorStatus 
+      : [strategy.displayCondition.investorStatus];
+    
+    const userInvestorStatus = formData.investorStatus || 'none';
+    
+    // If user already meets requirements, don't show as locked
+    if (requiredStatuses.includes(userInvestorStatus)) {
+      return null;
+    }
+    
+    // Generate appropriate lock message
+    if (requiredStatuses.includes('qp') && requiredStatuses.includes('accredited')) {
+      return "This strategy requires Accredited Investor or Qualified Purchaser status.";
+    } else if (requiredStatuses.includes('qp')) {
+      return "This strategy is only available to Qualified Purchasers ($5M+ in investments).";
+    } else if (requiredStatuses.includes('accredited')) {
+      return "This strategy requires Accredited Investor status ($200K+ income or $1M+ net worth).";
+    }
+    
+    return "This strategy has investor qualification requirements.";
+  }
+
   // Calculate projected savings for a strategy
   calculateSavings(strategy, formData, forecastingData) {
     // Use quantifiedExample if available
