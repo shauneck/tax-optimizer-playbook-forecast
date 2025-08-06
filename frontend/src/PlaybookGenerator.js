@@ -1460,7 +1460,7 @@ function PlaybookGenerator() {
               {/* STEP 2: Income Split (only for blended income type) */}
               {currentStep === 2 && formData.incomeType === 'blended' && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 2 of 9</div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 2 of 10</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Income Split</h2>
                   <p className="text-base text-muted-foreground mb-8">What percentage of your income is W-2 vs Business?</p>
                   
