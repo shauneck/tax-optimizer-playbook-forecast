@@ -159,6 +159,17 @@ export class StrategyMatcher {
       case 'entityStructure':
         return formData.entityStructure === value;
       
+      case 'requiresCcorpStatus':
+        // Check if entity has C-corp tax status (existing C-corp or LLC with C-corp election)
+        return formData.entityStructure === 'C-corp' || this.hasElectedCcorpStatus(formData);
+      
+      case 'taxStatus':
+        // For advanced strategies that require specific tax elections
+        if (value === 'c_corp') {
+          return formData.entityStructure === 'C-corp' || this.hasElectedCcorpStatus(formData);
+        }
+        return true;
+      
       case 'hasCcorp':
         return formData.entityStructure === 'C-corp';
       
