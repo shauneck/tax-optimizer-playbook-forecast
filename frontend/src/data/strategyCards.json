@@ -428,5 +428,101 @@
     "implementationStatus": "Not Started",
     "complexity": "Advanced",
     "eliminationStrategy": true
+  },
+  {
+    "strategyId": "llc_s_corp_election",
+    "title": "S-Corp Election for LLCs Under $1M Profit",
+    "category": "Setup & Structure",
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "entityStructure": "LLC",
+      "businessProfitMin": 100000,
+      "businessProfitMax": 999999
+    },
+    "summary": "Reduce self-employment taxes by electing S-corp status and splitting income between salary and distributions.",
+    "description": "LLC owners with significant profit can elect S-corporation tax treatment without changing their legal entity structure. This allows you to save substantial amounts on self-employment taxes by paying yourself a reasonable W-2 salary and taking the remaining profit as distributions, which are not subject to FICA taxes. This strategy maintains pass-through taxation and preserves QBI deduction eligibility.",
+    "howItWorks": [
+      "File Form 2553 to elect S-corp taxation for your LLC",
+      "Pay yourself a reasonable W-2 salary",
+      "Take remaining profit as distribution (not subject to FICA)",
+      "Report via Form 1120S each year"
+    ],
+    "quantifiedExample": {
+      "description": "LLC owner earning $250K pays $80K salary and takes $170K as distribution",
+      "annualSavings": 26000,
+      "savingsBreakdown": "Saves ~$26K in self-employment taxes annually"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan", 
+      "module": "Module 1",
+      "title": "Entity Structuring & Income Capture"
+    },
+    "glossaryTerms": ["S-Corp Election", "LLC", "Self-Employment Tax", "QBI Deduction"],
+    "cta": {
+      "text": "Save $15K-$30K+ in payroll taxes annually while maintaining your LLC structure.",
+      "action": "Calculate Your S-Corp Election Savings"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Intermediate",
+    "benefits": [
+      "Save $15K–$30K+ in payroll taxes annually",
+      "Maintain pass-through taxation (no double tax)",
+      "Preserve QBI deduction eligibility", 
+      "No change to legal entity required"
+    ],
+    "requirements": [
+      "U.S.-based LLC with qualifying shareholders",
+      "Only one class of stock allowed",
+      "No foreign owners",
+      "Must pay a reasonable salary"
+    ]
+  },
+  {
+    "strategyId": "llc_c_corp_split_dollar",
+    "title": "C-Corp Election for LLC + Loan-Based Split Dollar",
+    "category": "Setup & Structure", 
+    "eligibilityCriteria": {
+      "userType": "business_owner",
+      "entityStructure": "LLC",
+      "businessProfitMin": 1000000
+    },
+    "summary": "Elect C-corp tax treatment for your LLC to unlock split-dollar life insurance, retained earnings planning, and advanced wealth strategies.",
+    "description": "High-profit LLC owners can elect C-corporation tax treatment via Form 8832 to access sophisticated wealth building strategies not available to pass-through entities. This includes loan-based split-dollar life insurance, retained earnings at lower corporate rates, and tax-free policy loans. The strategy converts operating profit into tax-deferred growth via insurance while providing access to capital without triggering dividend or payroll taxes.",
+    "howItWorks": [
+      "File Form 8832 to elect C-corp status for your LLC",
+      "Set up a loan-based split-dollar agreement with a trust or individual", 
+      "Fund a high cash-value life insurance policy with retained earnings",
+      "Access tax-free loans from the policy, structured for long-term use"
+    ],
+    "quantifiedExample": {
+      "description": "Consultant earning $1.6M elects C-corp status and funds $500K/year into split-dollar policy",
+      "result": "After 5 years, accesses $1.7M tax-free while keeping business equity intact",
+      "annualSavings": 200000,
+      "longTermBenefit": "Tax-free wealth accumulation and access"
+    },
+    "moduleReference": {
+      "course": "Business Owner Escape Plan",
+      "module": "Module 2", 
+      "title": "Advanced Entity Elections & Wealth Transfer"
+    },
+    "glossaryTerms": ["C-Corp Election", "Split-Dollar", "Life Insurance", "LLC"],
+    "cta": {
+      "text": "Convert profit into tax-deferred growth and access capital tax-free.",
+      "action": "Explore C-Corp Election Benefits"
+    },
+    "implementationStatus": "Not Started",
+    "complexity": "Advanced",
+    "benefits": [
+      "Convert profit into tax-deferred growth via insurance",
+      "Access capital tax-free using policy loans", 
+      "Avoid dividend and payroll taxes on retained earnings",
+      "Enable trust-based wealth transfer structures"
+    ],
+    "requirements": [
+      "LLC must elect C-corp status",
+      "Minimum $1M in profit for viable funding",
+      "Requires proper split-dollar design and rollout planning",
+      "Trust ownership often recommended for estate planning"
+    ]
   }
 ]
