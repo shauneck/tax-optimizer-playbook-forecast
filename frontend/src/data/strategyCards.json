@@ -594,7 +594,8 @@
       "Preserve QSBS eligibility under new C-corp structure",
       "Enable stock issuance and fundraising",
       "Simplify cap table and legal structure",
-      "Maintain historical EIN and tax attributes"
+      "Maintain historical EIN and tax attributes",
+      "🔓 Unlocks QSBS eligibility for tax-free business exit"
     ],
     "requirements": [
       "LLC must already be taxed as a C-corp",
