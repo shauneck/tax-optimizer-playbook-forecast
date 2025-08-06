@@ -998,7 +998,7 @@ function PlaybookGenerator() {
       return null; // Return null to use all strategies (default behavior)
     }
     
-    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning];
+    const allStrategies = [...results.strategyStack.setupStructure, ...results.strategyStack.deductionStrategies, ...results.strategyStack.exitPlanning, ...(results.strategyStack.retirementPlanning || [])];
     return allStrategies.filter(strategy => selectedStrategies.has(strategy.id));
   };
 
