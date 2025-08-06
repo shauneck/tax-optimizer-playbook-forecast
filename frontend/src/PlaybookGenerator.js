@@ -726,22 +726,35 @@ function PlaybookGenerator() {
 
   const nextStep = () => {
     // Handle conditional step flow
-    if (currentStep === 4) {
+    if (currentStep === 1) {
+      // After income type selection
+      if (formData.incomeType === 'blended') {
+        setCurrentStep(2); // Go to income split step
+      } else {
+        setCurrentStep(3); // Skip income split, go to income range
+      }
+    } else if (currentStep === 2) {
+      // Income split step (only for blended) - go to income range
+      setCurrentStep(3);
+    } else if (currentStep === 4) {
+      // Entity structure - go to business partners if applicable
+      setCurrentStep(5);
+    } else if (currentStep === 5) {
       // Business partners question - skip for W-2 employees
       if (formData.incomeType === 'w2-employee') {
-        setCurrentStep(5); // Go to strategy goals
+        setCurrentStep(6); // Go to strategy goals
       } else {
-        setCurrentStep(5); // Business owners and blended continue to strategy goals
+        setCurrentStep(6); // Business owners and blended continue to strategy goals
       }
-    } else if (currentStep === 5) {
+    } else if (currentStep === 6) {
       // Strategy goals completed, go to stock compensation or skip
       if (formData.incomeType === 'business-owner') {
-        setCurrentStep(8); // Skip stock compensation steps for business owners
+        setCurrentStep(9); // Skip stock compensation steps for business owners
       } else {
-        setCurrentStep(6); // W-2 and blended go to stock compensation
+        setCurrentStep(7); // W-2 and blended go to stock compensation
       }
-    } else if (currentStep === 6 && !formData.receivesStockComp) {
-      setCurrentStep(8); // Skip RSU percentage if no stock comp
+    } else if (currentStep === 7 && !formData.receivesStockComp) {
+      setCurrentStep(9); // Skip RSU percentage if no stock comp
     } else if (currentStep < 9) {
       setCurrentStep(currentStep + 1);
     } else if (currentStep === 9) {
