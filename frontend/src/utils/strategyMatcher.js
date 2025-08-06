@@ -156,6 +156,9 @@ export class StrategyMatcher {
       case 'businessProfitMax':
         return this.getBusinessProfit(formData, forecastingData) <= value;
       
+      case 'entityStructure':
+        return formData.entityStructure === value;
+      
       case 'hasCcorp':
         return formData.entityStructure === 'C-corp';
       
