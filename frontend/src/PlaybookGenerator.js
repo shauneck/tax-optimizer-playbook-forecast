@@ -1348,7 +1348,7 @@ function PlaybookGenerator() {
               {/* STEP 1: Income Type */}
               {currentStep === 1 && (
                 <div>
-                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 1 of 8</div>
+                  <div className="text-sm uppercase text-muted-foreground tracking-wide mb-2">Step 1 of 9</div>
                   <h2 className="text-3xl font-semibold text-gray-900 mb-2">Income Type</h2>
                   <p className="text-base text-muted-foreground mb-8">What type of income do you currently earn?</p>
                   <div className="grid md:grid-cols-2 gap-4">
