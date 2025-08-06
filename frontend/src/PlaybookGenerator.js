@@ -968,13 +968,14 @@ function PlaybookGenerator() {
       
       // Force re-evaluation of strategies with new tax status
       setTimeout(() => {
-        const strategyMatcher = new (require('./utils/strategyMatcher').StrategyMatcher)();
         const newResults = strategyMatcher.generateStrategyStack(updatedFormData, forecastingData);
         
         setResults(prevResults => ({
           ...prevResults,
           strategyStack: newResults
         }));
+        
+        console.log('Strategy stack updated after C-Corp election', newResults);
       }, 100);
     }
   };
