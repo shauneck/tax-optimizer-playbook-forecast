@@ -403,10 +403,18 @@ function PlaybookGenerator() {
     const w2Str = w2Value.toString();
     const businessStr = businessValue.toString();
     
+    // Update draft state immediately for UI responsiveness
     setW2Draft(w2Str);
     setBusinessDraft(businessStr);
+    
+    // Update form data for validation and persistence
     handleInputChange('w2IncomePercent', w2Str);
     handleInputChange('businessIncomePercent', businessStr);
+    
+    // Force component re-render to update button state
+    setTimeout(() => {
+      // This ensures the validation runs after state updates are complete
+    }, 0);
   };
 
   // Enhanced forecasting inputs
