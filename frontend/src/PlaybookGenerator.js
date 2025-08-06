@@ -391,7 +391,9 @@ function PlaybookGenerator() {
     rsuIncomePercent: '',
     // New fields for blended income split
     w2IncomePercent: '',
-    businessIncomePercent: ''
+    businessIncomePercent: '',
+    // New field for investor status
+    investorStatus: 'none'
   });
 
   // Local draft state for income split to prevent typing interference
