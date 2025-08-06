@@ -88,9 +88,12 @@
       "retainedEarningsMin": 250000,
       "requiresCcorpStatus": true
     },
+    "displayCondition": {
+      "taxStatus": "c_corp",
+      "profitRange": { "min": 1000000 }
+    },
     "summary": "Use your C-Corp's retained earnings to fund a tax-free life insurance structure without triggering dividend or gift tax.",
     "description": "This strategy uses a loan from your C-Corp to a living trust, which then funds a permanent life insurance policy (typically an Indexed or Variable Universal Life policy). The policy grows tax-deferred and allows you to access cash value via policy loans, which are not considered taxable income by the IRS. This works with existing C-Corps or C-Corps created through F-Reorg or MSO structures.",
-    "uiMessageIfHidden": "To unlock this strategy, first elect C-corp tax treatment for your LLC.",
     "howItWorks": [
       "Establish a split-dollar agreement between your C-corp and a trust (or individual)",
       "Use retained earnings to fund a high-cash-value life insurance policy", 
