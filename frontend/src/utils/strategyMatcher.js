@@ -8,7 +8,8 @@ export class StrategyMatcher {
 
   // Main method to generate matched strategies based on user input
   generateStrategyStack(formData, forecastingData) {
-    const matchedStrategies = this.evaluateStrategies(formData, forecastingData);
+    // Use the new matchStrategies method that handles hiding and conditional messages
+    const matchedStrategies = this.matchStrategies(formData, forecastingData);
     
     // Group strategies by category
     const setupStructure = matchedStrategies.filter(s => s.category === 'Setup & Structure');
