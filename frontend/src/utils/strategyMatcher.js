@@ -632,16 +632,14 @@ export class StrategyMatcher {
       return null;
     }
     
-    // Generate appropriate lock message
-    if (requiredStatuses.includes('qp') && requiredStatuses.includes('accredited')) {
-      return "This strategy requires Accredited Investor or Qualified Purchaser status.";
-    } else if (requiredStatuses.includes('qp')) {
+    // Generate appropriate lock message based on requirements
+    if (requiredStatuses.includes('qp')) {
       return "This strategy is only available to Qualified Purchasers ($5M+ in investments).";
     } else if (requiredStatuses.includes('accredited')) {
-      return "This strategy requires Accredited Investor status ($200K+ income or $1M+ net worth).";
+      return "This strategy is only available to Accredited Investors ($200K+ income or $1M+ net worth).";
     }
     
-    return "This strategy has investor qualification requirements.";
+    return "You're not currently eligible for this strategy based on your profile.";
   }
 
   // Calculate projected savings for a strategy
