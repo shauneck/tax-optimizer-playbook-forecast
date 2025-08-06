@@ -433,6 +433,14 @@ function PlaybookGenerator() {
   });
 
   // Dashboard state
+  // Sync draft state with form data when navigating to income split step
+  useEffect(() => {
+    if (currentStep === 2 && formData.incomeType === 'blended') {
+      setW2Draft(formData.w2IncomePercent || '');
+      setBusinessDraft(formData.businessIncomePercent || '');
+    }
+  }, [currentStep, formData.incomeType]);
+
   const [strategyStatuses, setStrategyStatuses] = useState({});
   const [selectedStrategies, setSelectedStrategies] = useState(new Set()); // Track selected strategies for calculations
   const [dashboardMode, setDashboardMode] = useState('input'); // 'input', 'dashboard'
