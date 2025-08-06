@@ -286,6 +286,16 @@ export class StrategyMatcher {
       if (userProfit < min || userProfit > max) return false;
     }
 
+    // Match investor status
+    if (displayCondition.investorStatus) {
+      const requiredStatuses = Array.isArray(displayCondition.investorStatus) 
+        ? displayCondition.investorStatus 
+        : [displayCondition.investorStatus];
+      
+      const userInvestorStatus = formData.investorStatus || 'none';
+      if (!requiredStatuses.includes(userInvestorStatus)) return false;
+    }
+
     return true;
   }
 
