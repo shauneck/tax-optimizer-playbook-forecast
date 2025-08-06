@@ -2061,6 +2061,16 @@ function PlaybookGenerator() {
                         </div>
                       </div>
                     )}
+
+                    {/* Retirement Planning */}
+                    {results.strategyStack.retirementPlanning && results.strategyStack.retirementPlanning.length > 0 && (
+                      <div>
+                        <div className="text-sm uppercase text-gray-600 tracking-wide mb-3">Retirement Planning</div>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
+                          {results.strategyStack.retirementPlanning.map(renderStrategyCard)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
 
