@@ -517,6 +517,13 @@ export class StrategyMatcher {
       return strategy.uiMessageIfHidden;
     }
     
+    // Handle new displayCondition format with uiMessageIfHidden
+    if (strategy.displayCondition && strategy.uiMessageIfHidden) {
+      if (!this.checkDisplayCondition(strategy.displayCondition, formData, forecastingData)) {
+        return strategy.uiMessageIfHidden;
+      }
+    }
+    
     return null;
   }
 
