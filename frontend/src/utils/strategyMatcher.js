@@ -234,6 +234,66 @@ export class StrategyMatcher {
     }
   }
 
+  // Central eligibility checker that supports both old and new strategy formats
+  isStrategyEligible(strategy, formData, forecastingData) {
+    // Handle new displayCondition format (for LLC strategies)
+    if (strategy.displayCondition) {
+      return this.checkDisplayCondition(strategy.displayCondition, formData, forecastingData);
+    }
+    
+    // Handle existing eligibilityCriteria format (for existing strategies)
+    if (strategy.eligibilityCriteria) {
+      const eligibilityResult = this.checkEligibility(strategy, formData, forecastingData);
+      return eligibilityResult.isEligible;
+    }
+    
+    return true; // Default to eligible if no criteria specified
+  }
+
+  // Check new displayCondition format for LLC strategies
+  checkDisplayCondition(displayCondition, formData, forecastingData) {
+    // Match entity type
+    if (displayCondition.entityType) {
+      const userEntityType = this.mapEntityStructureToType(formData.entityStructure);
+      if (displayCondition.entityType !== userEntityType) return false;
+    }
+    
+    // Match tax status
+    if (displayCondition.taxStatus) {
+      const userTaxStatus = this.getUserTaxStatus(formData);
+      if (displayCondition.taxStatus !== userTaxStatus) return false;
+    }
+
+    // Match profit range
+    if (displayCondition.profitRange) {
+      const userProfit = this.getBusinessProfit(formData, forecastingData);
+      const min = displayCondition.profitRange.min || 0;
+      const max = displayCondition.profitRange.max || Infinity;
+      if (userProfit < min || userProfit > max) return false;
+    }
+
+    return true;
+  }
+
+  // Helper: Map entity structure to display condition entity type
+  mapEntityStructureToType(entityStructure) {
+    switch (entityStructure) {
+      case 'LLC': return 'LLC';
+      case 'S-corp': return 'S-Corp';
+      case 'C-corp': return 'C-Corp';
+      case 'None': return 'Individual';
+      default: return entityStructure;
+    }
+  }
+
+  // Helper: Get user's current tax status
+  getUserTaxStatus(formData) {
+    // For now, default tax status unless C-corp elected
+    if (formData.entityStructure === 'C-corp') return 'c_corp';
+    if (this.hasElectedCcorpStatus(formData)) return 'c_corp';
+    return 'default';
+  }
+
   // Helper method: Check if LLC has elected C-corp status (placeholder for future enhancement)
   hasElectedCcorpStatus(formData) {
     // For now, we'll assume no election unless explicitly set
